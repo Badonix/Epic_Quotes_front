@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { Navbar, Quote } from 'components';
+import { Navbar, Quote } from '@/components';
 
 const Home: NextPage = () => {
   return (

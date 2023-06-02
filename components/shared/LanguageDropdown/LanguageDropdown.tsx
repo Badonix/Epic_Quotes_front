@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dropdown } from 'components/icons';
+import { Dropdown } from '@/components/icons';
 import { useLanguageDropdown } from './useLanguageDropdown';
 const LanguageDropdown: React.FC = () => {
   const { dropdownRef, setIsDropdownVisible, isDropdownVisible } =

@@ -1,5 +1,5 @@
 import React from 'react';
-import { LanguageDropdown } from 'components/shared';
+import { LanguageDropdown } from '@/components/shared';
 function Navbar() {
   return (
     <nav className='w-full fixed flex items-center justify-between z-50 sm:px-16 px-7 py-7'>
