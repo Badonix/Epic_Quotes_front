@@ -30,7 +30,6 @@ export const useSignup = () => {
     console.log(data);
   };
   const password = useWatch({ name: 'password' });
-  console.log(errors);
 
-  return { wrapperRef, handleSubmit, onSubmit, password };
+  return { wrapperRef, handleSubmit, onSubmit, password, setOpenModal, errors };
 };

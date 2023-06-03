@@ -1,12 +1,6 @@
-import React, { InputHTMLAttributes } from 'react';
+import React from 'react';
 import { useFormContext } from 'react-hook-form';
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
-  required?: boolean;
-  name: string;
-  validation?: object;
-}
-
+import { InputProps } from './types';
 const Input: React.FC<InputProps> = ({
   label,
   required,
@@ -16,7 +10,7 @@ const Input: React.FC<InputProps> = ({
 }) => {
   const { register } = useFormContext();
   return (
-    <div className='flex flex-col gap-2 w-full'>
+    <div className='flex flex-col gap-1 w-full'>
       <div>
         <label className='relative'>
           {label}
