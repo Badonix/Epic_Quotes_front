@@ -1,9 +1,12 @@
 import { NextPage } from 'next';
-import { Navbar, Quote } from '@/components';
-
+import { Navbar, Quote, Signup } from '@/components';
+import { ModalContext } from '@/context';
+import { useContext } from 'react';
 const Home: NextPage = () => {
+  const { openModal } = useContext(ModalContext);
   return (
     <div className='relative h-screen'>
+      {openModal === 'signup' && <Signup />}
       <Navbar />
       <main className='h-75sc flex items-center justify-center'>
         <div className='flex items-center justify-center flex-col px-16'>
@@ -15,7 +18,7 @@ const Home: NextPage = () => {
           </button>
         </div>
       </main>
-      <div className=''>
+      <div>
         <Quote image={'bg-image1.png'} />
         <Quote image={'bg-image2.png'} />
         <Quote image={'bg-image3.png'} />

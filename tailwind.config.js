@@ -24,6 +24,13 @@ module.exports = {
       lineHeight: {
         75: '75px',
       },
+      backgroundColor: {
+        modal: '#222030',
+        'modal-transparent': 'rgba(0, 0, 0, 0.39)',
+      },
+      borderRadius: {
+        4: '4px',
+      },
     },
   },
   plugins: [],
