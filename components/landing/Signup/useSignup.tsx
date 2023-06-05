@@ -1,6 +1,7 @@
 import { useContext, useRef, useEffect } from 'react';
 import { ModalContext } from '@/context';
 import { useFormContext, useWatch } from 'react-hook-form';
+import { register } from '@/services';
 export const useSignup = () => {
   const { setOpenModal } = useContext(ModalContext);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -28,11 +29,15 @@ export const useSignup = () => {
     formState: { errors },
     reset,
   } = useFormContext();
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: any) => {
+    try {
+      const res = await register(data);
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
   };
   const password = useWatch({ name: 'password' });
-
   return {
     wrapperRef,
     handleSubmit,

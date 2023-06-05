@@ -42,6 +42,7 @@ const Signup = () => {
               type='text'
               required={true}
               name='username'
+              lowercase={true}
               validation={{
                 required: 'Username is required',
                 minLength: {

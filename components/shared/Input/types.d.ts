@@ -4,4 +4,5 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   required?: boolean;
   name: string;
   validation?: object;
+  lowercase?: boolean;
 }

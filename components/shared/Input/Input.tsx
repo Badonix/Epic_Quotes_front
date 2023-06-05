@@ -6,6 +6,7 @@ const Input: React.FC<InputProps> = ({
   required,
   name,
   validation,
+  lowercase,
   ...props
 }) => {
   const { register } = useFormContext();
@@ -20,7 +21,9 @@ const Input: React.FC<InputProps> = ({
         </label>
       </div>
       <input
-        className='px-3 py-2 bg-gray-300 text-gray-500 text-base rounded-4 outline-none focus:ring-4 focus:ring-gray-700'
+        className={`px-3 py-2 bg-gray-300 text-gray-500 text-base rounded-4 outline-none focus:ring-4 focus:ring-gray-700 ${
+          lowercase && 'lowercase'
+        }`}
         {...register(name, validation)}
         {...props}
       />
