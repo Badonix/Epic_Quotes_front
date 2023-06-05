@@ -1,19 +1,12 @@
 import { Close, Google } from '@/components/icons';
 import { Input } from '@/components/shared';
 import React from 'react';
-import { useSignup } from './useSignup';
+import { useLogin } from './useLogin';
 import { ErrorMessage } from '@hookform/error-message';
 
-const Signup = () => {
-  const {
-    wrapperRef,
-    handleSubmit,
-    onSubmit,
-    password,
-    setOpenModal,
-    errors,
-    reset,
-  } = useSignup();
+const Login = () => {
+  const { wrapperRef, handleSubmit, onSubmit, setOpenModal, errors, reset } =
+    useLogin();
 
   return (
     <div className='bg-modal-transparent backdrop-blur fixed h-screen w-screen flex items-center justify-center z-50'>
@@ -31,33 +24,12 @@ const Signup = () => {
           <Close />
         </div>
         <div className='flex flex-col items-center gap-3'>
-          <h2 className='text-3xl'>Create an account</h2>
-          <p className='text-base text-gray-500'>Start your journey!</p>
+          <h2 className='text-3xl'>Log in to your account</h2>
+          <p className='text-base text-gray-500'>
+            Welcome back! Please enter your details.
+          </p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-6'>
-          <div className='relative'>
-            <Input
-              placeholder='At least 3 & max.15 lower case characters'
-              label='Name'
-              type='text'
-              required={true}
-              name='username'
-              validation={{
-                required: 'Username is required',
-                minLength: {
-                  value: 3,
-                  message: 'Username should be at least 3 characters long',
-                },
-                maxLength: {
-                  value: 15,
-                  message: 'Username should not exceed 15 characters',
-                },
-              }}
-            />
-            <p className='text-red-500 absolute -bottom-5 text-sm'>
-              <ErrorMessage errors={errors} name='username' />
-            </p>
-          </div>
           <div className='relative'>
             <Input
               placeholder='Enter your email'
@@ -66,10 +38,9 @@ const Signup = () => {
               name='email'
               validation={{
                 required: 'Email is required',
-                pattern: {
-                  value:
-                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                  message: 'Invalid email address',
+                minLength: {
+                  value: 3,
+                  message: 'Email must be at least 3 characters ',
                 },
               }}
             />
@@ -86,62 +57,50 @@ const Signup = () => {
               name='password'
               validation={{
                 required: 'Password is required',
-                minLength: {
-                  value: 8,
-                  message: 'Password should be at least 8 characters',
-                },
-                maxLength: {
-                  value: 15,
-                  message: 'Password should not exceede 15 characters',
-                },
               }}
             />
             <p className='text-red-500 absolute -bottom-5 text-sm'>
               <ErrorMessage errors={errors} name='password' />
             </p>
           </div>
-          <div className='relative'>
-            <Input
-              placeholder='Confirm password'
-              label='Confirm Password'
-              type='password'
-              required={true}
-              name='password_confirmation'
-              validation={{
-                required: 'Password confirmation is required',
-                validate: (value: string) =>
-                  value == password || 'Passwords do not match',
-              }}
-            />
-            <p className='text-red-500 absolute -bottom-5 text-sm'>
-              <ErrorMessage errors={errors} name='password_confirmation' />
-            </p>
-          </div>
 
           <div className='flex flex-col gap-4'>
+            <div className='flex items-center justify-between'>
+              <div className='flex items-center gap-2'>
+                <input
+                  className='rounded-sm outline-none'
+                  type='checkbox'
+                  id='remember_me'
+                />
+                <label htmlFor='remember_me'>Remember me</label>
+              </div>
+              <p className='text-blue-600 underline cursor-pointer'>
+                Forgot password?
+              </p>
+            </div>
             <button
               type='submit'
               className='w-full text-center py-2 text-base bg-red-600 rounded-4'
             >
-              Get started
+              Sign in
             </button>
             <button className='flex items-center justify-center gap-3 w-full text-center py-2 text-base bg-transparent border border-gray-300 rounded-4'>
               <Google />
-              Sign up with Google
+              Sign in with Google
             </button>
           </div>
         </form>
 
         <p className='text-center text-gray-500'>
-          Already have an account?
+          Dont have an account?
           <span
             onClick={() => {
-              setOpenModal('login');
+              setOpenModal('signup');
               reset();
             }}
             className='text-blue-600 underline cursor-pointer'
           >
-            Log in
+            Sign up
           </span>
         </p>
       </div>
@@ -149,4 +108,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
