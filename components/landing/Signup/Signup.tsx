@@ -13,6 +13,8 @@ const Signup = () => {
     setOpenModal,
     errors,
     reset,
+    usernameError,
+    emailError,
   } = useSignup();
 
   return (
@@ -58,6 +60,9 @@ const Signup = () => {
             <p className='text-red-500 absolute -bottom-5 text-sm'>
               <ErrorMessage errors={errors} name='username' />
             </p>
+            <p className='text-red-500 absolute -bottom-5 text-sm'>
+              {usernameError}
+            </p>
           </div>
           <div className='relative'>
             <Input
@@ -76,6 +81,9 @@ const Signup = () => {
             />
             <p className='text-red-500 absolute -bottom-5 text-sm'>
               <ErrorMessage errors={errors} name='email' />
+            </p>
+            <p className='text-red-500 absolute -bottom-5 text-sm'>
+              {emailError}
             </p>
           </div>
           <div className='relative'>
