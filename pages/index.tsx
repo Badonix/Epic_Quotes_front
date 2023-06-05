@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { Navbar, Quote, Signup } from '@/components';
+import { Navbar, Quote, Signup, Login } from '@/components';
 import { ModalContext } from '@/context';
 import { useContext } from 'react';
 const Home: NextPage = () => {
@@ -7,6 +7,7 @@ const Home: NextPage = () => {
   return (
     <div className='relative h-screen'>
       {openModal === 'signup' && <Signup />}
+      {openModal === 'login' && <Login />}
       <Navbar />
       <main className='h-75sc flex items-center justify-center'>
         <div className='flex items-center justify-center flex-col px-16'>

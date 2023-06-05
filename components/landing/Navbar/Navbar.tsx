@@ -15,7 +15,10 @@ function Navbar() {
         >
           Sign Up
         </button>
-        <button className='pointer text-sm sm:text-base hover:bg-white hover:text-black transition-all py-2 sm:px-6 px-3 border border-white rounded-md text-white'>
+        <button
+          onClick={() => setOpenModal('login')}
+          className='pointer text-sm sm:text-base hover:bg-white hover:text-black transition-all py-2 sm:px-6 px-3 border border-white rounded-md text-white'
+        >
           Log in
         </button>
       </div>

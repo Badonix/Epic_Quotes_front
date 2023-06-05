@@ -1,7 +1,7 @@
 import { useContext, useRef, useEffect } from 'react';
 import { ModalContext } from '@/context';
 import { useFormContext, useWatch } from 'react-hook-form';
-export const useSignup = () => {
+export const useLogin = () => {
   const { setOpenModal } = useContext(ModalContext);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
