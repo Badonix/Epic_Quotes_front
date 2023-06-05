@@ -3,7 +3,7 @@ import React from 'react';
 import { useCheckEmail } from './useCheckEmail';
 
 const CheckEmail = () => {
-  const { wrapperRef } = useCheckEmail();
+  const { wrapperRef, setOpenModal } = useCheckEmail();
 
   return (
     <div className='px-2 sm:px-0 bg-gradient  sm:backdrop-blur fixed h-screen w-screen flex items-center justify-center z-50'>
@@ -17,7 +17,10 @@ const CheckEmail = () => {
           Please check your email and follow the instructions to activate your
           account.
         </p>
-        <button className='w-full text-center py-2 text-base bg-red-600 rounded-4'>
+        <button
+          onClick={() => setOpenModal('login')}
+          className='w-full text-center py-2 text-base bg-red-600 rounded-4'
+        >
           Go to login
         </button>
       </div>

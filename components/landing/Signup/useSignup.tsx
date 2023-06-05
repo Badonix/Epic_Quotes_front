@@ -36,7 +36,10 @@ export const useSignup = () => {
     setUsernameError(null);
     try {
       const res = await register(data);
-      console.log(res);
+      if (res.status == 201) {
+        reset();
+        setOpenModal('checkEmail');
+      }
     } catch (e: any) {
       if (e.response.status == 422) {
         e.response.data?.data?.email &&
