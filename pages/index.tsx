@@ -1,5 +1,12 @@
 import { NextPage } from 'next';
-import { Navbar, Quote, Signup, Login, CheckEmail } from '@/components';
+import {
+  Navbar,
+  Quote,
+  Signup,
+  Login,
+  CheckEmail,
+  EmailVerified,
+} from '@/components';
 import { ModalContext } from '@/context';
 import { useContext } from 'react';
 const Home: NextPage = () => {
@@ -9,6 +16,7 @@ const Home: NextPage = () => {
       {openModal === 'signup' && <Signup />}
       {openModal === 'login' && <Login />}
       {openModal === 'checkEmail' && <CheckEmail />}
+      {openModal === 'verified' && <EmailVerified />}
       <Navbar />
       <main className='h-75sc flex items-center justify-center'>
         <div className='flex items-center justify-center flex-col px-16'>
