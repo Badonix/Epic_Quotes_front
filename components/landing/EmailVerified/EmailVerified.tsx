@@ -1,9 +1,9 @@
 import { Verified } from '@/components/icons';
 import React from 'react';
-import { useEmailVerified } from './useEmailVerified';
+import { useModal } from '@/hooks';
 
 const EmailVerified = () => {
-  const { wrapperRef } = useEmailVerified();
+  const { wrapperRef } = useModal();
 
   return (
     <div className='px-2 sm:px-0 bg-gradient  sm:backdrop-blur fixed h-screen w-screen flex items-center justify-center z-50'>

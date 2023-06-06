@@ -1,4 +1,4 @@
-import { useContext, useRef, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { ModalContext } from '@/context';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { register } from '@/services';
@@ -6,25 +6,6 @@ export const useSignup = () => {
   const { setOpenModal } = useContext(ModalContext);
   const [usernameError, setUsernameError] = useState<null | string>(null);
   const [emailError, setEmailError] = useState<null | string>(null);
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(event.target as Node)
-      ) {
-        setOpenModal(null);
-        reset();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [setOpenModal]);
 
   const {
     handleSubmit,
@@ -51,11 +32,9 @@ export const useSignup = () => {
   };
   const password = useWatch({ name: 'password' });
   return {
-    wrapperRef,
     handleSubmit,
     onSubmit,
     password,
-    setOpenModal,
     errors,
     reset,
     usernameError,

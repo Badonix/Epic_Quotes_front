@@ -1,9 +1,9 @@
 import { EmailSent } from '@/components/icons';
+import { useModal } from '@/hooks';
 import React from 'react';
-import { useCheckEmail } from './useCheckEmail';
 
 const CheckEmail = () => {
-  const { wrapperRef, setOpenModal } = useCheckEmail();
+  const { wrapperRef, setOpenModal } = useModal();
 
   return (
     <div className='px-2 sm:px-0 bg-gradient  sm:backdrop-blur fixed h-screen w-screen flex items-center justify-center z-50'>

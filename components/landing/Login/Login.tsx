@@ -3,10 +3,11 @@ import { Input } from '@/components/shared';
 import React from 'react';
 import { useLogin } from './useLogin';
 import { ErrorMessage } from '@hookform/error-message';
+import { useModal } from '@/hooks';
 
 const Login = () => {
-  const { wrapperRef, handleSubmit, onSubmit, setOpenModal, errors, reset } =
-    useLogin();
+  const { handleSubmit, onSubmit, errors, reset } = useLogin();
+  const { wrapperRef, setOpenModal } = useModal();
 
   return (
     <div className='bg-modal-transparent backdrop-blur fixed h-screen w-screen flex items-center justify-center z-50'>

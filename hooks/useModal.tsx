@@ -1,7 +1,7 @@
 import { ModalContext } from '@/context';
 import { useContext, useEffect, useRef } from 'react';
 
-export const useCheckEmail = () => {
+export const useModal = () => {
   const { setOpenModal } = useContext(ModalContext);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
