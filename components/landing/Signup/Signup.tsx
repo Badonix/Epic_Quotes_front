@@ -14,6 +14,7 @@ const Signup = () => {
     reset,
     usernameError,
     emailError,
+    isLoading,
   } = useSignup();
   const { setOpenModal, wrapperRef } = useModal();
 
@@ -39,6 +40,7 @@ const Signup = () => {
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-6'>
           <div className='relative'>
             <Input
+              disabled={isLoading}
               placeholder='At least 3 & max.15 lower case characters'
               label='Name'
               type='text'
@@ -66,6 +68,7 @@ const Signup = () => {
           </div>
           <div className='relative'>
             <Input
+              disabled={isLoading}
               placeholder='Enter your email'
               label='Email'
               required={true}
@@ -88,6 +91,7 @@ const Signup = () => {
           </div>
           <div className='relative'>
             <Input
+              disabled={isLoading}
               placeholder='At least 8 & max.15 lower case characters'
               label='Password'
               type='password'
@@ -111,6 +115,7 @@ const Signup = () => {
           </div>
           <div className='relative'>
             <Input
+              disabled={isLoading}
               placeholder='Confirm password'
               label='Confirm Password'
               type='password'
@@ -129,12 +134,14 @@ const Signup = () => {
 
           <div className='flex flex-col gap-4'>
             <button
+              disabled={isLoading}
               type='submit'
-              className='w-full text-center py-2 text-base bg-red-600 rounded-4'
+              className='w-full disabled:bg-red-800 text-center py-2 text-base bg-red-600 rounded-4'
             >
               Get started
             </button>
             <button
+              disabled={isLoading}
               type='button'
               className='flex items-center justify-center gap-3 w-full text-center py-2 text-base bg-transparent border border-gray-300 rounded-4'
             >

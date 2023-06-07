@@ -6,7 +6,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useModal } from '@/hooks';
 
 const Login = () => {
-  const { handleSubmit, onSubmit, errors, reset, error } = useLogin();
+  const { handleSubmit, onSubmit, errors, reset, error, loading } = useLogin();
   const { wrapperRef, setOpenModal } = useModal();
 
   return (
@@ -33,6 +33,7 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-6'>
           <div className='relative'>
             <Input
+              disabled={loading}
               placeholder='Enter your email'
               label='Email'
               required={true}
@@ -50,6 +51,7 @@ const Login = () => {
           </div>
           <div className='relative'>
             <Input
+              disabled={loading}
               placeholder='At least 8 & max.15 lower case characters'
               label='Password'
               type='password'
@@ -80,8 +82,9 @@ const Login = () => {
               </p>
             </div>
             <button
+              disabled={loading}
               type='submit'
-              className='w-full text-center py-2 text-base bg-red-600 rounded-4'
+              className='w-full disabled:bg-red-800 text-center py-2 text-base bg-red-600 rounded-4'
             >
               Sign in
             </button>
