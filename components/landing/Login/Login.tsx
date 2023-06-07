@@ -6,7 +6,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useModal } from '@/hooks';
 
 const Login = () => {
-  const { handleSubmit, onSubmit, errors, reset } = useLogin();
+  const { handleSubmit, onSubmit, errors, reset, error } = useLogin();
   const { wrapperRef, setOpenModal } = useModal();
 
   return (
@@ -36,9 +36,8 @@ const Login = () => {
               placeholder='Enter your email'
               label='Email'
               required={true}
-              name='email'
+              name='login'
               validation={{
-                required: 'Email is required',
                 minLength: {
                   value: 3,
                   message: 'Email must be at least 3 characters ',
@@ -63,6 +62,7 @@ const Login = () => {
             <p className='text-red-500 absolute -bottom-5 text-sm'>
               <ErrorMessage errors={errors} name='password' />
             </p>
+            <p className='text-red-500 absolute -bottom-5 text-sm'>{error}</p>
           </div>
 
           <div className='flex flex-col gap-4'>
