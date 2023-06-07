@@ -11,19 +11,20 @@ export const useLogin = () => {
     formState: { errors },
     reset,
   } = useFormContext();
-  const onSubmit = (data: any) => {
-    setLoading(true);
-    fetchCSRFToken();
-    login(data)
-      .then((res) => {
-        console.log(res);
-        router.push('/news-feed');
-        setLoading(false);
-      })
-      .catch((e) => {
-        setLoading(false);
-        e.response.status == 401 && setError('Wrong credentials');
-      });
+  const onSubmit = async (data: any) => {
+    try {
+      await fetchCSRFToken();
+      const res = await login(data);
+      console.log(res);
+      router.push('/news-feed');
+      setLoading(false);
+    } catch (e: any) {
+      setLoading(false);
+      console.log(e);
+      if (e.response && e.response.status === 401) {
+        setError('Wrong credentials');
+      }
+    }
   };
   const password = useWatch({ name: 'password' });
   return {
