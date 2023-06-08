@@ -7,9 +7,11 @@ import {
   CheckEmail,
   EmailVerified,
   ForgotPassword,
+  ResetPassword,
 } from '@/components';
 import { ModalContext } from '@/context';
 import { useContext } from 'react';
+import PasswordResetCheck from '@/components/landing/PasswordResetCheck/PasswordResetCheck';
 const Home: NextPage = () => {
   const { openModal } = useContext(ModalContext);
   return (
@@ -19,6 +21,8 @@ const Home: NextPage = () => {
       {openModal === 'checkEmail' && <CheckEmail />}
       {openModal === 'verified' && <EmailVerified />}
       {openModal === 'forgotPassword' && <ForgotPassword />}
+      {openModal === 'passwordResetCheck' && <PasswordResetCheck />}
+      {openModal === 'resetPassword' && <ResetPassword />}
       <Navbar />
       <main className='h-75sc flex items-center justify-center'>
         <div className='flex items-center justify-center flex-col px-16'>

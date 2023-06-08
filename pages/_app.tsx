@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <FormProvider {...methods}>
       <ModalProvider>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </ModalProvider>
     </FormProvider>
   );
