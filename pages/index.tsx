@@ -6,6 +6,7 @@ import {
   Login,
   CheckEmail,
   EmailVerified,
+  ForgotPassword,
 } from '@/components';
 import { ModalContext } from '@/context';
 import { useContext } from 'react';
@@ -17,6 +18,7 @@ const Home: NextPage = () => {
       {openModal === 'login' && <Login />}
       {openModal === 'checkEmail' && <CheckEmail />}
       {openModal === 'verified' && <EmailVerified />}
+      {openModal === 'forgotPassword' && <ForgotPassword />}
       <Navbar />
       <main className='h-75sc flex items-center justify-center'>
         <div className='flex items-center justify-center flex-col px-16'>

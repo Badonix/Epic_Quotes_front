@@ -8,7 +8,7 @@ import { useModal } from '@/hooks';
 const Login = () => {
   const { handleSubmit, onSubmit, errors, reset, error, loading } = useLogin();
   const { wrapperRef, setOpenModal } = useModal();
-
+  console.log(errors);
   return (
     <div className='bg-modal-transparent backdrop-blur fixed h-screen w-screen flex items-center justify-center z-50'>
       <div
@@ -39,6 +39,7 @@ const Login = () => {
               required={true}
               name='login'
               validation={{
+                required: 'Email field is required',
                 minLength: {
                   value: 3,
                   message: 'Email must be at least 3 characters ',
@@ -46,7 +47,7 @@ const Login = () => {
               }}
             />
             <p className='text-red-500 absolute -bottom-5 text-sm'>
-              <ErrorMessage errors={errors} name='email' />
+              <ErrorMessage errors={errors} name='login' />
             </p>
           </div>
           <div className='relative'>
@@ -77,7 +78,13 @@ const Login = () => {
                 />
                 <label htmlFor='remember_me'>Remember me</label>
               </div>
-              <p className='text-blue-600 underline cursor-pointer'>
+              <p
+                onClick={() => {
+                  setOpenModal('forgotPassword');
+                  reset();
+                }}
+                className='text-blue-600 underline cursor-pointer'
+              >
                 Forgot password?
               </p>
             </div>
