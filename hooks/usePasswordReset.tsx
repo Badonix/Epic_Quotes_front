@@ -2,9 +2,13 @@ import { useFormContext } from 'react-hook-form';
 import { useModal } from '@/hooks';
 import { useWatch } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import { fetchCSRFToken, resetPassword } from '@/services';
 export const usePasswordReset = () => {
   const { setOpenModal } = useModal();
   const router = useRouter();
+  const email = router.query.email;
+  const token = router.query.token;
+  console.log(email, token);
   const password = useWatch({ name: 'password' });
   const {
     handleSubmit,
@@ -14,7 +18,14 @@ export const usePasswordReset = () => {
   const fields = useWatch();
   console.log(fields);
   const onSubmit = async (data: any) => {
-    console.log(data);
+    try {
+      await fetchCSRFToken();
+      const response = await resetPassword({ ...data, token, email });
+      if (response.status === 200) {
+        router.push('/');
+        setOpenModal('resetSuccess');
+      }
+    } catch (e) {}
   };
 
   return {
