@@ -6,7 +6,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useModal } from '@/hooks';
 
 const Login = () => {
-  const { handleSubmit, onSubmit, errors, reset } = useLogin();
+  const { handleSubmit, onSubmit, errors, reset, error, loading } = useLogin();
   const { wrapperRef, setOpenModal } = useModal();
 
   return (
@@ -33,12 +33,12 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-6'>
           <div className='relative'>
             <Input
+              disabled={loading}
               placeholder='Enter your email'
               label='Email'
               required={true}
-              name='email'
+              name='login'
               validation={{
-                required: 'Email is required',
                 minLength: {
                   value: 3,
                   message: 'Email must be at least 3 characters ',
@@ -51,6 +51,7 @@ const Login = () => {
           </div>
           <div className='relative'>
             <Input
+              disabled={loading}
               placeholder='At least 8 & max.15 lower case characters'
               label='Password'
               type='password'
@@ -63,6 +64,7 @@ const Login = () => {
             <p className='text-red-500 absolute -bottom-5 text-sm'>
               <ErrorMessage errors={errors} name='password' />
             </p>
+            <p className='text-red-500 absolute -bottom-5 text-sm'>{error}</p>
           </div>
 
           <div className='flex flex-col gap-4'>
@@ -80,12 +82,16 @@ const Login = () => {
               </p>
             </div>
             <button
+              disabled={loading}
               type='submit'
-              className='w-full text-center py-2 text-base bg-red-600 rounded-4'
+              className='w-full disabled:bg-red-800 text-center py-2 text-base bg-red-600 rounded-4'
             >
               Sign in
             </button>
-            <button className='flex items-center justify-center gap-3 w-full text-center py-2 text-base bg-transparent border border-gray-300 rounded-4'>
+            <button
+              type='button'
+              className='flex items-center justify-center gap-3 w-full text-center py-2 text-base bg-transparent border border-gray-300 rounded-4'
+            >
               <Google />
               Sign in with Google
             </button>
