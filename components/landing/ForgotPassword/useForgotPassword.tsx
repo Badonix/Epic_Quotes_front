@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { useModal } from '@/hooks';
-import { sendPasswordReset } from '@/services';
+import { fetchCSRFToken, sendPasswordReset } from '@/services';
 import { useEffect, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 export const useForgotPassword = () => {
@@ -18,6 +18,7 @@ export const useForgotPassword = () => {
   }, [formFields]);
   const onSubmit = async (data: any) => {
     setIsLoading(true);
+    fetchCSRFToken();
     try {
       const res = await sendPasswordReset(data);
       if (res.status === 200) {
