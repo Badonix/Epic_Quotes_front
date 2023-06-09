@@ -24,6 +24,15 @@ export const login = async (data: any) => {
   return response;
 };
 
+export const sendPasswordReset = async (data: any) => {
+  const response = await instance.post('/api/forgot-password', data);
+  return response;
+};
+
+export const resetPassword = async (data: any) => {
+  const response = await instance.post('/api/reset-password', data);
+  return response;
+};
 export const me = async () => {
   const response = await instance.get('api/me');
   return response;

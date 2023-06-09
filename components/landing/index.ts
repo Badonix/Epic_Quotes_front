@@ -4,3 +4,5 @@ export * from './Signup';
 export * from './Login';
 export * from './CheckEmail';
 export * from './EmailVerified';
+export * from './ForgotPassword';
+export * from './ResetSuccess';
