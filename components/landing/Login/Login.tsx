@@ -95,13 +95,14 @@ const Login = () => {
             >
               Sign in
             </button>
-            <button
+            <a
+              href={process.env.NEXT_PUBLIC_API_URL + '/api/auth/redirect'}
               type='button'
               className='flex items-center justify-center gap-3 w-full text-center py-2 text-base bg-transparent border border-gray-300 rounded-4'
             >
               <Google />
               Sign in with Google
-            </button>
+            </a>
           </div>
         </form>
 

@@ -37,3 +37,13 @@ export const me = async () => {
   const response = await instance.get('api/me');
   return response;
 };
+
+export const googleSignIn = async (data: any, router: any) => {
+  try {
+    const response = await instance.post('/api/auth/callback', data);
+    router.push('/me');
+    return response;
+  } catch (e) {
+    return e;
+  }
+};
