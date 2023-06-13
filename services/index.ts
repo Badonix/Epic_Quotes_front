@@ -15,7 +15,12 @@ export const register = async (data: any) => {
 };
 
 export const fetchCSRFToken = async () => {
-  const response = await instance.get('/sanctum/csrf-cookie');
+  const response = await instance.get('/sanctum/csrf-cookie', {
+    headers: {
+      Origin: 'http://localhost:3000',
+      Referer: 'http://localhost:3000/',
+    },
+  });
   return response;
 };
 
@@ -38,12 +43,14 @@ export const me = async () => {
   return response;
 };
 
-export const googleSignIn = async (data: any, router: any) => {
-  try {
-    const response = await instance.post('/api/auth/callback', data);
-    router.push('/me');
-    return response;
-  } catch (e) {
-    return e;
-  }
+export const googleSignIn = async (data: any, cookie: any) => {
+  const response = await instance.post('/api/auth/callback', data, {
+    headers: {
+      Origin: 'http://localhost:3000',
+      Referer: 'http://localhost:3000/',
+      cookie: cookie,
+    },
+  });
+  console.log(response);
+  return response;
 };
