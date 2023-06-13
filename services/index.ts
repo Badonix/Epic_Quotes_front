@@ -17,8 +17,8 @@ export const register = async (data: any) => {
 export const fetchCSRFToken = async () => {
   const response = await instance.get('/sanctum/csrf-cookie', {
     headers: {
-      Origin: 'http://localhost:3000',
-      Referer: 'http://localhost:3000/',
+      Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
+      Referer: process.env.NEXT_PUBLIC_API_REFERER,
     },
   });
   return response;
