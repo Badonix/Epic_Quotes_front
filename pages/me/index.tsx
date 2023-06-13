@@ -1,20 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { me } from '@/services';
+import { useQuery } from 'react-query';
 const Me = () => {
-  const [user, setUser] = useState<any>(null);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const user = await me();
-        setUser(user);
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    };
-
-    fetchUser();
-  }, []);
+  const { data: user } = useQuery('me', me);
   return <div className='text-white'>{JSON.stringify(user)}</div>;
 };
+
 export default Me;
