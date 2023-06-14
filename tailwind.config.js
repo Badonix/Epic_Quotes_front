@@ -27,6 +27,7 @@ module.exports = {
       backgroundColor: {
         modal: '#222030',
         'modal-transparent': 'rgba(0, 0, 0, 0.39)',
+        navbar: 'rgb(36,34,46)',
       },
       background: {
         gradient: 'linear-gradient(0deg, #11101a 0%, #08080d 50.52%);',

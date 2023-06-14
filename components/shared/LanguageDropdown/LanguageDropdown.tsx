@@ -8,7 +8,7 @@ const LanguageDropdown: React.FC = () => {
     <div
       ref={dropdownRef}
       onClick={() => setIsDropdownVisible((prev: boolean) => !prev)}
-      className='select-none text-white relative hidden sm:flex items-center gap-2 cursor-pointer'
+      className='select-none text-white relative hidden md:flex items-center gap-2 cursor-pointer'
     >
       <p>ENG</p>
       <div className={`${isDropdownVisible && 'rotate-180'} `}>
