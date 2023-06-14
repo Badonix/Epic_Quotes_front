@@ -46,8 +46,8 @@ export const me = async () => {
 export const googleSignIn = async (data: any, cookie: any) => {
   const response = await instance.post('/api/auth/callback', data, {
     headers: {
-      Origin: 'http://localhost:3000',
-      Referer: 'http://localhost:3000/',
+      Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
+      Referer: process.env.NEXT_PUBLIC_API_REFERER,
       cookie: cookie,
     },
   });
