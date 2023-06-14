@@ -14,6 +14,7 @@ module.exports = {
       },
       height: {
         '75sc': '75vh',
+        60: '60px',
       },
       lineHeight: {
         90: '90px',
@@ -28,12 +29,16 @@ module.exports = {
         modal: '#222030',
         'modal-transparent': 'rgba(0, 0, 0, 0.39)',
         navbar: 'rgb(36,34,46)',
+        sidebar: '#11101A',
       },
       background: {
         gradient: 'linear-gradient(0deg, #11101a 0%, #08080d 50.52%);',
       },
       borderRadius: {
         4: '4px',
+      },
+      width: {
+        530: '530px',
       },
     },
   },

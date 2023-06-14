@@ -6,3 +6,5 @@ export { default as Verified } from './Verified';
 export { default as Back } from './Back';
 export { default as Expired } from './Expired';
 export { default as Bell } from './Bell';
+export { default as Home } from './Home';
+export { default as Movie } from './Movie';

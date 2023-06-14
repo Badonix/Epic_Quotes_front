@@ -4,17 +4,22 @@ import { Bell } from '@/components/icons';
 import Menu from '@/components/icons/Menu';
 import Search from '@/components/icons/Search';
 
-const Navbar = () => {
+const Navbar: React.FC<{
+  setSidebarActive: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ setSidebarActive }) => {
   return (
     <nav className='fixed w-full bg-navbar py-7 px-16 flex items-center justify-between shadow-sm'>
-      <div className='md:hidden block'>
+      <div
+        className='lg:hidden block'
+        onClick={() => setSidebarActive((prev) => !prev)}
+      >
         <Menu />
       </div>
-      <h2 className='hidden md:block text-orange-200 font-bold cursor-pointer'>
+      <h2 className='hidden lg:block text-orange-200 font-bold cursor-pointer'>
         MOVIE QUOTES
       </h2>
       <div className='flex items-center gap-9'>
-        <div className='block md:hidden'>
+        <div className='block lg:hidden'>
           <Search />
         </div>
         <div className='relative cursor-pointer'>
@@ -24,7 +29,7 @@ const Navbar = () => {
           <Bell />
         </div>
         <LanguageDropdown />
-        <button className='hidden md:block hover:text-black hover:bg-white transition-all py-2 px-5 text-white border border-white rounded-md'>
+        <button className='hidden lg:block hover:text-black hover:bg-white transition-all py-2 px-5 text-white border border-white rounded-md'>
           Log out
         </button>
       </div>
