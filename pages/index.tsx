@@ -7,7 +7,6 @@ import {
   CheckEmail,
   EmailVerified,
   ForgotPassword,
-  ResetPassword,
   ResetSuccess,
 } from '@/components';
 import { ModalContext } from '@/context';
@@ -23,7 +22,6 @@ const Home: NextPage = () => {
       {openModal === 'verified' && <EmailVerified />}
       {openModal === 'forgotPassword' && <ForgotPassword />}
       {openModal === 'passwordResetCheck' && <PasswordResetCheck />}
-      {openModal === 'resetPassword' && <ResetPassword />}
       {openModal === 'resetSuccess' && <ResetSuccess />}
       <Navbar />
       <main className='h-75sc flex items-center justify-center'>

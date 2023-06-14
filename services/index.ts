@@ -15,7 +15,12 @@ export const register = async (data: any) => {
 };
 
 export const fetchCSRFToken = async () => {
-  const response = await instance.get('/sanctum/csrf-cookie');
+  const response = await instance.get('/sanctum/csrf-cookie', {
+    headers: {
+      Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
+      Referer: process.env.NEXT_PUBLIC_API_REFERER,
+    },
+  });
   return response;
 };
 
@@ -35,5 +40,17 @@ export const resetPassword = async (data: any) => {
 };
 export const me = async () => {
   const response = await instance.get('api/me');
+  return response;
+};
+
+export const googleSignIn = async (data: any, cookie: any) => {
+  const response = await instance.post('/api/auth/callback', data, {
+    headers: {
+      Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
+      Referer: process.env.NEXT_PUBLIC_API_REFERER,
+      cookie: cookie,
+    },
+  });
+  console.log(response);
   return response;
 };
