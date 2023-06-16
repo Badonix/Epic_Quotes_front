@@ -30,6 +30,7 @@ module.exports = {
         'modal-transparent': 'rgba(0, 0, 0, 0.39)',
         navbar: 'rgb(36,34,46)',
         sidebar: '#11101A',
+        post: '#24222F',
       },
       background: {
         gradient: 'linear-gradient(0deg, #11101a 0%, #08080d 50.52%);',
@@ -39,6 +40,9 @@ module.exports = {
       },
       width: {
         530: '530px',
+      },
+      borderColor: {
+        search: 'rgba(239, 239, 239, 0.3)',
       },
     },
   },

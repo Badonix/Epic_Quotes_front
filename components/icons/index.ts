@@ -8,3 +8,5 @@ export { default as Expired } from './Expired';
 export { default as Bell } from './Bell';
 export { default as Home } from './Home';
 export { default as Movie } from './Movie';
+export { default as Write } from './Write';
+export { default as Search } from './Search';

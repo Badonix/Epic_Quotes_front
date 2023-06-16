@@ -6,9 +6,10 @@ import Search from '@/components/icons/Search';
 
 const Navbar: React.FC<{
   setSidebarActive: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ setSidebarActive }) => {
+  setSearchActive: React.Dispatch<React.SetStateAction<boolean>>;
+}> = ({ setSidebarActive, setSearchActive }) => {
   return (
-    <nav className='fixed w-full bg-navbar py-7 px-16 flex items-center justify-between shadow-sm'>
+    <nav className='fixed z-200 w-full bg-navbar py-7 px-16 flex items-center justify-between shadow-sm'>
       <div
         className='lg:hidden block'
         onClick={() => setSidebarActive((prev) => !prev)}
@@ -19,7 +20,7 @@ const Navbar: React.FC<{
         MOVIE QUOTES
       </h2>
       <div className='flex items-center gap-9'>
-        <div className='block lg:hidden'>
+        <div className='block lg:hidden' onClick={() => setSearchActive(true)}>
           <Search />
         </div>
         <div className='relative cursor-pointer'>
