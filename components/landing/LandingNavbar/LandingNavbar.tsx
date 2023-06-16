@@ -2,7 +2,7 @@ import React from 'react';
 import { LanguageDropdown } from '@/components/shared';
 import { useContext } from 'react';
 import { ModalContext } from '@/context';
-function Navbar() {
+function LandingNavbar() {
   const { setOpenModal } = useContext(ModalContext);
   return (
     <nav className='w-full fixed flex items-center justify-between z-20 sm:px-16 px-7 py-7'>
@@ -26,4 +26,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default LandingNavbar;

@@ -1,8 +1,6 @@
 import React from 'react';
 import { LanguageDropdown } from '../LanguageDropdown';
-import { Bell } from '@/components/icons';
-import Menu from '@/components/icons/Menu';
-import Search from '@/components/icons/Search';
+import { Bell, Menu, Search } from '@/components';
 
 const Navbar: React.FC<{
   setSidebarActive: React.Dispatch<React.SetStateAction<boolean>>;

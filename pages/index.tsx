@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import {
-  Navbar,
   Quote,
   Signup,
   Login,
@@ -8,10 +7,11 @@ import {
   EmailVerified,
   ForgotPassword,
   ResetSuccess,
+  LandingNavbar,
+  PasswordResetCheck,
 } from '@/components';
 import { ModalContext } from '@/context';
 import { useContext } from 'react';
-import PasswordResetCheck from '@/components/landing/PasswordResetCheck/PasswordResetCheck';
 const Home: NextPage = () => {
   const { openModal } = useContext(ModalContext);
   return (
@@ -23,7 +23,7 @@ const Home: NextPage = () => {
       {openModal === 'forgotPassword' && <ForgotPassword />}
       {openModal === 'passwordResetCheck' && <PasswordResetCheck />}
       {openModal === 'resetSuccess' && <ResetSuccess />}
-      <Navbar />
+      <LandingNavbar />
       <main className='h-75sc flex items-center justify-center'>
         <div className='flex items-center justify-center flex-col px-16'>
           <h2 className='leading-90 md:text-6xl text-4xl max-w-2xl text-center text-orange-200'>

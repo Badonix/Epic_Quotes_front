@@ -1,5 +1,4 @@
-import { Post, SearchPost } from '@/components/feed';
-import { Navbar, Sidebar } from '@/components/shared';
+import { Post, SearchPost, Navbar, Sidebar } from '@/components';
 import { useNewsFeed } from '@/hooks';
 import React from 'react';
 

@@ -12,3 +12,4 @@ export { default as Write } from './Write';
 export { default as Search } from './Search';
 export { default as Comment } from './Comment';
 export { default as Heart } from './Heart';
+export { default as Menu } from './Menu';
