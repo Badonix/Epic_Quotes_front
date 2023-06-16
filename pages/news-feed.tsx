@@ -1,10 +1,11 @@
 import { Post, SearchPost } from '@/components/feed';
 import { Navbar, Sidebar } from '@/components/shared';
-import React, { useState } from 'react';
+import { useNewsFeed } from '@/hooks';
+import React from 'react';
 
 const NewsFeed = () => {
-  const [sidebarActive, setSidebarActive] = useState(false);
-  const [searchActive, setSearchActive] = useState(false);
+  const { setSearchActive, setSidebarActive, sidebarActive, searchActive } =
+    useNewsFeed();
   return (
     <>
       <Navbar
@@ -22,8 +23,6 @@ const NewsFeed = () => {
             setSearchActive={setSearchActive}
           />
           <div className='w-full px-10 mt-6 flex flex-col gap-10'>
-            <Post />
-            <Post />
             <Post />
             <Post />
           </div>
