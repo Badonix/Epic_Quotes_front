@@ -2,11 +2,9 @@ import { Movie } from '@/components/icons';
 import Home from '@/components/icons/Home';
 import Image from 'next/image';
 import React from 'react';
+import { PropsType } from './types';
 
-const Sidebar: React.FC<{ sidebarActive: boolean; setSidebarActive: any }> = ({
-  sidebarActive,
-  setSidebarActive,
-}) => {
+const Sidebar: React.FC<PropsType> = ({ sidebarActive, setSidebarActive }) => {
   return (
     <>
       <div

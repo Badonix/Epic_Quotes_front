@@ -1,11 +1,9 @@
 import React from 'react';
 import { LanguageDropdown } from '../LanguageDropdown';
 import { Bell, Menu, Search } from '@/components';
+import { PropsType } from './types';
 
-const Navbar: React.FC<{
-  setSidebarActive: React.Dispatch<React.SetStateAction<boolean>>;
-  setSearchActive: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ setSidebarActive, setSearchActive }) => {
+const Navbar: React.FC<PropsType> = ({ setSidebarActive, setSearchActive }) => {
   return (
     <nav className='fixed z-40 w-full bg-navbar py-7 px-16 flex items-center justify-between shadow-sm'>
       <div

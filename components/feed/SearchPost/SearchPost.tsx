@@ -1,9 +1,7 @@
 import React from 'react';
 import { Search, Write, Back } from '@/components/icons';
-const SearchPost: React.FC<{
-  searchActive: boolean;
-  setSearchActive: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ searchActive, setSearchActive }) => {
+import { PropsType } from './types';
+const SearchPost: React.FC<PropsType> = ({ searchActive, setSearchActive }) => {
   return (
     <>
       {searchActive && (
