@@ -31,6 +31,7 @@ module.exports = {
         navbar: 'rgb(36,34,46)',
         sidebar: '#11101A',
         post: '#24222F',
+        singlepost: '#11101A',
       },
       background: {
         gradient: 'linear-gradient(0deg, #11101a 0%, #08080d 50.52%);',

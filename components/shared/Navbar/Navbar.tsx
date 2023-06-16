@@ -9,7 +9,7 @@ const Navbar: React.FC<{
   setSearchActive: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ setSidebarActive, setSearchActive }) => {
   return (
-    <nav className='fixed z-200 w-full bg-navbar py-7 px-16 flex items-center justify-between shadow-sm'>
+    <nav className='fixed z-40 w-full bg-navbar py-7 px-16 flex items-center justify-between shadow-sm'>
       <div
         className='lg:hidden block'
         onClick={() => setSidebarActive((prev) => !prev)}
