@@ -13,6 +13,10 @@
   font-weight: 500;
 }
 
+::-webkit-scrollbar-thumb {
+  border-radius: 10px !important;
+}
+
 body {
   background: linear-gradient(
     187.16deg,

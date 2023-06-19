@@ -22,6 +22,9 @@ module.exports = {
       maxWidth: {
         '1/2': '50%',
       },
+      maxHeight: {
+        60: '80vh',
+      },
       lineHeight: {
         75: '75px',
       },
@@ -47,5 +50,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar')],
 };

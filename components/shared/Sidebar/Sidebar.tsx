@@ -3,6 +3,7 @@ import Home from '@/components/icons/Home';
 import Image from 'next/image';
 import React from 'react';
 import { PropsType } from './types';
+import Link from 'next/link';
 
 const Sidebar: React.FC<PropsType> = ({
   sidebarActive,
@@ -35,14 +36,14 @@ const Sidebar: React.FC<PropsType> = ({
           </div>
         </div>
         <div className='mt-10 flex flex-col gap-11'>
-          <div className='flex items-center gap-11'>
+          <Link href={'/news-feed'} className='flex items-center gap-11'>
             <Home active={currentPage == 'news-feed'} />
             <p className='text-2xl text-white'>News feed</p>
-          </div>
-          <div className='flex items-center gap-11'>
+          </Link>
+          <Link href='/movies' className='flex items-center gap-11'>
             <Movie active={currentPage == 'movies'} />
             <p className='text-2xl text-white'>List of movies</p>
-          </div>
+          </Link>
         </div>
       </div>
     </>

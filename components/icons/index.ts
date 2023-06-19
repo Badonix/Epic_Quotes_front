@@ -15,3 +15,4 @@ export { default as Heart } from './Heart';
 export { default as Menu } from './Menu';
 export { default as Add } from './Add';
 export { default as MovieComment } from './MovieComment';
+export { default as Photo } from './Photo';
