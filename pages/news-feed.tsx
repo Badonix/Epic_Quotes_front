@@ -1,4 +1,4 @@
-import { Post, SearchPost, Navbar, Sidebar } from '@/components';
+import { Post, SearchPost, FeedNavbar, Sidebar } from '@/components';
 import { useNewsFeed } from '@/hooks';
 import React from 'react';
 
@@ -7,12 +7,13 @@ const NewsFeed = () => {
     useNewsFeed();
   return (
     <>
-      <Navbar
+      <FeedNavbar
         setSearchActive={setSearchActive}
         setSidebarActive={setSidebarActive}
       />
       <section className='py-24 flex justify-between'>
         <Sidebar
+          currentPage='news-feed'
           setSidebarActive={setSidebarActive}
           sidebarActive={sidebarActive}
         />

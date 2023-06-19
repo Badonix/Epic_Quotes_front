@@ -13,3 +13,5 @@ export { default as Search } from './Search';
 export { default as Comment } from './Comment';
 export { default as Heart } from './Heart';
 export { default as Menu } from './Menu';
+export { default as Add } from './Add';
+export { default as MovieComment } from './MovieComment';

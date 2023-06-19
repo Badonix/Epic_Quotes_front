@@ -4,7 +4,11 @@ import Image from 'next/image';
 import React from 'react';
 import { PropsType } from './types';
 
-const Sidebar: React.FC<PropsType> = ({ sidebarActive, setSidebarActive }) => {
+const Sidebar: React.FC<PropsType> = ({
+  sidebarActive,
+  setSidebarActive,
+  currentPage,
+}) => {
   return (
     <>
       <div
@@ -32,11 +36,11 @@ const Sidebar: React.FC<PropsType> = ({ sidebarActive, setSidebarActive }) => {
         </div>
         <div className='mt-10 flex flex-col gap-11'>
           <div className='flex items-center gap-11'>
-            <Home active={false} />
+            <Home active={currentPage == 'news-feed'} />
             <p className='text-2xl text-white'>News feed</p>
           </div>
           <div className='flex items-center gap-11'>
-            <Movie active={false} />
+            <Movie active={currentPage == 'movies'} />
             <p className='text-2xl text-white'>List of movies</p>
           </div>
         </div>
