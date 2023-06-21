@@ -6,7 +6,7 @@ import { useAddMovie } from './useAddMovie';
 import { ErrorMessage } from '@hookform/error-message';
 export const AddMovie = () => {
   const { setOpenModal, wrapperRef } = useModal();
-  const { register, handleSubmit, onSubmit, errors } = useAddMovie();
+  const { register, handleSubmit, onSubmit, errors, loading } = useAddMovie();
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -43,6 +43,7 @@ export const AddMovie = () => {
                   </label>
                 </div>
                 <input
+                  disabled={loading}
                   {...register('title_en', {
                     required: 'Movie name is required',
                   })}
@@ -65,6 +66,7 @@ export const AddMovie = () => {
                   </label>
                 </div>
                 <input
+                  disabled={loading}
                   {...register('title_ka', {
                     required: 'Movie name is required',
                   })}
@@ -85,6 +87,7 @@ export const AddMovie = () => {
                   <label className='whitespace-nowrap text-white'>ჟანრი</label>
                 </div>
                 <input
+                  disabled={loading}
                   {...register('genre', {
                     required: 'Movie genre is required',
                   })}
@@ -104,10 +107,31 @@ export const AddMovie = () => {
                   </label>
                 </div>
                 <input
+                  disabled={loading}
                   {...register('year', {
                     required: 'Release year is required',
                   })}
-                  type='text'
+                  type='number'
+                  className='px-4 py-2 w-full bg-transparent border-r rounded-r-4 border-y border-search outline-none'
+                />
+                <p className='absolute -bottom-5 text-red-600'>
+                  <ErrorMessage name='year' errors={errors} />
+                </p>
+              </div>
+            </div>
+            <div className='relative'>
+              <div className='flex items-center'>
+                <div className='py-2 rounded-l-4 border-y border-l border-search pl-4'>
+                  <label className='whitespace-nowrap text-white'>
+                    შემოსავალი{' '}
+                  </label>
+                </div>
+                <input
+                  disabled={loading}
+                  {...register('budget', {
+                    required: 'Budget field is required',
+                  })}
+                  type='number'
                   className='px-4 py-2 w-full bg-transparent border-r rounded-r-4 border-y border-search outline-none'
                 />
                 <p className='absolute -bottom-5 text-red-600'>
@@ -123,6 +147,7 @@ export const AddMovie = () => {
                   </label>
                 </div>
                 <input
+                  disabled={loading}
                   {...register('director_en', {
                     required: 'Movie director is required',
                   })}
@@ -145,6 +170,7 @@ export const AddMovie = () => {
                   </label>
                 </div>
                 <input
+                  disabled={loading}
                   {...register('director_ka', {
                     required: 'Movie director is required',
                   })}
@@ -165,6 +191,7 @@ export const AddMovie = () => {
                   Movie Description
                 </label>
                 <textarea
+                  disabled={loading}
                   {...register('description_en', {
                     required: 'Movie description is required',
                   })}
@@ -182,6 +209,7 @@ export const AddMovie = () => {
                   ფილმის აღწერა
                 </label>
                 <textarea
+                  disabled={loading}
                   {...register('description_ka', {
                     required: 'Movie description is reqiured',
                   })}
@@ -200,6 +228,7 @@ export const AddMovie = () => {
                   <p>Drag & drop your image here or</p>
                 </div>
                 <input
+                  disabled={loading}
                   {...register('banner', {
                     required: 'Movie banner is required',
                   })}
@@ -219,8 +248,9 @@ export const AddMovie = () => {
               </p>
             </div>
             <button
+              disabled={loading}
               type='submit'
-              className='rounded-4 py-2 w-full bg-red-600 text-white'
+              className='disabled:bg-red-700 rounded-4 py-2 w-full bg-red-600 text-white'
             >
               Add movie
             </button>

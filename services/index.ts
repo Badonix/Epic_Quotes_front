@@ -1,3 +1,4 @@
+import { addMovie as AddMovieType } from '@/types';
 import axios from 'axios';
 
 const instance = axios.create({
@@ -52,5 +53,39 @@ export const googleSignIn = async (data: any, cookie: any) => {
     },
   });
   console.log(response);
+  return response;
+};
+
+export const addMovie = async (data: AddMovieType) => {
+  const {
+    description_en,
+    description_ka,
+    director_en,
+    director_ka,
+    title_en,
+    title_ka,
+    genre,
+    banner,
+    budget,
+    year,
+  } = data;
+  const description = JSON.stringify({ description_en, description_ka });
+  const director = JSON.stringify({ director_en, director_ka });
+  const title = JSON.stringify({ title_en, title_ka });
+  const movieData = {
+    description,
+    director,
+    title,
+    genre,
+    banner: banner[0],
+    release_year: year,
+    budget,
+  };
+  console.log(movieData);
+  const response = await instance.post('/api/movies', movieData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
   return response;
 };
