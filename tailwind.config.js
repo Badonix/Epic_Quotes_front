@@ -14,7 +14,11 @@ module.exports = {
       },
       height: {
         '75sc': '75vh',
+        371: '371px',
         60: '60px',
+      },
+      width: {
+        440: '440px',
       },
       lineHeight: {
         90: '90px',

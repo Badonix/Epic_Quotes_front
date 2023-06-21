@@ -89,3 +89,8 @@ export const addMovie = async (data: AddMovieType) => {
   });
   return response;
 };
+
+export const fetchMovies = async () => {
+  const response = await instance.get('/api/movies');
+  return response;
+};

@@ -4,14 +4,16 @@ import { ModalContext } from '@/context';
 import { useMovies } from '@/hooks/useMovies';
 import React, { useContext } from 'react';
 const Movies = () => {
-  const { setSidebarActive, sidebarActive } = useMovies();
+  const { setSidebarActive, sidebarActive, movies, setMovies } = useMovies();
   const { openModal, setOpenModal } = useContext(ModalContext);
 
   return (
     <>
-      {openModal === 'addmovie' && <AddMovie />}
+      {openModal === 'addmovie' && (
+        <AddMovie setMovies={setMovies} movies={movies} />
+      )}
       <Navbar setSidebarActive={setSidebarActive} />
-      <section className='py-24 flex lg:pr-16 lg:pl-0 px-8'>
+      <section className='min-h-screen py-24 flex lg:pr-16 lg:pl-0 px-8'>
         <Sidebar
           setSidebarActive={setSidebarActive}
           sidebarActive={sidebarActive}
@@ -40,13 +42,9 @@ const Movies = () => {
             </div>
           </div>
           <div className='mt-14 flex flex-wrap gap-12 justify-around'>
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
+            {movies.map((movie, index) => (
+              <MovieCard key={index} movie={movie} />
+            ))}
           </div>
         </div>
       </section>

@@ -4,9 +4,12 @@ import React from 'react';
 import { useModal } from '@/hooks';
 import { useAddMovie } from './useAddMovie';
 import { ErrorMessage } from '@hookform/error-message';
-export const AddMovie = () => {
+export const AddMovie = ({ setMovies, movies }: any) => {
   const { setOpenModal, wrapperRef } = useModal();
-  const { register, handleSubmit, onSubmit, errors, loading } = useAddMovie();
+  const { register, handleSubmit, onSubmit, errors, loading } = useAddMovie(
+    setMovies,
+    movies
+  );
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
