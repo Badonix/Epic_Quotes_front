@@ -6,10 +6,18 @@ import { useAddMovie } from './useAddMovie';
 import { ErrorMessage } from '@hookform/error-message';
 export const AddMovie = ({ setMovies, movies }: any) => {
   const { setOpenModal, wrapperRef } = useModal();
-  const { register, handleSubmit, onSubmit, errors, loading } = useAddMovie(
-    setMovies,
-    movies
-  );
+  const {
+    register,
+    handleSubmit,
+    onSubmit,
+    errors,
+    loading,
+    getRootProps,
+    getInputProps,
+    preview,
+    validateBanner,
+  } = useAddMovie(setMovies, movies);
+
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -37,7 +45,6 @@ export const AddMovie = ({ setMovies, movies }: any) => {
             onSubmit={handleSubmit(onSubmit)}
             className='pb-11 max-h-60 scrollbar-thin scrollbar-thumb-gray-900 scrollbar- overflow-y-auto mt-7 flex flex-col gap-6 w-full'
           >
-            {' '}
             <div className='relative'>
               <div className='flex items-center'>
                 <div className='py-2 rounded-l-4 border-y border-l border-search pl-4'>
@@ -224,16 +231,24 @@ export const AddMovie = ({ setMovies, movies }: any) => {
                 <ErrorMessage name='description_ka' errors={errors} />
               </p>
             </div>
-            <div className='relative'>
+            <div {...getRootProps()} className='relative'>
               <div className='py-7 px-4 flex items-center gap-4 border border-search rounded-4'>
+                {preview && (
+                  <img
+                    className='w-1/2 max-h-64'
+                    src={preview}
+                    alt='Uploaded Image'
+                  />
+                )}
                 <div className='flex items-center gap-2'>
                   <Photo />
                   <p>Drag & drop your image here or</p>
                 </div>
                 <input
+                  {...getInputProps()}
                   disabled={loading}
                   {...register('banner', {
-                    required: 'Movie banner is required',
+                    validate: validateBanner,
                   })}
                   className='hidden'
                   type='file'

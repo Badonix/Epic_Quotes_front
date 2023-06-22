@@ -2,6 +2,7 @@ import React from 'react';
 import { LanguageDropdown } from '@/components';
 import { Bell, Menu } from '@/components';
 import { PropsType } from './types';
+import Link from 'next/link';
 
 const Navbar: React.FC<PropsType> = ({ setSidebarActive }) => {
   return (
@@ -12,9 +13,12 @@ const Navbar: React.FC<PropsType> = ({ setSidebarActive }) => {
       >
         <Menu />
       </div>
-      <h2 className='hidden lg:block text-orange-200 font-bold cursor-pointer'>
+      <Link
+        href='/news-feed'
+        className='hidden lg:block text-orange-200 font-bold cursor-pointer'
+      >
         MOVIE QUOTES
-      </h2>
+      </Link>
       <div className='flex items-center gap-9'>
         <div className='relative cursor-pointer'>
           <div className='-right-2 -top-2 absolute w-6 h-6 bg-red-600 rounded-full flex items-center justify-center'>

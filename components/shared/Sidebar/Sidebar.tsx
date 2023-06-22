@@ -5,17 +5,9 @@ import React from 'react';
 import { PropsType } from './types';
 import Link from 'next/link';
 
-const Sidebar: React.FC<PropsType> = ({
-  sidebarActive,
-  setSidebarActive,
-  currentPage,
-}) => {
+const Sidebar: React.FC<PropsType> = ({ sidebarActive, currentPage }) => {
   return (
     <>
-      <div
-        className='block lg:hidden absolute w-screen h-screen'
-        onClick={() => setSidebarActive(false)}
-      ></div>
       <div
         className={`z-30 lg:w-530 block lg:mt-0 lg:translate-x-0 pl-16 pt-9 transition-all lg:static h-4/5 rounded-r-xl w-11/12 max-w-lg absolute top-0 left-0 bg-sidebar lg:bg-transparent ${
           sidebarActive ? 'translate-x-0 mt-20' : '-translate-x-full'
