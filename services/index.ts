@@ -104,3 +104,38 @@ export const deleteMovie = async (id: number) => {
   const response = await instance.delete(`/api/movies/${id}`);
   return response;
 };
+
+export const editMovie = async (data: any, id: number) => {
+  const {
+    description_en,
+    description_ka,
+    director_en,
+    director_ka,
+    title_en,
+    title_ka,
+    genre,
+    banner,
+    budget,
+    year,
+  } = data;
+  const description = JSON.stringify({ description_en, description_ka });
+  const director = JSON.stringify({ director_en, director_ka });
+  const title = JSON.stringify({ title_en, title_ka });
+  const movieData = {
+    description,
+    director,
+    title,
+    genre,
+    banner: banner[0],
+    release_year: year,
+    budget,
+  };
+  console.log(movieData);
+
+  const response = await instance.post(`/api/movies/${id}/edit`, movieData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response;
+};

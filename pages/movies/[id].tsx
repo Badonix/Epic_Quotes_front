@@ -1,14 +1,17 @@
 import { Edit, Navbar, Sidebar, Trash } from '@/components';
+import { EditMovie } from '@/components/movies';
+import { ModalContext } from '@/context';
 import { useMovie } from '@/hooks';
 import { fetchMovie } from '@/services';
 import { GetServerSidePropsContext, NextPage } from 'next';
-import React from 'react';
+import React, { useContext } from 'react';
 
 export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
-  console.log(movie);
+  const { openModal, setOpenModal } = useContext(ModalContext);
   const { setSidebarActive, sidebarActive, handleDelete } = useMovie();
   return (
     <>
+      {openModal === 'editmovie' && <EditMovie movie={movie} />}
       <Navbar setSidebarActive={setSidebarActive} />
       <section className='min-h-screen py-24 flex lg:pr-16 lg:pl-0 px-8'>
         <Sidebar
@@ -30,7 +33,10 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
                   {JSON.parse(movie.title).title_en}
                 </h2>
                 <div className='flex items-center gap-4 rounded-xl bg-modal px-4 py-2'>
-                  <div className='cursor-pointer'>
+                  <div
+                    onClick={() => setOpenModal('editmovie')}
+                    className='cursor-pointer'
+                  >
                     <Edit />
                   </div>
                   <div className='w-px bg-search h-7'></div>
