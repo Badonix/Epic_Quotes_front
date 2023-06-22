@@ -55,6 +55,14 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
                 </p>
               </div>
               <div>
+                <p className='font-bold text-lg text-gray-300'>
+                  Budget:
+                  <span className='font-normal text-white ml-2'>
+                    {movie.budget}$
+                  </span>
+                </p>
+              </div>
+              <div>
                 <p className='text-gray-300 text-lg max-w-xl'>
                   {JSON.parse(movie.description).description_en} Lorem ipsum
                   dolor sit amet consectetur adipisicing elit. Eaque id
