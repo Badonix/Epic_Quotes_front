@@ -94,3 +94,8 @@ export const fetchMovies = async () => {
   const response = await instance.get('/api/movies');
   return response;
 };
+
+export const fetchMovie = async (id: number) => {
+  const response = await instance.get(`/api/movies/${id}`);
+  return response;
+};

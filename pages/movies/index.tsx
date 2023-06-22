@@ -25,7 +25,9 @@ const Movies = () => {
               <p className='text-xl lg:text-2xl text-white'>
                 My list of movies
               </p>
-              <p className='text-white lg:text-2xl text-lg'>(Total 25)</p>
+              <p className='text-white lg:text-2xl text-lg'>
+                (Total {movies.length})
+              </p>
             </div>
             <div className='flex items-center gap-8'>
               <div className='items-center gap-4 hidden lg:flex'>
@@ -43,7 +45,7 @@ const Movies = () => {
           </div>
           <div className='mt-14 flex flex-wrap gap-12 justify-around'>
             {movies.map((movie, index) => (
-              <MovieCard key={index} movie={movie} />
+              <MovieCard id={movie.id} key={index} movie={movie} />
             ))}
           </div>
         </div>
