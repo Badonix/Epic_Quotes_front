@@ -6,7 +6,7 @@ import React from 'react';
 
 export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
   console.log(movie);
-  const { setSidebarActive, sidebarActive } = useMovie();
+  const { setSidebarActive, sidebarActive, handleDelete } = useMovie();
   return (
     <>
       <Navbar setSidebarActive={setSidebarActive} />
@@ -34,7 +34,10 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
                     <Edit />
                   </div>
                   <div className='w-px bg-search h-7'></div>
-                  <div className='cursor-pointer'>
+                  <div
+                    onClick={() => handleDelete(movie.id)}
+                    className='cursor-pointer'
+                  >
                     <Trash />
                   </div>
                 </div>

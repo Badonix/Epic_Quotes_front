@@ -99,3 +99,8 @@ export const fetchMovie = async (id: number) => {
   const response = await instance.get(`/api/movies/${id}`);
   return response;
 };
+
+export const deleteMovie = async (id: number) => {
+  const response = await instance.delete(`/api/movies/${id}`);
+  return response;
+};
