@@ -14,13 +14,21 @@ module.exports = {
       },
       height: {
         '75sc': '75vh',
+        371: '371px',
         60: '60px',
+        441: '441px',
+      },
+      width: {
+        440: '440px',
       },
       lineHeight: {
         90: '90px',
       },
       maxWidth: {
         '1/2': '50%',
+      },
+      maxHeight: {
+        60: '80vh',
       },
       lineHeight: {
         75: '75px',
@@ -32,6 +40,7 @@ module.exports = {
         sidebar: '#11101A',
         post: '#24222F',
         singlepost: '#11101A',
+        search: 'rgba(239, 239, 239, 0.3)',
       },
       background: {
         gradient: 'linear-gradient(0deg, #11101a 0%, #08080d 50.52%);',
@@ -41,11 +50,12 @@ module.exports = {
       },
       width: {
         530: '530px',
+        810: '810px',
       },
       borderColor: {
         search: 'rgba(239, 239, 239, 0.3)',
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar')],
 };

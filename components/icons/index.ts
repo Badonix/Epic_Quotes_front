@@ -13,3 +13,8 @@ export { default as Search } from './Search';
 export { default as Comment } from './Comment';
 export { default as Heart } from './Heart';
 export { default as Menu } from './Menu';
+export { default as Add } from './Add';
+export { default as MovieComment } from './MovieComment';
+export { default as Photo } from './Photo';
+export { default as Edit } from './Edit';
+export { default as Trash } from './Trash';
