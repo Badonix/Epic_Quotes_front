@@ -15,19 +15,19 @@ export const useEditMovie = (setMovies: any, movies: any, movie: any) => {
     control,
   } = useForm({
     defaultValues: {
-      title_en: JSON.parse(movie.title).title_en,
-      title_ka: JSON.parse(movie.title).title_ka,
+      title_en: movie.title.title_en,
+      title_ka: movie.title.title_ka,
       genre: movie.genre,
       year: movie.release_year,
       budget: movie.budget,
-      director_en: JSON.parse(movie.director).director_en,
-      director_ka: JSON.parse(movie.director).director_ka,
-      description_en: JSON.parse(movie.description).description_en,
-      description_ka: JSON.parse(movie.description).description_ka,
+      director_en: movie.director.director_en,
+      director_ka: movie.director.director_ka,
+      description_en: movie.description.description_en,
+      description_ka: movie.description.description_ka,
       banner: '',
     },
   });
-  console.log(movie.budget);
+  console.log(movie);
 
   const banner = useWatch({ control, name: 'banner' });
 
