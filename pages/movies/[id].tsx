@@ -30,7 +30,7 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
             <div className='flex flex-col gap-6'>
               <div className='flex items-center justify-between'>
                 <h2 className='font-bold text-orange-200 text-2xl'>
-                  {movie.title.title_en}
+                  {movie.title.en}
                 </h2>
                 <div className='flex items-center gap-4 rounded-xl bg-modal px-4 py-2'>
                   <div
@@ -59,7 +59,7 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
                 <p className='font-bold text-lg text-gray-300'>
                   Director:
                   <span className='font-normal text-white ml-2'>
-                    {movie.director.director_en}
+                    {movie.director.en}
                   </span>
                 </p>
               </div>
@@ -73,7 +73,7 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
               </div>
               <div>
                 <p className='text-gray-300 text-lg max-w-xl'>
-                  {movie.description.description_en}
+                  {movie.description.en}
                 </p>
               </div>
             </div>

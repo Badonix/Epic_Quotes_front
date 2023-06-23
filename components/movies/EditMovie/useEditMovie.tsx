@@ -15,15 +15,12 @@ export const useEditMovie = (setMovies: any, movies: any, movie: any) => {
     control,
   } = useForm({
     defaultValues: {
-      title_en: movie.title.title_en,
-      title_ka: movie.title.title_ka,
+      title: movie.title,
       genre: movie.genre,
       year: movie.release_year,
       budget: movie.budget,
-      director_en: movie.director.director_en,
-      director_ka: movie.director.director_ka,
-      description_en: movie.description.description_en,
-      description_ka: movie.description.description_ka,
+      director: movie.director,
+      description: movie.description,
       banner: '',
     },
   });

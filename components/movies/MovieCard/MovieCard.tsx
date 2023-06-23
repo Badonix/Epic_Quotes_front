@@ -16,7 +16,7 @@ export const MovieCard = ({ movie, id }: any) => {
           className='w-440 h-371 object-cover rounded-xl'
         />
         <h2 className='text-2xl text-white mt-4'>
-          {JSON.parse(movie.title).title_en} ({movie.release_year})
+          {movie.title.en} ({movie.release_year})
         </h2>
       </Link>
       <div className='flex items-center gap-4 mt-4'>

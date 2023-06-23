@@ -53,7 +53,7 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
                 </div>
                 <input
                   disabled={loading}
-                  {...register('title_en', {
+                  {...register('title.en', {
                     required: 'Movie name is required',
                   })}
                   type='text'
@@ -64,7 +64,7 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
                 </div>
               </div>
               <p className='absolute -bottom-5 text-red-600'>
-                <ErrorMessage name='title_en' errors={errors} />
+                <ErrorMessage name='title.en' errors={errors} />
               </p>
             </div>
             <div className='relative'>
@@ -76,7 +76,7 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
                 </div>
                 <input
                   disabled={loading}
-                  {...register('title_ka', {
+                  {...register('title.ka', {
                     required: 'Movie name is required',
                   })}
                   type='text'
@@ -87,7 +87,7 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
                 </div>
               </div>
               <p className='absolute -bottom-5 text-red-600'>
-                <ErrorMessage name='title_ka' errors={errors} />
+                <ErrorMessage name='title.ka' errors={errors} />
               </p>
             </div>
             <div className='relative'>
@@ -157,7 +157,7 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
                 </div>
                 <input
                   disabled={loading}
-                  {...register('director_en', {
+                  {...register('director.en', {
                     required: 'Movie director is required',
                   })}
                   type='text'
@@ -168,7 +168,7 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
                 </div>
               </div>
               <p className='absolute -bottom-5 text-red-600'>
-                <ErrorMessage name='director_en' errors={errors} />
+                <ErrorMessage name='director.ka' errors={errors} />
               </p>
             </div>
             <div className='relative'>
@@ -180,7 +180,7 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
                 </div>
                 <input
                   disabled={loading}
-                  {...register('director_ka', {
+                  {...register('director.ka', {
                     required: 'Movie director is required',
                   })}
                   type='text'
@@ -191,7 +191,7 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
                 </div>
               </div>
               <p className='absolute -bottom-5 text-red-600'>
-                <ErrorMessage name='director_ka' errors={errors} />
+                <ErrorMessage name='director.ka' errors={errors} />
               </p>
             </div>
             <div className='relative'>
@@ -201,7 +201,7 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
                 </label>
                 <textarea
                   disabled={loading}
-                  {...register('description_en', {
+                  {...register('description.en', {
                     required: 'Movie description is required',
                   })}
                   className='pl-40 pr-12 px-4 py-2 w-full bg-transparent border border-search outline-none rounded-4'
@@ -209,7 +209,7 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
                 <p className='absolute text-gray-600 top-2 right-2'>Eng</p>
               </div>
               <p className='absolute -bottom-5 text-red-600'>
-                <ErrorMessage name='description_en' errors={errors} />
+                <ErrorMessage name='description.en' errors={errors} />
               </p>
             </div>
             <div className='relative'>
@@ -219,7 +219,7 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
                 </label>
                 <textarea
                   disabled={loading}
-                  {...register('description_ka', {
+                  {...register('description.ka', {
                     required: 'Movie description is reqiured',
                   })}
                   className='pl-40 pr-12 px-4 py-2 w-full bg-transparent border border-search outline-none rounded-4'
@@ -227,7 +227,7 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
                 <p className='absolute text-gray-600 top-2 right-2'>ქარ</p>
               </div>
               <p className='absolute -bottom-5 text-red-600'>
-                <ErrorMessage name='description_ka' errors={errors} />
+                <ErrorMessage name='description.ka' errors={errors} />
               </p>
             </div>
             <div {...getRootProps()} className='relative'>

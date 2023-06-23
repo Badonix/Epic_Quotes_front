@@ -57,21 +57,7 @@ export const googleSignIn = async (data: any, cookie: any) => {
 };
 
 export const addMovie = async (data: AddMovieType) => {
-  const {
-    description_en,
-    description_ka,
-    director_en,
-    director_ka,
-    title_en,
-    title_ka,
-    genre,
-    banner,
-    budget,
-    year,
-  } = data;
-  const description = JSON.stringify({ description_en, description_ka });
-  const director = JSON.stringify({ director_en, director_ka });
-  const title = JSON.stringify({ title_en, title_ka });
+  const { description, director, title, genre, banner, budget, year } = data;
   const movieData = {
     description,
     director,
@@ -106,21 +92,7 @@ export const deleteMovie = async (id: number) => {
 };
 
 export const editMovie = async (data: any, id: number) => {
-  const {
-    description_en,
-    description_ka,
-    director_en,
-    director_ka,
-    title_en,
-    title_ka,
-    genre,
-    banner,
-    budget,
-    year,
-  } = data;
-  const description = JSON.stringify({ description_en, description_ka });
-  const director = JSON.stringify({ director_en, director_ka });
-  const title = JSON.stringify({ title_en, title_ka });
+  const { description, director, title, genre, banner, budget, year } = data;
   const movieData = {
     description,
     director,
