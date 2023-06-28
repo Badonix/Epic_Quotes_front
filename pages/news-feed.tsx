@@ -44,14 +44,13 @@ const NewsFeed = ({ movies }: any) => {
   );
 };
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps() {
   let movies;
   try {
-    console.log(context.req.headers.cookie);
-    const res = await fetchMovies(context.req.headers.cookie);
+    const res = await fetchMovies();
     movies = res.data;
   } catch (e) {
-    // console.log(e);
+    console.log(e);
   }
   return { props: { movies } };
 }
