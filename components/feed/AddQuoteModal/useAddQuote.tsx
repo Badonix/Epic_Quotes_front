@@ -1,4 +1,4 @@
-import { addMovie, fetchCSRFToken } from '@/services';
+import { addQuote, fetchCSRFToken } from '@/services';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useModal } from '@/hooks';
@@ -30,7 +30,7 @@ export const useAddQuote = () => {
       console.log(data);
       setLoading(true);
       await fetchCSRFToken();
-      const response = await addMovie(data);
+      const response = await addQuote(data);
       setOpenModal('');
       console.log(response);
       setLoading(false);

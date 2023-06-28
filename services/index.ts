@@ -10,6 +10,21 @@ const instance = axios.create({
   withCredentials: true,
 });
 
+instance.interceptors.response.use(
+  async (response) => {
+    return response;
+  },
+
+  async (error) => {
+    const status = error?.response?.status;
+    if (status === 404) {
+    } else if (status === 403 || status === 401) {
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 export const register = async (data: any) => {
   const response = await instance.post('/api/register', data);
   return response;
@@ -27,6 +42,8 @@ export const fetchCSRFToken = async () => {
 
 export const login = async (data: any) => {
   const response = await instance.post('/api/login', data);
+  const { email, username } = response.data.user;
+  localStorage.setItem('user', JSON.stringify({ email, username }));
   return response;
 };
 
@@ -76,8 +93,14 @@ export const addMovie = async (data: AddMovieType) => {
   return response;
 };
 
-export const fetchMovies = async () => {
-  const response = await instance.get('/api/movies');
+export const fetchMovies = async (cookie: any) => {
+  const response = await instance.get('/api/movies', {
+    headers: {
+      Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
+      Referer: process.env.NEXT_PUBLIC_API_REFERER,
+      Cookie: cookie,
+    },
+  });
   return response;
 };
 
@@ -105,6 +128,21 @@ export const editMovie = async (data: any, id: number) => {
   console.log(movieData);
 
   const response = await instance.post(`/api/movies/${id}/edit`, movieData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response;
+};
+
+export const addQuote = async (data: any) => {
+  const { body, movie_id, image } = data;
+  const quoteData = {
+    body,
+    movie_id,
+    image: image[0],
+  };
+  const response = await instance.post('/api/quotes', quoteData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
