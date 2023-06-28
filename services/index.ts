@@ -148,47 +148,10 @@ export const addQuote = async (data: any) => {
     movie_id,
     image: image[0],
   };
-  console.log(body);
   const response = await instance.post('/api/quotes', quoteData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
-  return response;
-};
-
-export const fetchQuote = async (id: number, cookie: any) => {
-  const response = await instance.get('/api/quotes/' + id, {
-    headers: {
-      Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
-      Referer: process.env.NEXT_PUBLIC_API_REFERER,
-      Cookie: cookie,
-    },
-  });
-  return response;
-};
-
-export const deleteQuote = async (id: number) => {
-  const response = await instance.delete('/api/quotes/' + id);
-  return response;
-};
-
-export const editQuote = async (quoteId: number, data: any) => {
-  const { body, image, movie_id } = data;
-  const quoteData = {
-    body,
-    image: image[0],
-    movie_id,
-  };
-  console.log(data);
-  const response = await instance.post(
-    '/api/quotes/' + quoteId + '/edit',
-    quoteData,
-    {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    }
-  );
   return response;
 };
