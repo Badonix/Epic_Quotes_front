@@ -156,3 +156,14 @@ export const addQuote = async (data: any) => {
   });
   return response;
 };
+
+export const fetchQuote = async (id: number, cookie: any) => {
+  const response = await instance.get('/api/quotes/' + id, {
+    headers: {
+      Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
+      Referer: process.env.NEXT_PUBLIC_API_REFERER,
+      Cookie: cookie,
+    },
+  });
+  return response;
+};

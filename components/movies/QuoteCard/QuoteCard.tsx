@@ -7,6 +7,7 @@ import {
   Trash,
 } from '@/components/icons';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { ModalContext } from '@/context';
 export const QuoteCard = ({ quote }: any) => {
@@ -14,7 +15,7 @@ export const QuoteCard = ({ quote }: any) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { setOpenModal } = useContext(ModalContext);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-
+  const router = useRouter();
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -38,7 +39,10 @@ export const QuoteCard = ({ quote }: any) => {
           ref={wrapperRef}
           className='flex flex-col gap-8 px-10 py-8 absolute bg-post w-60 rounded-lg top-10 -right-48'
         >
-          <div className='flex text-white gap-4 items-center cursor-pointer'>
+          <div
+            onClick={() => router.push(`/quote/${quote.id}`)}
+            className='flex text-white gap-4 items-center cursor-pointer'
+          >
             <Eye />
             <p>View quote</p>
           </div>
