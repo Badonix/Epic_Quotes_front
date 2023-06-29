@@ -7,12 +7,30 @@ import {
   Trash,
 } from '@/components/icons';
 import Image from 'next/image';
-import { useQuoteCard } from './useQuoteCard';
-import { useModal } from '@/hooks';
-export const QuoteCard = ({ quote, setActiveQuote }: any) => {
+import { useContext, useEffect, useRef, useState } from 'react';
+import { ModalContext } from '@/context';
+export const QuoteCard = ({ quote }: any) => {
   const src = `${process.env.NEXT_PUBLIC_API_URL}/storage/${quote.image}`;
-  const { menuOpen, wrapperRef, setMenuOpen, handleDelete } = useQuoteCard();
-  const { setOpenModal } = useModal();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { setOpenModal } = useContext(ModalContext);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mouseup', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mouseup', handleClickOutside);
+    };
+  }, [setOpenModal]);
   return (
     <div className='bg-singlepost rounded-lg w-full flex flex-col py-6 px-8 gap-6 relative'>
       {menuOpen && (
@@ -20,30 +38,15 @@ export const QuoteCard = ({ quote, setActiveQuote }: any) => {
           ref={wrapperRef}
           className='flex flex-col gap-8 px-10 py-8 absolute bg-post w-60 rounded-lg top-10 -right-48'
         >
-          <div
-            onClick={() => {
-              setActiveQuote(quote);
-              setOpenModal('viewquote');
-            }}
-            className='flex text-white gap-4 items-center cursor-pointer'
-          >
+          <div className='flex text-white gap-4 items-center cursor-pointer'>
             <Eye />
             <p>View quote</p>
           </div>
-          <div
-            onClick={() => {
-              setActiveQuote(quote);
-              setOpenModal('editquote');
-            }}
-            className='flex text-white gap-4 items-center cursor-pointer'
-          >
+          <div className='flex text-white gap-4 items-center cursor-pointer'>
             <Edit />
             <p>Edit</p>
           </div>
-          <div
-            onClick={() => handleDelete(Number(quote.id))}
-            className='flex text-white gap-4 items-center cursor-pointer'
-          >
+          <div className='flex text-white gap-4 items-center cursor-pointer'>
             <Trash />
             <p>Delete</p>
           </div>

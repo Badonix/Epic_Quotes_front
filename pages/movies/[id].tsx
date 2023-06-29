@@ -1,13 +1,4 @@
-import {
-  Add,
-  AddMovieQuote,
-  Edit,
-  EditQuote,
-  Navbar,
-  Sidebar,
-  Trash,
-  ViewQuote,
-} from '@/components';
+import { Add, Edit, Navbar, Sidebar, Trash } from '@/components';
 import { EditMovie, QuoteCard } from '@/components';
 import { ModalContext } from '@/context';
 import { useMovie } from '@/hooks';
@@ -102,10 +93,7 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
                   Quotes (total {movie.quotes.length})
                 </h2>
                 <div className='w-px bg-search h-10'></div>
-                <div
-                  onClick={() => setOpenModal('addquote')}
-                  className='flex items-center gap-1 lg:gap-2 text-base lg:text-xl cursor-pointer text-white bg-red-600 lg:px-4 py-3 px-3 whitespace-nowrap rounded-md'
-                >
+                <div className='flex items-center gap-1 lg:gap-2 text-base lg:text-xl cursor-pointer text-white bg-red-600 lg:px-4 py-3 px-3 whitespace-nowrap rounded-md'>
                   <Add />
                   Add Quote
                 </div>
@@ -113,11 +101,7 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
             </div>
             <div className='mt-10 flex flex-col gap-10'>
               {movie.quotes.map((quote: any) => (
-                <QuoteCard
-                  setActiveQuote={setActiveQuote}
-                  key={quote.id}
-                  quote={quote}
-                />
+                <QuoteCard key={quote.id} quote={quote} />
               ))}
             </div>
           </section>

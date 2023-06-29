@@ -148,6 +148,7 @@ export const addQuote = async (data: any) => {
     movie_id,
     image: image[0],
   };
+  console.log(body);
   const response = await instance.post('/api/quotes', quoteData, {
     headers: {
       'Content-Type': 'multipart/form-data',
