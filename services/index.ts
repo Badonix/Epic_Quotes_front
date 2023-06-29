@@ -104,8 +104,14 @@ export const fetchMovies = async (cookie: any) => {
   return response;
 };
 
-export const fetchMovie = async (id: number) => {
-  const response = await instance.get(`/api/movies/${id}`);
+export const fetchMovie = async (id: number, cookie: any) => {
+  const response = await instance.get(`/api/movies/${id}`, {
+    headers: {
+      Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
+      Referer: process.env.NEXT_PUBLIC_API_REFERER,
+      Cookie: cookie,
+    },
+  });
   return response;
 };
 
@@ -142,6 +148,7 @@ export const addQuote = async (data: any) => {
     movie_id,
     image: image[0],
   };
+  console.log(body);
   const response = await instance.post('/api/quotes', quoteData, {
     headers: {
       'Content-Type': 'multipart/form-data',

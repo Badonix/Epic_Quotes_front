@@ -1,0 +1,89 @@
+import {
+  Comment,
+  Edit,
+  Eye,
+  Heart,
+  ThreeDots,
+  Trash,
+} from '@/components/icons';
+import Image from 'next/image';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { ModalContext } from '@/context';
+export const QuoteCard = ({ quote }: any) => {
+  const src = `${process.env.NEXT_PUBLIC_API_URL}/storage/${quote.image}`;
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { setOpenModal } = useContext(ModalContext);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mouseup', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mouseup', handleClickOutside);
+    };
+  }, [setOpenModal]);
+  return (
+    <div className='bg-singlepost rounded-lg w-full flex flex-col py-6 px-8 gap-6 relative'>
+      {menuOpen && (
+        <div
+          ref={wrapperRef}
+          className='flex flex-col gap-8 px-10 py-8 absolute bg-post w-60 rounded-lg top-10 -right-48'
+        >
+          <div className='flex text-white gap-4 items-center cursor-pointer'>
+            <Eye />
+            <p>View quote</p>
+          </div>
+          <div className='flex text-white gap-4 items-center cursor-pointer'>
+            <Edit />
+            <p>Edit</p>
+          </div>
+          <div className='flex text-white gap-4 items-center cursor-pointer'>
+            <Trash />
+            <p>Delete</p>
+          </div>
+        </div>
+      )}
+      <div
+        className='absolute right-8 top-4 cursor-pointer ThreeDots'
+        onClick={() => setMenuOpen(true)}
+      >
+        <ThreeDots />
+      </div>
+      <div className='flex items-center'>
+        <Image
+          width={226}
+          loader={() => src}
+          height={140}
+          src={src}
+          className='object-cover w-226 h-140'
+          alt='quote-image'
+        />
+        <div className='text-center w-full text-2xl text-gray-300 italic flex items-center justify-center'>
+          <h2>{quote.body.en}</h2>
+        </div>
+      </div>
+      <hr></hr>
+      <div className='flex items-center gap-6'>
+        <div className='flex items-center gap-3'>
+          <p className='text-white text-xl'>3</p>
+          <Comment />
+        </div>
+        <div className='flex items-center gap-3'>
+          <p className='text-white text-xl'>3</p>
+          <Heart />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default QuoteCard;

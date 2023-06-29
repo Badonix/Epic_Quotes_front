@@ -1,5 +1,5 @@
-import { Edit, Navbar, Sidebar, Trash } from '@/components';
-import { EditMovie } from '@/components/movies';
+import { Add, Edit, Navbar, Sidebar, Trash } from '@/components';
+import { EditMovie, QuoteCard } from '@/components';
 import { ModalContext } from '@/context';
 import { useMovie } from '@/hooks';
 import { fetchMovie } from '@/services';
@@ -13,7 +13,7 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
     <>
       {openModal === 'editmovie' && <EditMovie movie={movie} />}
       <Navbar setSidebarActive={setSidebarActive} />
-      <section className='min-h-screen py-24 flex lg:pr-16 lg:pl-0 px-8'>
+      <section className='min-h-screen pt-24 py-6 flex lg:pr-16 lg:pl-0 px-8'>
         <Sidebar
           sidebarActive={sidebarActive}
           setSidebarActive={setSidebarActive}
@@ -28,7 +28,7 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
               alt='movie'
             />
             <div className='flex flex-col gap-6'>
-              <div className='flex items-center justify-between'>
+              <div className='flex items-center justify-between gap-4'>
                 <h2 className='font-bold text-orange-200 text-2xl'>
                   {movie.title.en}
                 </h2>
@@ -78,6 +78,25 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
               </div>
             </div>
           </div>
+          <section className='w-810'>
+            <div className='w-full mt-10'>
+              <div className='flex items-center gap-4'>
+                <h2 className='text-white text-2xl'>
+                  Quotes (total {movie.quotes.length})
+                </h2>
+                <div className='w-px bg-search h-10'></div>
+                <div className='flex items-center gap-1 lg:gap-2 text-base lg:text-xl cursor-pointer text-white bg-red-600 lg:px-4 py-3 px-3 whitespace-nowrap rounded-md'>
+                  <Add />
+                  Add Quote
+                </div>
+              </div>
+            </div>
+            <div className='mt-10 flex flex-col gap-10'>
+              {movie.quotes.map((quote: any) => (
+                <QuoteCard key={quote.id} quote={quote} />
+              ))}
+            </div>
+          </section>
         </div>
       </section>
     </>
@@ -88,7 +107,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
   let movie;
   try {
-    const response = await fetchMovie(Number(id));
+    const response = await fetchMovie(Number(id), context.req.headers.cookie);
     movie = response.data;
     console.log(movie);
   } catch (e) {

@@ -16,6 +16,7 @@ module.exports = {
         '75sc': '75vh',
         371: '371px',
         60: '60px',
+        140: '140px',
         441: '441px',
       },
       width: {
@@ -51,6 +52,7 @@ module.exports = {
       width: {
         530: '530px',
         810: '810px',
+        226: '226px',
       },
       borderColor: {
         search: 'rgba(239, 239, 239, 0.3)',
