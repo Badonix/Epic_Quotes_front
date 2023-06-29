@@ -7,31 +7,10 @@ import {
   Trash,
 } from '@/components/icons';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { ModalContext } from '@/context';
+import { useQuoteCard } from './useQuoteCard';
 export const QuoteCard = ({ quote }: any) => {
   const src = `${process.env.NEXT_PUBLIC_API_URL}/storage/${quote.image}`;
-  const [menuOpen, setMenuOpen] = useState(false);
-  const { setOpenModal } = useContext(ModalContext);
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const router = useRouter();
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(event.target as Node)
-      ) {
-        setMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('mouseup', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mouseup', handleClickOutside);
-    };
-  }, [setOpenModal]);
+  const { menuOpen, router, wrapperRef, setMenuOpen } = useQuoteCard();
   return (
     <div className='bg-singlepost rounded-lg w-full flex flex-col py-6 px-8 gap-6 relative'>
       {menuOpen && (
