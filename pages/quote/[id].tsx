@@ -12,9 +12,13 @@ export const ViewQuote = ({ quote }: any) => {
       <div className='backdrop-blur-md bg-sidebar text-white w-11/12 max-w-4xl rounded-xl'>
         <div className='flex justify-between items-center py-9 px-10 border-b border-search'>
           <div className='flex items-center gap-4 w-32'>
-            <Edit />
+            <div className='cursor-pointer'>
+              <Edit />
+            </div>
             <div className='w-px bg-search h-4'></div>
-            <Trash />
+            <div className='cursor-pointer'>
+              <Trash />
+            </div>
           </div>
           <h2 className='text-2xl'>View Quote</h2>
           <div
