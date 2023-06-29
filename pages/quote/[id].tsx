@@ -36,7 +36,7 @@ export const ViewQuote = ({ quote }: any) => {
               src='/assets/images/default-pfp.png'
               alt='pfp'
             />
-            <h2 className='text-white text-xl'>Nino Tabagari</h2>
+            <h2 className='text-white text-xl'>{quote.user.username}</h2>
           </div>
           <div className='pb-11 mt-7 flex flex-col gap-6 w-full'>
             <div className='flex flex-col gap-3 text-2xl italic text-white'>
