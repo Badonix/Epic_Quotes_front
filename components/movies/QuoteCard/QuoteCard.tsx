@@ -10,7 +10,8 @@ import Image from 'next/image';
 import { useQuoteCard } from './useQuoteCard';
 export const QuoteCard = ({ quote }: any) => {
   const src = `${process.env.NEXT_PUBLIC_API_URL}/storage/${quote.image}`;
-  const { menuOpen, router, wrapperRef, setMenuOpen } = useQuoteCard();
+  const { menuOpen, router, wrapperRef, setMenuOpen, handleDelete } =
+    useQuoteCard();
   return (
     <div className='bg-singlepost rounded-lg w-full flex flex-col py-6 px-8 gap-6 relative'>
       {menuOpen && (
@@ -29,7 +30,10 @@ export const QuoteCard = ({ quote }: any) => {
             <Edit />
             <p>Edit</p>
           </div>
-          <div className='flex text-white gap-4 items-center cursor-pointer'>
+          <div
+            onClick={() => handleDelete(Number(quote.id))}
+            className='flex text-white gap-4 items-center cursor-pointer'
+          >
             <Trash />
             <p>Delete</p>
           </div>

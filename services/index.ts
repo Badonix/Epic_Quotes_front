@@ -167,3 +167,8 @@ export const fetchQuote = async (id: number, cookie: any) => {
   });
   return response;
 };
+
+export const deleteQuote = async (id: number) => {
+  const response = await instance.delete('/api/quotes/' + id);
+  return response;
+};
