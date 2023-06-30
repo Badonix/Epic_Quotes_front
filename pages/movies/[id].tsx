@@ -2,6 +2,7 @@ import {
   Add,
   AddMovieQuote,
   Edit,
+  EditQuote,
   Navbar,
   Sidebar,
   Trash,
@@ -24,6 +25,9 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
       {openModal === 'addquote' && <AddMovieQuote movie={movie} />}
       {openModal === 'viewquote' && (
         <ViewQuote setActiveQuote={setActiveQuote} activeQuote={activeQuote} />
+      )}
+      {openModal === 'editquote' && (
+        <EditQuote setActiveQuote={setActiveQuote} activeQuote={activeQuote} />
       )}
       <Navbar setSidebarActive={setSidebarActive} />
       <section className='min-h-screen pt-24 py-6 flex lg:pr-16 lg:pl-0 px-8'>
