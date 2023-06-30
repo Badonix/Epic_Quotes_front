@@ -53,13 +53,13 @@ export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
           <div className='pb-11 mt-7 flex flex-col gap-6 w-full'>
             <div className='flex flex-col gap-3 text-2xl italic text-white'>
               <div className='border border-search rounded-md px-4 py-2 flex items-center relative'>
-                <p>"{activeQuote.body.en}"</p>
+                <p>&quot;{activeQuote.body.en}&quot;</p>
                 <p className='absolute right-6 text-xl text-gray-600 not-italic'>
                   Eng
                 </p>
               </div>
               <div className='border border-search rounded-md px-4 py-2 flex items-center relative'>
-                <p>"{activeQuote.body.ka}"</p>
+                <p>&quot;{activeQuote.body.ka}&quot;</p>
                 <p className='absolute right-6 text-xl text-gray-600 not-italic'>
                   ქარ
                 </p>
