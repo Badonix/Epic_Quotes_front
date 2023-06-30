@@ -1,11 +1,11 @@
 import { PostComment } from '@/components/feed';
 import { Close, Comment, Edit, Heart, Trash } from '@/components/icons';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useModal } from '@/hooks';
-import { useViewQuote } from './useViewQuote';
 export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
-  const { wrapperRef, setOpenModal } = useModal();
-  const { handleDelete } = useViewQuote(activeQuote.id);
+  console.log(activeQuote);
+  const { wrapperRef } = useModal();
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -14,28 +14,18 @@ export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
       >
         <div className='flex justify-between items-center py-9 px-10 border-b border-search'>
           <div className='flex items-center gap-4 w-32'>
-            <div
-              onClick={() => {
-                setOpenModal('editquote');
-                console.log(activeQuote);
-                setActiveQuote(activeQuote);
-              }}
-              className='cursor-pointer'
-            >
+            <div className='cursor-pointer'>
               <Edit />
             </div>
             <div className='w-px bg-search h-4'></div>
-            <div className='cursor-pointer' onClick={handleDelete}>
+            <div className='cursor-pointer'>
               <Trash />
             </div>
           </div>
           <h2 className='text-2xl'>View Quote</h2>
           <div
             className='cursor-pointer w-32 flex justify-end'
-            onClick={() => {
-              setOpenModal('');
-              setActiveQuote(null);
-            }}
+            onClick={() => setActiveQuote(null)}
           >
             <Close />
           </div>
@@ -48,7 +38,7 @@ export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
               src='/assets/images/default-pfp.png'
               alt='pfp'
             />
-            <h2 className='text-white text-xl'>Nino Tabagari</h2>
+            <h2 className='text-white text-xl'>zd</h2>
           </div>
           <div className='pb-11 mt-7 flex flex-col gap-6 w-full'>
             <div className='flex flex-col gap-3 text-2xl italic text-white'>
