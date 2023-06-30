@@ -8,10 +8,11 @@ import {
 } from '@/components/icons';
 import Image from 'next/image';
 import { useQuoteCard } from './useQuoteCard';
-export const QuoteCard = ({ quote }: any) => {
+import { useModal } from '@/hooks';
+export const QuoteCard = ({ quote, setActiveQuote }: any) => {
   const src = `${process.env.NEXT_PUBLIC_API_URL}/storage/${quote.image}`;
-  const { menuOpen, router, wrapperRef, setMenuOpen, handleDelete } =
-    useQuoteCard();
+  const { menuOpen, wrapperRef, setMenuOpen, handleDelete } = useQuoteCard();
+  const { setOpenModal } = useModal();
   return (
     <div className='bg-singlepost rounded-lg w-full flex flex-col py-6 px-8 gap-6 relative'>
       {menuOpen && (
@@ -20,7 +21,10 @@ export const QuoteCard = ({ quote }: any) => {
           className='flex flex-col gap-8 px-10 py-8 absolute bg-post w-60 rounded-lg top-10 -right-48'
         >
           <div
-            onClick={() => router.push(`/quote/${quote.id}`)}
+            onClick={() => {
+              setActiveQuote(quote);
+              setOpenModal('viewquote');
+            }}
             className='flex text-white gap-4 items-center cursor-pointer'
           >
             <Eye />

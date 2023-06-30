@@ -19,6 +19,7 @@ module.exports = {
         140: '140px',
         441: '441px',
         513: '513px',
+        158: '158px',
       },
       width: {
         440: '440px',
@@ -54,6 +55,7 @@ module.exports = {
         530: '530px',
         810: '810px',
         226: '226px',
+        290: '290px',
       },
       borderColor: {
         search: 'rgba(239, 239, 239, 0.3)',

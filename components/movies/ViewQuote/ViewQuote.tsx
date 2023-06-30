@@ -1,15 +1,17 @@
-import { Close, Comment, Edit, Heart, PostComment, Trash } from '@/components';
-import { fetchQuote } from '@/services';
-import { GetServerSidePropsContext } from 'next';
+import { PostComment } from '@/components/feed';
+import { Close, Comment, Edit, Heart, Trash } from '@/components/icons';
 import Image from 'next/image';
-import React from 'react';
 import { useRouter } from 'next/router';
-
-export const ViewQuote = ({ quote }: any) => {
-  const router = useRouter();
+import { useModal } from '@/hooks';
+export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
+  console.log(activeQuote);
+  const { wrapperRef } = useModal();
   return (
-    <div className='min-h-screen flex items-center justify-center py-4'>
-      <div className='backdrop-blur-md bg-sidebar text-white w-11/12 max-w-4xl rounded-xl'>
+    <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
+      <div
+        ref={wrapperRef}
+        className='backdrop-blur-md bg-sidebar text-white w-11/12 max-w-4xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl'
+      >
         <div className='flex justify-between items-center py-9 px-10 border-b border-search'>
           <div className='flex items-center gap-4 w-32'>
             <div className='cursor-pointer'>
@@ -23,7 +25,7 @@ export const ViewQuote = ({ quote }: any) => {
           <h2 className='text-2xl'>View Quote</h2>
           <div
             className='cursor-pointer w-32 flex justify-end'
-            onClick={() => router.back()}
+            onClick={() => setActiveQuote(null)}
           >
             <Close />
           </div>
@@ -36,25 +38,25 @@ export const ViewQuote = ({ quote }: any) => {
               src='/assets/images/default-pfp.png'
               alt='pfp'
             />
-            <h2 className='text-white text-xl'>{quote.user.username}</h2>
+            <h2 className='text-white text-xl'>zd</h2>
           </div>
           <div className='pb-11 mt-7 flex flex-col gap-6 w-full'>
             <div className='flex flex-col gap-3 text-2xl italic text-white'>
               <div className='border border-search rounded-md px-4 py-2 flex items-center relative'>
-                <p>"{quote.body.en}"</p>
+                <p>"{activeQuote.body.en}"</p>
                 <p className='absolute right-6 text-xl text-gray-600 not-italic'>
                   Eng
                 </p>
               </div>
               <div className='border border-search rounded-md px-4 py-2 flex items-center relative'>
-                <p>"{quote.body.ka}"</p>
+                <p>"{activeQuote.body.ka}"</p>
                 <p className='absolute right-6 text-xl text-gray-600 not-italic'>
                   ქარ
                 </p>
               </div>
             </div>
             <img
-              src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${quote.image}`}
+              src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${activeQuote.image}`}
               className='w-full object-cover h-513 rounded-lg'
             />
             <div className='flex items-center gap-4 text-xl'>
@@ -92,22 +94,5 @@ export const ViewQuote = ({ quote }: any) => {
     </div>
   );
 };
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { id } = context.query;
-  let quote;
-  try {
-    const response = await fetchQuote(Number(id), context.req.headers.cookie);
-    quote = response.data;
-    console.log(quote);
-  } catch (e) {
-    console.log(e);
-  }
-  return {
-    props: {
-      quote,
-    },
-  };
-}
 
 export default ViewQuote;
