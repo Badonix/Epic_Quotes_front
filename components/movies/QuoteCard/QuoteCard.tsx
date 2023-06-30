@@ -30,7 +30,13 @@ export const QuoteCard = ({ quote, setActiveQuote }: any) => {
             <Eye />
             <p>View quote</p>
           </div>
-          <div className='flex text-white gap-4 items-center cursor-pointer'>
+          <div
+            onClick={() => {
+              setActiveQuote(quote);
+              setOpenModal('editquote');
+            }}
+            className='flex text-white gap-4 items-center cursor-pointer'
+          >
             <Edit />
             <p>Edit</p>
           </div>

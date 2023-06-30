@@ -4,9 +4,9 @@ import { useEditQuote } from './useEditQuote';
 import { ErrorMessage } from '@hookform/error-message';
 import { useModal } from '@/hooks';
 export const EditQuote = ({ activeQuote }: any) => {
-  const { errors, handleSubmit, onSubmit, register, preview } =
+  const { errors, handleSubmit, onSubmit, register } =
     useEditQuote(activeQuote);
-  const { wrapperRef, setOpenModal } = useModal();
+  const { wrapperRef } = useModal();
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -21,10 +21,7 @@ export const EditQuote = ({ activeQuote }: any) => {
             </div>
           </div>
           <h2 className='text-2xl'>Edit Quote</h2>
-          <div
-            onClick={() => setOpenModal('')}
-            className='cursor-pointer w-32 flex justify-end'
-          >
+          <div className='cursor-pointer w-32 flex justify-end'>
             <Close />
           </div>
         </div>
@@ -42,7 +39,7 @@ export const EditQuote = ({ activeQuote }: any) => {
             onSubmit={handleSubmit(onSubmit)}
             className='pb-11 mt-7 flex flex-col gap-6 w-full'
           >
-            <div className='flex flex-col gap-8 text-2xl italic w-full text-white'>
+            <div className='flex flex-col gap-3 text-2xl italic w-full text-white'>
               <div className='relative w-full'>
                 <textarea
                   {...register('body.en', { required: 'Quote is required' })}
@@ -51,7 +48,7 @@ export const EditQuote = ({ activeQuote }: any) => {
                 <p className='absolute right-6 top-3 text-xl text-gray-600 not-italic'>
                   Eng
                 </p>
-                <p className='absolute -bottom-6 text-base not-italic text-red-600'>
+                <p className='absolute -bottom-5 text-red-600'>
                   <ErrorMessage name='body.en' errors={errors} />
                 </p>
               </div>
@@ -63,26 +60,20 @@ export const EditQuote = ({ activeQuote }: any) => {
                 <p className='absolute right-6 top-3 text-xl text-gray-600 not-italic'>
                   ქარ
                 </p>
-                <p className='absolute -bottom-6 text-base not-italic text-red-600'>
+                <p className='absolute -bottom-5 text-red-600'>
                   <ErrorMessage name='body.ka' errors={errors} />
                 </p>
               </div>
             </div>
             <div className='relative'>
-              <label htmlFor='img'>
-                <img
-                  src={
-                    preview ||
-                    `${process.env.NEXT_PUBLIC_API_URL}/storage/${activeQuote.image}`
-                  }
-                  className='w-full object-cover w-full h-513 rounded-lg'
-                />
-                <div className='flex cursor-pointer flex-col items-center justify-center gap-2 px-4 py-4 bg-black bg-opacity-30 hover:bg-opacity-60 transition-all rounded-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
-                  <Photo />
-                  <p className='text-white'>Change picture</p>
-                </div>
-              </label>
-              <input id='img' type='file' hidden {...register('image')} />
+              <img
+                src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${activeQuote.image}`}
+                className='w-full object-cover w-full h-513 rounded-lg'
+              />
+              <div className='flex cursor-pointer flex-col items-center justify-center gap-2 px-4 py-4 bg-black bg-opacity-30 hover:bg-opacity-60 transition-all rounded-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+                <Photo />
+                <p className='text-white'>Change picture</p>
+              </div>
             </div>
             <button
               type='submit'

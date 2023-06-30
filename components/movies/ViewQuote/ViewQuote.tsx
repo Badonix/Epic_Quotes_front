@@ -1,11 +1,9 @@
 import { PostComment } from '@/components/feed';
 import { Close, Comment, Edit, Heart, Trash } from '@/components/icons';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { useModal } from '@/hooks';
 export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
-  console.log(activeQuote);
-  const { wrapperRef } = useModal();
+  const { wrapperRef, setOpenModal } = useModal();
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -25,7 +23,10 @@ export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
           <h2 className='text-2xl'>View Quote</h2>
           <div
             className='cursor-pointer w-32 flex justify-end'
-            onClick={() => setActiveQuote(null)}
+            onClick={() => {
+              setOpenModal('');
+              setActiveQuote(null);
+            }}
           >
             <Close />
           </div>
@@ -38,7 +39,7 @@ export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
               src='/assets/images/default-pfp.png'
               alt='pfp'
             />
-            <h2 className='text-white text-xl'>zd</h2>
+            <h2 className='text-white text-xl'>Nino Tabagari</h2>
           </div>
           <div className='pb-11 mt-7 flex flex-col gap-6 w-full'>
             <div className='flex flex-col gap-3 text-2xl italic text-white'>
