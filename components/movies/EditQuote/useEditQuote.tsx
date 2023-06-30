@@ -15,17 +15,15 @@ export const useEditQuote = (quote: any) => {
   const router = useRouter();
   const banner = useWatch({ control, name: 'image' });
   useEffect(() => {
-    setValue('body.ka', quote?.body.ka);
-    setValue('body.en', quote?.body.en);
+    setValue('body.ka', quote?.body?.ka);
+    setValue('body.en', quote?.body?.en);
   }, []);
   const onSubmit = async (data: any) => {
     try {
-      console.log(data);
       data.movie_id = router.query.id;
       await fetchCSRFToken();
       const res = await editQuote(quote.id, data);
       res.status === 200 && router.reload();
-      console.log(res);
     } catch (e) {
       setLoading(false);
       console.log(e);

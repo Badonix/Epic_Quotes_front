@@ -2,8 +2,10 @@ import { PostComment } from '@/components/feed';
 import { Close, Comment, Edit, Heart, Trash } from '@/components/icons';
 import Image from 'next/image';
 import { useModal } from '@/hooks';
+import { useViewQuote } from './useViewQuote';
 export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
   const { wrapperRef, setOpenModal } = useModal();
+  const { handleDelete } = useViewQuote(activeQuote.id);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -12,11 +14,18 @@ export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
       >
         <div className='flex justify-between items-center py-9 px-10 border-b border-search'>
           <div className='flex items-center gap-4 w-32'>
-            <div className='cursor-pointer'>
+            <div
+              onClick={() => {
+                setOpenModal('editquote');
+                console.log(activeQuote);
+                setActiveQuote(activeQuote);
+              }}
+              className='cursor-pointer'
+            >
               <Edit />
             </div>
             <div className='w-px bg-search h-4'></div>
-            <div className='cursor-pointer'>
+            <div className='cursor-pointer' onClick={handleDelete}>
               <Trash />
             </div>
           </div>

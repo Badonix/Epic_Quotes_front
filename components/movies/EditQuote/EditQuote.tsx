@@ -6,7 +6,7 @@ import { useModal } from '@/hooks';
 export const EditQuote = ({ activeQuote }: any) => {
   const { errors, handleSubmit, onSubmit, register, preview } =
     useEditQuote(activeQuote);
-  const { wrapperRef } = useModal();
+  const { wrapperRef, setOpenModal } = useModal();
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -21,7 +21,10 @@ export const EditQuote = ({ activeQuote }: any) => {
             </div>
           </div>
           <h2 className='text-2xl'>Edit Quote</h2>
-          <div className='cursor-pointer w-32 flex justify-end'>
+          <div
+            onClick={() => setOpenModal('')}
+            className='cursor-pointer w-32 flex justify-end'
+          >
             <Close />
           </div>
         </div>
