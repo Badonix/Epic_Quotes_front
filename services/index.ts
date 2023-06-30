@@ -10,6 +10,21 @@ const instance = axios.create({
   withCredentials: true,
 });
 
+instance.interceptors.response.use(
+  async (response) => {
+    return response;
+  },
+
+  async (error) => {
+    const status = error?.response?.status;
+    if (status === 404) {
+    } else if (status === 403 || status === 401) {
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 export const register = async (data: any) => {
   const response = await instance.post('/api/register', data);
   return response;
@@ -27,6 +42,8 @@ export const fetchCSRFToken = async () => {
 
 export const login = async (data: any) => {
   const response = await instance.post('/api/login', data);
+  const { email, username } = response.data.user;
+  localStorage.setItem('user', JSON.stringify({ email, username }));
   return response;
 };
 
@@ -76,13 +93,25 @@ export const addMovie = async (data: AddMovieType) => {
   return response;
 };
 
-export const fetchMovies = async () => {
-  const response = await instance.get('/api/movies');
+export const fetchMovies = async (cookie: any) => {
+  const response = await instance.get('/api/movies', {
+    headers: {
+      Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
+      Referer: process.env.NEXT_PUBLIC_API_REFERER,
+      Cookie: cookie,
+    },
+  });
   return response;
 };
 
-export const fetchMovie = async (id: number) => {
-  const response = await instance.get(`/api/movies/${id}`);
+export const fetchMovie = async (id: number, cookie: any) => {
+  const response = await instance.get(`/api/movies/${id}`, {
+    headers: {
+      Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
+      Referer: process.env.NEXT_PUBLIC_API_REFERER,
+      Cookie: cookie,
+    },
+  });
   return response;
 };
 
@@ -109,5 +138,57 @@ export const editMovie = async (data: any, id: number) => {
       'Content-Type': 'multipart/form-data',
     },
   });
+  return response;
+};
+
+export const addQuote = async (data: any) => {
+  const { body, movie_id, image } = data;
+  const quoteData = {
+    body,
+    movie_id,
+    image: image[0],
+  };
+  console.log(body);
+  const response = await instance.post('/api/quotes', quoteData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response;
+};
+
+export const fetchQuote = async (id: number, cookie: any) => {
+  const response = await instance.get('/api/quotes/' + id, {
+    headers: {
+      Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
+      Referer: process.env.NEXT_PUBLIC_API_REFERER,
+      Cookie: cookie,
+    },
+  });
+  return response;
+};
+
+export const deleteQuote = async (id: number) => {
+  const response = await instance.delete('/api/quotes/' + id);
+  return response;
+};
+
+export const editQuote = async (quoteId: number, data: any) => {
+  const { body, image, movie_id } = data;
+  const quoteData = {
+    body,
+    image: image[0],
+    movie_id,
+  };
+  console.log(data);
+  const response = await instance.post(
+    '/api/quotes/' + quoteId + '/edit',
+    quoteData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
   return response;
 };

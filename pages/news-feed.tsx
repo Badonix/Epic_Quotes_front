@@ -1,12 +1,23 @@
-import { Post, SearchPost, FeedNavbar, Sidebar } from '@/components';
+import {
+  Post,
+  SearchPost,
+  FeedNavbar,
+  Sidebar,
+  AddQuoteModal,
+} from '@/components';
+import { ModalContext } from '@/context';
 import { useNewsFeed } from '@/hooks';
-import React from 'react';
+import { fetchMovies } from '@/services';
+import React, { useContext } from 'react';
 
-const NewsFeed = () => {
+const NewsFeed = ({ movies }: any) => {
   const { setSearchActive, setSidebarActive, sidebarActive, searchActive } =
     useNewsFeed();
+  const { openModal } = useContext(ModalContext);
+
   return (
     <>
+      {openModal === 'postquote' && <AddQuoteModal movies={movies} />}
       <FeedNavbar
         setSearchActive={setSearchActive}
         setSidebarActive={setSidebarActive}
@@ -33,4 +44,15 @@ const NewsFeed = () => {
   );
 };
 
+export async function getServerSideProps(context: any) {
+  let movies;
+  try {
+    console.log(context.req.headers.cookie);
+    const res = await fetchMovies(context.req.headers.cookie);
+    movies = res.data;
+  } catch (e) {
+    // console.log(e);
+  }
+  return { props: { movies } };
+}
 export default NewsFeed;

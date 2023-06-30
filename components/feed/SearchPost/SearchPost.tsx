@@ -1,7 +1,9 @@
 import React from 'react';
 import { Search, Write, Back } from '@/components/icons';
 import { PropsType } from './types';
+import { useModal } from '@/hooks';
 const SearchPost: React.FC<PropsType> = ({ searchActive, setSearchActive }) => {
+  const { setOpenModal } = useModal();
   return (
     <>
       {searchActive && (
@@ -43,7 +45,7 @@ const SearchPost: React.FC<PropsType> = ({ searchActive, setSearchActive }) => {
         ) : (
           <div
             onClick={() => {
-              console.log('Opening new post modal');
+              setOpenModal('postquote');
             }}
             className='cursor-pointer bg-post py-3 h-14 px-3 pointer flex items-center rounded-lg w-full gap-4'
           >
