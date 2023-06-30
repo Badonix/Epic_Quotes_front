@@ -1,4 +1,6 @@
+import { editQuote, fetchCSRFToken } from '@/services';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { useForm, useWatch } from 'react-hook-form';
 export const useEditQuote = (quote: any) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -10,14 +12,20 @@ export const useEditQuote = (quote: any) => {
     formState: { errors },
     control,
   } = useForm();
+  const router = useRouter();
   const banner = useWatch({ control, name: 'image' });
   useEffect(() => {
     setValue('body.ka', quote?.body.ka);
     setValue('body.en', quote?.body.en);
-  });
+  }, []);
   const onSubmit = async (data: any) => {
     try {
       console.log(data);
+      data.movie_id = router.query.id;
+      await fetchCSRFToken();
+      const res = await editQuote(quote.id, data);
+      res.status === 200 && router.reload();
+      console.log(res);
     } catch (e) {
       setLoading(false);
       console.log(e);
