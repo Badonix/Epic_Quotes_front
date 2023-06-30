@@ -172,3 +172,23 @@ export const deleteQuote = async (id: number) => {
   const response = await instance.delete('/api/quotes/' + id);
   return response;
 };
+
+export const editQuote = async (quoteId: number, data: any) => {
+  const { body, image, movie_id } = data;
+  const quoteData = {
+    body,
+    image: image[0],
+    movie_id,
+  };
+  console.log(data);
+  const response = await instance.post(
+    '/api/quotes/' + quoteId + '/edit',
+    quoteData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+  return response;
+};
