@@ -1,8 +1,11 @@
 import { Navbar, Sidebar } from '@/components';
 import { useProfile } from '@/hooks/useProfile';
+import { me } from '@/services';
 import { ErrorMessage } from '@hookform/error-message';
+import { GetServerSidePropsContext } from 'next';
 
-const Profile = () => {
+const Profile = ({ user }: any) => {
+  console.log(user);
   const {
     emailActive,
     passwordActive,
@@ -14,6 +17,7 @@ const Profile = () => {
     usernameActive,
     handleSubmit,
     onSubmit,
+    setPreview,
     validatePassword,
     errors,
     showLengthError,
@@ -21,8 +25,8 @@ const Profile = () => {
     register,
     password,
     reset,
+    preview,
   } = useProfile();
-  console.log(errors);
   return (
     <>
       <Navbar setSidebarActive={setSidebarActive} />
@@ -42,14 +46,24 @@ const Profile = () => {
                   className='w-full flex justify-center flex-col'
                 >
                   <div className='flex flex-col justify-center items-center gap-2 absolute left-1/2 -top-24 -translate-x-1/2 '>
-                    <label htmlFor="avatar">
-                    <img
-                      src='/assets/images/default-pfp.png'
-                      alt='pfp'
-                      className='w-44 h-44 object-cover rounded-full cursor-pointer'
+                    <label htmlFor='avatar'>
+                      <img
+                        src={
+                          preview ||
+                          process.env.NEXT_PUBLIC_API_URL +
+                            '/storage/' +
+                            user.avatar
+                        }
+                        alt='pfp'
+                        className='w-44 h-44 object-cover rounded-full cursor-pointer'
                       />
                     </label>
-                    <input {...register('avatar')} type='file' hidden id='avatar' />
+                    <input
+                      {...register('avatar')}
+                      type='file'
+                      hidden
+                      id='avatar'
+                    />
                     <label htmlFor='profileimg' className='text-white text-xl'>
                       Upload new photo
                     </label>
@@ -60,6 +74,7 @@ const Profile = () => {
                       <div className='flex items-center gap-4'>
                         <input
                           disabled
+                          value={user.username}
                           className='w-full px-4 py-2 outline-none bg-gray-300 rounded-md text-black text-xl'
                           type='text'
                         />
@@ -89,7 +104,9 @@ const Profile = () => {
                           <p className='text-xl select-none text-transparent'>
                             Edit
                           </p>
-                          <p className='absolute -bottom-8 text-red-600 text-xl'><ErrorMessage errors={errors} name='username'/></p>
+                          <p className='absolute -bottom-8 text-red-600 text-xl'>
+                            <ErrorMessage errors={errors} name='username' />
+                          </p>
                         </div>
                       </div>
                     )}
@@ -97,6 +114,7 @@ const Profile = () => {
                       <label className='text-base text-white'>Email</label>
                       <div className='flex items-center gap-4'>
                         <input
+                          value={user.email}
                           disabled
                           className='w-full px-4 py-2 outline-none bg-gray-300 rounded-md text-black text-xl'
                           type='text'
@@ -130,7 +148,9 @@ const Profile = () => {
                           <p className='text-xl select-none text-transparent'>
                             Edit
                           </p>
-                          <p className='absolute -bottom-8 text-red-600 text-xl'><ErrorMessage errors={errors} name='email'/></p>
+                          <p className='absolute -bottom-8 text-red-600 text-xl'>
+                            <ErrorMessage errors={errors} name='email' />
+                          </p>
                         </div>
                       </div>
                     )}
@@ -139,6 +159,7 @@ const Profile = () => {
                       <div className='flex items-center gap-4'>
                         <input
                           disabled
+                          value='password'
                           className='w-full px-4 py-2 outline-none bg-gray-300 rounded-md text-black text-xl'
                           type='password'
                         />
@@ -208,31 +229,42 @@ const Profile = () => {
                             <p className='text-xl select-none text-transparent'>
                               Edit
                             </p>
-                          <p className='absolute -bottom-8 text-red-600 text-xl'><ErrorMessage errors={errors} name='password_confirmation'/></p>
+                            <p className='absolute -bottom-8 text-red-600 text-xl'>
+                              <ErrorMessage
+                                errors={errors}
+                                name='password_confirmation'
+                              />
+                            </p>
                           </div>
                         </div>
                       </>
                     )}
                   </div>
-                  <div className='absolute items-center gap-6 -bottom-14 flex w-full max-w-5xl justify-end mt-16'>
-                    <p
-                      onClick={() => {
-                        setEmailActive(false);
-                        setPasswordActive(false);
-                        setUsernameActive(false);
-                        reset();
-                      }}
-                      className='cursor-pointer text-xl text-gray-300'
-                    >
-                      Cancel
-                    </p>
-                    <button
-                      type='submit'
-                      className='disabled:bg-red-700 rounded-4 px-4 py-2 bg-red-600 text-white'
-                    >
-                      Save changes
-                    </button>
-                  </div>
+                  {passwordActive ||
+                    usernameActive ||
+                    emailActive ||
+                    (preview && (
+                      <div className='absolute items-center gap-6 -bottom-14 flex w-full max-w-5xl justify-end mt-16'>
+                        <p
+                          onClick={() => {
+                            setEmailActive(false);
+                            setPasswordActive(false);
+                            setUsernameActive(false);
+                            setPreview(undefined);
+                            reset();
+                          }}
+                          className='cursor-pointer text-xl text-gray-300'
+                        >
+                          Cancel
+                        </p>
+                        <button
+                          type='submit'
+                          className='disabled:bg-red-700 rounded-4 px-4 py-2 bg-red-600 text-white'
+                        >
+                          Save changes
+                        </button>
+                      </div>
+                    ))}
                 </form>
               </div>
             </section>
@@ -242,5 +274,15 @@ const Profile = () => {
     </>
   );
 };
+
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  let user;
+  try {
+    user = await me(ctx.req.headers.cookie);
+  } catch (e) {
+    console.log(e);
+  }
+  return { props: { user: user?.data } };
+}
 
 export default Profile;

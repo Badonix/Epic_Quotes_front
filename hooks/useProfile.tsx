@@ -1,11 +1,13 @@
 import { fetchCSRFToken, updateProfile } from '@/services';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
+import { useRouter } from 'next/router';
 export const useProfile = () => {
   const [sidebarActive, setSidebarActive] = useState<boolean>(false);
   const [usernameActive, setUsernameActive] = useState<boolean>(false);
   const [emailActive, setEmailActive] = useState<boolean>(false);
   const [passwordActive, setPasswordActive] = useState<boolean>(false);
+  const [preview, setPreview] = useState();
   const {
     register,
     handleSubmit,
@@ -13,14 +15,18 @@ export const useProfile = () => {
     control,
     formState: { errors },
   } = useForm({ shouldUnregister: true, mode: 'all' });
+  const router = useRouter();
   let password = useWatch({ control, name: 'password' });
+  let avatar = useWatch({ control, name: 'avatar' });
   const onSubmit = async (data: any) => {
-    let response;
-    if (data.length) {
+    try {
       await fetchCSRFToken();
-      response = await updateProfile(data);
+      let response = await updateProfile(data);
+      response.status == 200 && router.reload();
+      console.log(response);
+    } catch (e) {
+      console.log(e);
     }
-    console.log(response);
   };
   const validatePassword = (value: string) => {
     const lowercaseRegex = /[a-z]/g;
@@ -32,10 +38,20 @@ export const useProfile = () => {
 
     return true;
   };
+  useEffect(() => {
+    let objectUrl: any;
+    if (avatar) {
+      objectUrl = URL.createObjectURL(avatar[0]);
+      console.log(objectUrl);
+      setPreview(objectUrl);
+    }
+
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [avatar]);
 
   const showLengthError = () => {
     if (password?.length > 8) {
-      return 'marker:text-green-400 text-white';
+      return 'marker:text-green-300 text-white';
     } else {
       return 'text-gray-600';
     }
@@ -44,7 +60,7 @@ export const useProfile = () => {
     if (errors?.password?.type == 'validate' || !password) {
       return 'text-gray-600';
     } else if (password?.length >= 8) {
-      return 'marker:text-green-400 text-white';
+      return 'marker:text-green-300 text-white';
     } else {
       return 'text-gray-600';
     }
@@ -67,5 +83,7 @@ export const useProfile = () => {
     errors,
     showLengthError,
     showLowercaseError,
+    setPreview,
+    preview,
   };
 };
