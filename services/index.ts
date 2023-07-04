@@ -192,3 +192,13 @@ export const editQuote = async (quoteId: number, data: any) => {
   );
   return response;
 };
+
+export const updateProfile = async (data: any) => {
+  const response = await instance.post('/api/profile', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return response;
+};

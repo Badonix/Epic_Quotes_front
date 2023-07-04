@@ -21,14 +21,14 @@ const Sidebar: React.FC<PropsType> = ({ sidebarActive, currentPage }) => {
             src='/assets/images/default-pfp.png'
             className={
               currentPage === 'profile'
-                ? 'rounded-full border border-red-600'
+                ? 'rounded-full border-2 border-red-600'
                 : 'rounded-full'
             }
           />
           <div className='h-60 flex flex-col justify-between items-between text-white'>
             <h2 className='text-2xl'>Nino Tabagari</h2>
             <div className='text-gray-300'>
-              <a href='#'>Edit your profile</a>
+              <Link href='/profile'>Edit your profile</Link>
             </div>
           </div>
         </div>
