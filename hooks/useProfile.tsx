@@ -8,24 +8,50 @@ export const useProfile = () => {
   const [emailActive, setEmailActive] = useState<boolean>(false);
   const [passwordActive, setPasswordActive] = useState<boolean>(false);
   const [preview, setPreview] = useState();
+  const [confirmation, setConfirmation] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     reset,
     control,
+    setError,
+    setValue,
     formState: { errors },
-  } = useForm({ shouldUnregister: true, mode: 'all' });
+  } = useForm({ shouldUnregister: true, mode: 'onChange' });
   const router = useRouter();
   let password = useWatch({ control, name: 'password' });
+
+  let passwordConfirmation = useWatch({
+    control,
+    name: 'password_confirmation',
+  });
+  let email = useWatch({ control, name: 'email' });
+  let mobileUsername = useWatch({ control, name: 'mobile_username' });
+
   let avatar = useWatch({ control, name: 'avatar' });
   const onSubmit = async (data: any) => {
+    console.log(data);
     try {
       await fetchCSRFToken();
       let response = await updateProfile(data);
       response.status == 200 && router.reload();
       console.log(response);
-    } catch (e) {
+    } catch (e: any) {
       console.log(e);
+      if (e.response.data.errors.email) {
+        setError('email', { type: 'unique', message: 'Email already taken' });
+        setConfirmation(false);
+      } else if (e.response.data.errors.username) {
+        setError('username', {
+          type: 'unique',
+          message: 'Username already taken',
+        });
+        setError('mobile_username', {
+          type: 'unique',
+          message: 'Username already taken',
+        });
+        setConfirmation(false);
+      }
     }
   };
   const validatePassword = (value: string) => {
@@ -38,15 +64,61 @@ export const useProfile = () => {
 
     return true;
   };
+
+  const handleUsernameEdit = () => {
+    !mobileUsername
+      ? setError('mobile_username', {
+          type: 'required',
+          message: 'Username is required',
+        })
+      : setConfirmation(true);
+  };
+  const handleEmailEdit = () => {
+    if (!email) {
+      setError('mobile_email', {
+        type: 'required',
+        message: 'Email is reqiured',
+      });
+    } else {
+      setConfirmation(true);
+    }
+  };
+
+  const handlePasswordEdit = () => {
+    if (!password) {
+      setError('mobile_password', {
+        type: 'required',
+        message: 'Password is reqiured',
+      });
+    } else if (!passwordConfirmation) {
+      setError('mobile_password_confirmation', {
+        type: 'required',
+        message: 'Password confirmation is required',
+      });
+    } else if (passwordConfirmation != password) {
+      setError('mobile_password_confirmation', {
+        type: 'validate',
+        message: 'Passwords do not match',
+      });
+    } else {
+      setConfirmation(true);
+    }
+  };
+
   useEffect(() => {
     let objectUrl: any;
-    if (avatar) {
+    if (avatar && avatar[0] instanceof File) {
       objectUrl = URL.createObjectURL(avatar[0]);
       console.log(objectUrl);
       setPreview(objectUrl);
+      setConfirmation(true);
     }
 
-    return () => URL.revokeObjectURL(objectUrl);
+    return () => {
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+      }
+    };
   }, [avatar]);
 
   const showLengthError = () => {
@@ -85,5 +157,11 @@ export const useProfile = () => {
     showLowercaseError,
     setPreview,
     preview,
+    confirmation,
+    setConfirmation,
+    handleUsernameEdit,
+    handleEmailEdit,
+    handlePasswordEdit,
+    router,
   };
 };

@@ -46,7 +46,7 @@ module.exports = {
         search: 'rgba(239, 239, 239, 0.3)',
       },
       background: {
-        gradient: 'linear-gradient(0deg, #11101a 0%, #08080d 50.52%);',
+        gradientt: 'linear-gradient(0deg, #11101a 0%, #08080d 50.52%);',
       },
       borderRadius: {
         4: '4px',
@@ -59,6 +59,9 @@ module.exports = {
       },
       borderColor: {
         search: 'rgba(239, 239, 239, 0.3)',
+      },
+      margin: {
+        88: '88px',
       },
     },
   },
