@@ -1,4 +1,4 @@
-import { addMovie as AddMovieType } from '@/types';
+import { addMovie as AddMovieType, updateProfileType } from '@/types';
 import axios from 'axios';
 
 const instance = axios.create({
@@ -199,12 +199,8 @@ export const editQuote = async (quoteId: number, data: any) => {
   return response;
 };
 
-export const updateProfile = async (data: any) => {
-  let profileData = data;
-  if (profileData.avatar) {
-    profileData.avatar = data.avatar[0];
-  }
-  const response = await instance.post('/api/profile', profileData, {
+export const updateProfile = async (data: updateProfileType) => {
+  const response = await instance.post('/api/profile', data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

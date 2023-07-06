@@ -34,7 +34,13 @@ export const useProfileForm = (confirmation: any, setConfirmation: any) => {
     formState: { errors },
   } = useForm({ shouldUnregister: true, mode: 'onChange' });
   const router = useRouter();
-  let { password, passwordConfirmation, email, username, avatar } = useWatch({
+  let {
+    password,
+    password_confirmation: passwordConfirmation,
+    email,
+    username,
+    avatar,
+  } = useWatch({
     control,
   });
 
@@ -42,9 +48,14 @@ export const useProfileForm = (confirmation: any, setConfirmation: any) => {
     console.log(data);
     try {
       await fetchCSRFToken();
-      let response = await updateProfile(data);
-      response.status == 200 && router.reload();
+      let profileData = data;
+      if (profileData.avatar) {
+        profileData.avatar = data.avatar[0];
+      }
+      let response = await updateProfile(profileData);
+      router.reload();
       console.log(response);
+      router.push('profile', 'profile', { shallow: true });
     } catch (e: any) {
       console.log(e);
       if (e.response.data.errors.email) {
@@ -117,7 +128,6 @@ export const useProfileForm = (confirmation: any, setConfirmation: any) => {
       setConfirmation(true);
     }
   };
-
   useEffect(() => {
     let objectUrl: any;
     if (avatar && avatar[0] instanceof File) {
@@ -134,22 +144,6 @@ export const useProfileForm = (confirmation: any, setConfirmation: any) => {
     };
   }, [avatar]);
 
-  const showLengthError = () => {
-    if (password?.length > 8) {
-      return 'marker:text-green-300 text-white';
-    } else {
-      return 'text-gray-600';
-    }
-  };
-  const showLowercaseError = () => {
-    if (errors?.password?.type == 'validate' || !password) {
-      return 'text-gray-600';
-    } else if (password?.length >= 8) {
-      return 'marker:text-green-300 text-white';
-    } else {
-      return 'text-gray-600';
-    }
-  };
   return {
     validatePassword,
     usernameActive,
@@ -164,8 +158,6 @@ export const useProfileForm = (confirmation: any, setConfirmation: any) => {
     password,
     handleSubmit,
     errors,
-    showLengthError,
-    showLowercaseError,
     setPreview,
     preview,
     confirmation,

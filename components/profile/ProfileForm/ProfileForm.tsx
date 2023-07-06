@@ -1,7 +1,7 @@
 import React from 'react';
 import { useProfileForm } from './useProfileForm';
 import { ErrorMessage } from '@hookform/error-message';
-
+import { showLowercaseError, showLengthError } from './helpers';
 export const ProfileForm = ({ user, setConfirmation, confirmation }: any) => {
   const {
     emailActive,
@@ -16,8 +16,6 @@ export const ProfileForm = ({ user, setConfirmation, confirmation }: any) => {
     validatePassword,
     handleUsernameEdit,
     errors,
-    showLengthError,
-    showLowercaseError,
     register,
     password,
     reset,
@@ -246,10 +244,10 @@ export const ProfileForm = ({ user, setConfirmation, confirmation }: any) => {
                       Password shoud contain:
                     </p>
                     <ul className='list-disc list-inside mt-4'>
-                      <li className={showLengthError()}>
+                      <li className={showLengthError(password)}>
                         8 or more characters
                       </li>
-                      <li className={showLowercaseError()}>
+                      <li className={showLowercaseError(password, errors)}>
                         15 lowercase characters
                       </li>
                     </ul>

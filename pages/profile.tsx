@@ -1,5 +1,5 @@
 import { Back, Navbar, ProfileForm, Sidebar } from '@/components';
-import { useProfile } from '@/hooks/useProfile';
+import { useProfile } from '@/hooks';
 import { me } from '@/services';
 import { GetServerSidePropsContext } from 'next';
 
