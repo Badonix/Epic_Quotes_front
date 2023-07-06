@@ -16,3 +16,11 @@ export type addMovie = {
   year: number;
   banner: Array;
 };
+
+export type updateProfileType = {
+  username?: string;
+  password?: string;
+  password_confirmation?: string;
+  email?: string;
+  avatar?: File;
+};

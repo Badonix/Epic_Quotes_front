@@ -1,4 +1,4 @@
-import { addMovie as AddMovieType } from '@/types';
+import { addMovie as AddMovieType, updateProfileType } from '@/types';
 import axios from 'axios';
 
 const instance = axios.create({
@@ -56,8 +56,14 @@ export const resetPassword = async (data: any) => {
   const response = await instance.post('/api/reset-password', data);
   return response;
 };
-export const me = async () => {
-  const response = await instance.get('api/me');
+export const me = async (cookie?: any) => {
+  const response = await instance.get('api/me', {
+    headers: {
+      Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
+      Referer: process.env.NEXT_PUBLIC_API_REFERER,
+      Cookie: cookie,
+    },
+  });
   return response;
 };
 
@@ -93,14 +99,14 @@ export const addMovie = async (data: AddMovieType) => {
   return response;
 };
 
-export const fetchMovies = async (cookie: any) => {
-  const response = await instance.get('/api/movies', {
-    headers: {
-      Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
-      Referer: process.env.NEXT_PUBLIC_API_REFERER,
-      Cookie: cookie,
-    },
-  });
+export const fetchMovies = async (cookie?: any) => {
+  const headers = {
+    Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
+    Referer: process.env.NEXT_PUBLIC_API_REFERER,
+    Cookie: null,
+  };
+  if (cookie) headers.Cookie = cookie;
+  const response = await instance.get('/api/movies', { headers });
   return response;
 };
 
@@ -190,5 +196,15 @@ export const editQuote = async (quoteId: number, data: any) => {
       },
     }
   );
+  return response;
+};
+
+export const updateProfile = async (data: updateProfileType) => {
+  const response = await instance.post('/api/profile', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
   return response;
 };
