@@ -1,7 +1,6 @@
 import { Back, Navbar, ProfileForm, Sidebar } from '@/components';
 import { useProfile } from '@/hooks/useProfile';
 import { me } from '@/services';
-import { ErrorMessage } from '@hookform/error-message';
 import { GetServerSidePropsContext } from 'next';
 
 export const Profile = ({ user }: any) => {
