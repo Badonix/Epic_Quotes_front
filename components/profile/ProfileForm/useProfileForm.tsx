@@ -2,13 +2,18 @@ import { fetchCSRFToken, updateProfile } from '@/services';
 import { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useRouter } from 'next/router';
-export const useProfileForm = (confirmation: any, setConfirmation: any) => {
+import { User } from './types';
+export const useProfileForm = (
+  confirmation: boolean,
+  setConfirmation: React.Dispatch<React.SetStateAction<boolean>>,
+  user: User
+) => {
   const [usernameActive, setUsernameActive] = useState<boolean>(false);
   const [emailActive, setEmailActive] = useState<boolean>(false);
   const [passwordActive, setPasswordActive] = useState<boolean>(false);
   const [preview, setPreview] = useState();
   const [windowWidth, setWindowWidth] = useState<number | null>(null);
-
+  const [userData, setUserData] = useState(user);
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -53,9 +58,13 @@ export const useProfileForm = (confirmation: any, setConfirmation: any) => {
         profileData.avatar = data.avatar[0];
       }
       let response = await updateProfile(profileData);
-      router.reload();
+      setUserData(response.data.user);
+      setConfirmation(false);
+      setUsernameActive(false);
+      setEmailActive(false);
+      setPasswordActive(false);
+      setPreview(undefined);
       console.log(response);
-      router.push('profile', 'profile', { shallow: true });
     } catch (e: any) {
       console.log(e);
       if (e.response.data.errors.email) {
@@ -167,5 +176,6 @@ export const useProfileForm = (confirmation: any, setConfirmation: any) => {
     handlePasswordEdit,
     router,
     windowWidth,
+    userData,
   };
 };

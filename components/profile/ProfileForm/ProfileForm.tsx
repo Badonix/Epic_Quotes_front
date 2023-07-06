@@ -2,7 +2,12 @@ import React from 'react';
 import { useProfileForm } from './useProfileForm';
 import { ErrorMessage } from '@hookform/error-message';
 import { showLowercaseError, showLengthError } from './helpers';
-export const ProfileForm = ({ user, setConfirmation, confirmation }: any) => {
+import { ProfileFormProps } from './types';
+export const ProfileForm: React.FC<ProfileFormProps> = ({
+  user,
+  setConfirmation,
+  confirmation,
+}) => {
   const {
     emailActive,
     passwordActive,
@@ -23,7 +28,8 @@ export const ProfileForm = ({ user, setConfirmation, confirmation }: any) => {
     handleEmailEdit,
     handlePasswordEdit,
     windowWidth,
-  } = useProfileForm(confirmation, setConfirmation);
+    userData,
+  } = useProfileForm(confirmation, setConfirmation, user);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -34,7 +40,7 @@ export const ProfileForm = ({ user, setConfirmation, confirmation }: any) => {
           <img
             src={
               preview ||
-              process.env.NEXT_PUBLIC_API_URL + '/storage/' + user.avatar
+              process.env.NEXT_PUBLIC_API_URL + '/storage/' + userData.avatar
             }
             alt='pfp'
             className='w-44 h-44 object-cover rounded-full cursor-pointer'
@@ -51,7 +57,7 @@ export const ProfileForm = ({ user, setConfirmation, confirmation }: any) => {
           <div className='flex items-center gap-4 relative'>
             <input
               disabled
-              value={user.username}
+              value={userData.username}
               className='w-full md:px-4 pr-9 md:py-2 py-3 outline-none border-b text-gray-300 border-search md:border-none bg-transparent md:bg-gray-300  rounded-md md:text-black text-xl'
               type='text'
             />
@@ -130,7 +136,7 @@ export const ProfileForm = ({ user, setConfirmation, confirmation }: any) => {
           <label className='text-base text-white'>Email</label>
           <div className='flex items-center gap-4 relative'>
             <input
-              value={user.email}
+              value={userData.email}
               disabled
               className='w-full md:px-4 pr-9 md:py-2 py-3 outline-none border-b text-gray-300 border-search md:border-none bg-transparent md:bg-gray-300  rounded-md md:text-black text-xl'
               type='text'
@@ -214,7 +220,7 @@ export const ProfileForm = ({ user, setConfirmation, confirmation }: any) => {
             )}
           </>
         )}
-        {!user.google_id && (
+        {!userData.google_id && (
           <div className='flex flex-col w-full max-w-md gap-2'>
             <label className='text-base text-white'>Password</label>
             <div className='flex items-center gap-4 relative'>
@@ -234,7 +240,7 @@ export const ProfileForm = ({ user, setConfirmation, confirmation }: any) => {
           </div>
         )}
 
-        {passwordActive && !user?.google_id && (
+        {passwordActive && !userData?.google_id && (
           <>
             {windowWidth && windowWidth >= 768 ? (
               <>
