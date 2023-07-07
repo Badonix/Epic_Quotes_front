@@ -7,10 +7,11 @@ import {
 } from '@/components';
 import { ModalContext } from '@/context';
 import { useNewsFeed } from '@/hooks';
-import { fetchMovies } from '@/services';
+import { fetchMovies, fetchPosts } from '@/services';
+import { PostType } from '@/types';
 import React, { useContext } from 'react';
 
-const NewsFeed = ({ movies }: any) => {
+const NewsFeed = ({ movies, posts }: any) => {
   const { setSearchActive, setSidebarActive, sidebarActive, searchActive } =
     useNewsFeed();
   const { openModal } = useContext(ModalContext);
@@ -34,8 +35,9 @@ const NewsFeed = ({ movies }: any) => {
             setSearchActive={setSearchActive}
           />
           <div className='w-full px-10 mt-6 flex flex-col gap-10'>
-            <Post />
-            <Post />
+            {posts.map((post: PostType) => {
+              return <Post post={post} />;
+            })}
           </div>
         </div>
         <div className='lg:w-530'></div>
@@ -45,14 +47,16 @@ const NewsFeed = ({ movies }: any) => {
 };
 
 export async function getServerSideProps(context: any) {
-  let movies;
+  let movies, posts;
   try {
     console.log(context.req.headers.cookie);
     const res = await fetchMovies(context.req.headers.cookie);
+    const quotes = await fetchPosts();
+    posts = quotes.data;
     movies = res.data;
   } catch (e) {
     // console.log(e);
   }
-  return { props: { movies } };
+  return { props: { movies, posts } };
 }
 export default NewsFeed;

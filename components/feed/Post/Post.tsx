@@ -2,24 +2,29 @@ import { Comment, Heart } from '@/components/icons';
 import Image from 'next/image';
 import React from 'react';
 import { PostComment } from '../PostComment';
+import { PropsType } from './types';
 
-const Post = () => {
+const Post: React.FC<PropsType> = ({ post }) => {
+  const avatarSrc = `${process.env.NEXT_PUBLIC_API_URL}/storage/${post.user.avatar}`;
   return (
     <article className='w-full rounded-xl bg-singlepost p-6'>
       <div className='flex items-center gap-4'>
         <Image
           width={52}
           height={52}
+          loader={() => avatarSrc}
           alt='pfp'
-          src='/assets/images/default-pfp.png'
+          src={avatarSrc}
+          className='rounded-full'
         />
-        <h2 className='text-white text-xl'>Maia Nakashidze</h2>
+        <h2 className='text-white text-xl'>{post.user.username}</h2>
       </div>
       <p className='mt-4 text-white text-lg'>
-        “Follow your dream.”movie- Billy Elliot. (2000)
+        “{post.body.en}”movie- {post.movie.title.en}. ({post.movie.release_year}
+        )
       </p>
       <img
-        src='/assets/images/quote-placeholder.png'
+        src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${post.image}`}
         className='w-full rounded-lg mt-7'
       />
       <div className='border-b border-search text-white py-6 flex items-center gap-6'>
