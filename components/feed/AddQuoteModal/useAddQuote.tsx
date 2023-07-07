@@ -1,12 +1,14 @@
 import { addQuote, fetchCSRFToken } from '@/services';
-import { useCallback, useEffect, useState } from 'react';
+import { SetStateAction, useCallback, useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useModal } from '@/hooks';
 import { useDropzone } from 'react-dropzone';
-export const useAddQuote = () => {
+import { PostType, addQuote as addQuoteType } from '@/types';
+export const useAddQuote = (setPosts: SetStateAction<any>) => {
   const { setOpenModal } = useModal();
   const [loading, setLoading] = useState<boolean>(false);
   const [preview, setPreview] = useState('');
+  const [newQuote, setNewQuote] = useState();
   const {
     register,
     handleSubmit,
@@ -25,13 +27,14 @@ export const useAddQuote = () => {
     onDrop,
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: addQuoteType) => {
     try {
       console.log(data);
       setLoading(true);
       await fetchCSRFToken();
       const response = await addQuote(data);
       setOpenModal('');
+      setPosts((prevPosts: [PostType]) => [...[response.data], ...prevPosts]);
       console.log(response);
       setLoading(false);
     } catch (e) {
@@ -69,5 +72,6 @@ export const useAddQuote = () => {
     validateBanner,
     preview,
     setValue,
+    newQuote,
   };
 };
