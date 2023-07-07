@@ -45,7 +45,7 @@ const NewsFeed = ({ movies, quotes }: any) => {
           />
           <div className='w-full px-10 mt-6 flex flex-col gap-10'>
             {posts?.map((post: PostType) => {
-              return <Post post={post} />;
+              return <Post key={post.id} post={post} />;
             })}
             <div ref={loadMoreRef} className='w-full h-3'></div>
           </div>

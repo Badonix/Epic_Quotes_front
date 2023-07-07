@@ -8,7 +8,6 @@ export const useAddQuote = (setPosts: SetStateAction<any>) => {
   const { setOpenModal } = useModal();
   const [loading, setLoading] = useState<boolean>(false);
   const [preview, setPreview] = useState('');
-  const [newQuote, setNewQuote] = useState();
   const {
     register,
     handleSubmit,
@@ -72,6 +71,5 @@ export const useAddQuote = (setPosts: SetStateAction<any>) => {
     validateBanner,
     preview,
     setValue,
-    newQuote,
   };
 };
