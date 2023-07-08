@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useAddQuote } from './useAddQuote';
 import { ErrorMessage } from '@hookform/error-message';
 import { useState } from 'react';
-export const AddQuoteModal = ({ movies }: any) => {
+export const AddQuoteModal = ({ movies, setPosts }: any) => {
   const { setOpenModal, wrapperRef } = useModal();
   const [movieDropdown, setMovieDropdown] = useState<boolean>(false);
   const [movieValue, setMovieValue] = useState();
@@ -19,7 +19,7 @@ export const AddQuoteModal = ({ movies }: any) => {
     onSubmit,
     validateBanner,
     setValue,
-  } = useAddQuote();
+  } = useAddQuote(setPosts);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div

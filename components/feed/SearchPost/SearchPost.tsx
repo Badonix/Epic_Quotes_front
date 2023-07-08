@@ -29,7 +29,12 @@ const SearchPost: React.FC<PropsType> = ({ searchActive, setSearchActive }) => {
           </div>
         </div>
       )}
-      <div className='flex lg:hidden w-full -mt-2 px-9 py-8 gap-4 justify-center items-center'>
+      <div
+        onClick={() => {
+          setOpenModal('postquote');
+        }}
+        className='flex lg:hidden w-full -mt-2 px-9 py-8 gap-4 justify-center items-center'
+      >
         <Write />
         <p className='text-gray-300'>Write new quote</p>
       </div>

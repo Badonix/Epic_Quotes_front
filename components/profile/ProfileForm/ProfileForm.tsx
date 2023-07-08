@@ -40,7 +40,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
           <img
             src={
               preview ||
-              process.env.NEXT_PUBLIC_API_URL + '/storage/' + userData.avatar
+              process.env.NEXT_PUBLIC_API_URL + '/storage/' + userData?.avatar
             }
             alt='pfp'
             className='w-44 h-44 object-cover rounded-full cursor-pointer'

@@ -24,3 +24,12 @@ export type updateProfileType = {
   email?: string;
   avatar?: File;
 };
+
+export type addQuote = {
+  body?: {
+    en: string;
+    ka: string;
+  };
+  image?: string;
+  movie_id?: number;
+};

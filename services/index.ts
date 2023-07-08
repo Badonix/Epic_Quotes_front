@@ -208,3 +208,8 @@ export const updateProfile = async (data: updateProfileType) => {
 
   return response;
 };
+
+export const fetchPosts = async (page: number) => {
+  const response = await instance.get('/api/quotes' + `?page=${page}`);
+  return response;
+};
