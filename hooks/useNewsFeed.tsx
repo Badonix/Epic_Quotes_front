@@ -1,32 +1,40 @@
 import { fetchPosts } from '@/services';
 import { useEffect, useRef, useState } from 'react';
+import { useInfiniteQuery, useQuery } from 'react-query';
 
 export const useNewsFeed = (quotes: any) => {
   const [sidebarActive, setSidebarActive] = useState<boolean>(false);
   const [searchActive, setSearchActive] = useState<boolean>(false);
   const [posts, setPosts] = useState(quotes);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(2);
+  const [loading, setLoading] = useState<boolean>(false);
   const loadMoreRef = useRef(null);
+
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: ['projects'],
+    getNextPageParam: (prevData: any) => {
+      if (prevData.data.next_page_url) {
+        return prevData.data.next_page_url[
+          prevData.data?.next_page_url.length - 1
+        ];
+      } else {
+        return undefined;
+      }
+    },
+    queryFn: async ({ pageParam = 2 }) => {
+      const response = await fetchPosts(pageParam);
+      return response;
+    },
+  });
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
     const target = entries[0];
-    if (target.isIntersecting && !isLoading) {
+    if (target.isIntersecting && !loading) {
       setCurrentPage((prev) => prev + 1);
     }
   };
-  const fetchNewPosts = async () => {
-    setIsLoading(true);
-    try {
-      const newPosts = await fetchPosts(currentPage);
-      setPosts((prevPosts: any) => [...prevPosts, ...newPosts.data.data]);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+
   useEffect(() => {
-    currentPage !== 1 && fetchNewPosts();
+    fetchNextPage();
   }, [currentPage]);
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, {
@@ -54,5 +62,6 @@ export const useNewsFeed = (quotes: any) => {
     posts,
     loadMoreRef,
     setPosts,
+    data,
   };
 };

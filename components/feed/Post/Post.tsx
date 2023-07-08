@@ -14,6 +14,7 @@ const Post: React.FC<PropsType> = ({ post }) => {
           height={52}
           loader={() => avatarSrc}
           alt='pfp'
+          unoptimized
           src={avatarSrc}
           className='rounded-full'
         />

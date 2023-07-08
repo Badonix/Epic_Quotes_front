@@ -20,9 +20,9 @@ const NewsFeed = ({ movies, quotes }: any) => {
     sidebarActive,
     searchActive,
     setPosts,
+    data,
   } = useNewsFeed(quotes);
   const { openModal } = useContext(ModalContext);
-
   return (
     <>
       {openModal === 'postquote' && (
@@ -44,9 +44,16 @@ const NewsFeed = ({ movies, quotes }: any) => {
             setSearchActive={setSearchActive}
           />
           <div className='w-full px-10 mt-6 flex flex-col gap-10'>
-            {posts?.map((post: PostType) => {
-              return <Post key={post.id} post={post} />;
-            })}
+            {posts.map((post: PostType) => (
+              <Post key={post.id} post={post} />
+            ))}
+            {data?.pages
+              .flatMap((data: any) => {
+                return data.data.data;
+              })
+              ?.map((post: PostType) => {
+                return <Post key={post.id} post={post} />;
+              })}
             <div ref={loadMoreRef} className='w-full h-3'></div>
           </div>
         </div>
