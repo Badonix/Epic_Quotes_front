@@ -4,7 +4,7 @@ import React from 'react';
 import { useModal } from '@/hooks';
 import { useEditMovie } from './useEditMovie';
 import { ErrorMessage } from '@hookform/error-message';
-export const AddMovie = ({ setMovies, movies, movie }: any) => {
+export const AddMovie = ({ setMovies, movies, movie, user }: any) => {
   const { setOpenModal, wrapperRef } = useModal();
   const {
     register,
@@ -16,7 +16,9 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
     getInputProps,
     preview,
   } = useEditMovie(setMovies, movies, movie);
-
+  const userSrc = user?.avatar
+    ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${user?.avatar}`
+    : '/assets/default-pfp.png';
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -35,10 +37,11 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
             <Image
               width={60}
               height={60}
-              src='/assets/images/default-pfp.png'
+              src={userSrc}
+              loader={() => userSrc}
               alt='pfp'
             />
-            <h2 className='text-white text-xl'>Nino Tabagari</h2>
+            <h2 className='text-white text-xl'>{user?.username}</h2>
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}

@@ -3,9 +3,13 @@ import { Close, Comment, Edit, Heart, Trash } from '@/components/icons';
 import Image from 'next/image';
 import { useModal } from '@/hooks';
 import { useViewQuote } from './useViewQuote';
-export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
+import { CommentType } from '@/types';
+export const ViewQuote = ({ activeQuote, setActiveQuote, user }: any) => {
   const { wrapperRef, setOpenModal } = useModal();
   const { handleDelete } = useViewQuote(activeQuote.id);
+  const userSrc = user?.avatar
+    ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${user?.avatar}`
+    : '/assets/default-pfp.png';
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -45,10 +49,11 @@ export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
             <Image
               width={60}
               height={60}
-              src='/assets/images/default-pfp.png'
+              src={userSrc}
+              loader={() => userSrc}
               alt='pfp'
             />
-            <h2 className='text-white text-xl'>Nino Tabagari</h2>
+            <h2 className='text-white text-xl'>{user?.username}</h2>
           </div>
           <div className='pb-11 mt-7 flex flex-col gap-6 w-full'>
             <div className='flex flex-col gap-3 text-2xl italic text-white'>
@@ -80,11 +85,10 @@ export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
               </div>
             </div>
           </div>
-          <div className='max-h-56 overflow-auto scrollbar-thin scrollbar-thumb-slate-50'>
-            <PostComment />
-            <PostComment />
-            <PostComment />
-            <PostComment />
+          <div className='max-h-40 overflow-auto scrollbar-thin scrollbar-thumb-slate-50'>
+            {activeQuote?.comments?.map((comment: CommentType) => (
+              <PostComment comment={comment} key={comment.id} />
+            ))}
           </div>
           <div className='flex items-center gap-6 py-6'>
             <Image

@@ -21,9 +21,9 @@ const PostComment: React.FC<PropsType> = ({ comment }) => {
       </div>
       <div className='flex flex-col gap-3 w-full pt-3 py-6 border-b border-search'>
         <h2 className='text-white text-xl font-bold'>
-          {comment.user.username}
+          {comment?.user?.username}
         </h2>
-        <p className='text-white text-xl'>{comment.body}</p>
+        <p className='text-white text-xl break-all'>{comment?.body}</p>
       </div>
     </div>
   );

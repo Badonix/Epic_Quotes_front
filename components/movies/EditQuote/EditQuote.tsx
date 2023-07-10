@@ -3,10 +3,13 @@ import Image from 'next/image';
 import { useEditQuote } from './useEditQuote';
 import { ErrorMessage } from '@hookform/error-message';
 import { useModal } from '@/hooks';
-export const EditQuote = ({ activeQuote }: any) => {
+export const EditQuote = ({ activeQuote, user }: any) => {
   const { errors, handleSubmit, onSubmit, register, preview } =
     useEditQuote(activeQuote);
   const { wrapperRef, setOpenModal } = useModal();
+  const userSrc = user?.avatar
+    ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${user?.avatar}`
+    : '/assets/default-pfp.png';
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -33,10 +36,11 @@ export const EditQuote = ({ activeQuote }: any) => {
             <Image
               width={60}
               height={60}
-              src='/assets/images/default-pfp.png'
+              src={userSrc}
+              loader={() => userSrc}
               alt='pfp'
             />
-            <h2 className='text-white text-xl'>nino tabagari</h2>
+            <h2 className='text-white text-xl'>{user?.username}</h2>
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -75,7 +79,7 @@ export const EditQuote = ({ activeQuote }: any) => {
                     preview ||
                     `${process.env.NEXT_PUBLIC_API_URL}/storage/${activeQuote.image}`
                   }
-                  className='w-full object-cover w-full h-513 rounded-lg'
+                  className='w-full object-cover h-513 rounded-lg'
                 />
                 <div className='flex cursor-pointer flex-col items-center justify-center gap-2 px-4 py-4 bg-black bg-opacity-30 hover:bg-opacity-60 transition-all rounded-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
                   <Photo />
