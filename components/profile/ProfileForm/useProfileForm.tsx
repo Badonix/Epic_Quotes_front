@@ -64,6 +64,7 @@ export const useProfileForm = (
       setEmailActive(false);
       setPasswordActive(false);
       setPreview(undefined);
+      router.push('/profile');
       console.log(response);
     } catch (e: any) {
       console.log(e);

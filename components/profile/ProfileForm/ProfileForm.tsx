@@ -30,7 +30,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
     windowWidth,
     userData,
   } = useProfileForm(confirmation, setConfirmation, user);
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -40,9 +39,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
         <label htmlFor='avatar'>
           <img
             src={
-              preview || user?.avatar
+              preview ||
+              (user?.avatar
                 ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${user?.avatar}`
-                : '/assets/default-pfp.png'
+                : '/assets/default-pfp.png')
             }
             alt='pfp'
             className='w-44 h-44 object-cover rounded-full cursor-pointer'
