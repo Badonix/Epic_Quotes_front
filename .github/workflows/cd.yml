@@ -14,14 +14,11 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
       - name: 'deploy to server'
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}<<EOF
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << EOF
               cd apps
-              cd nikoloz-danelia-epic-movie-quotes-front
-              echo -e "$(pwd)" 
+              cd nikoloz-danelia-epic-movie-quotes-frontt
               git pull
               npm ci
               npm run build
               pm2 restart nextjs-example
           EOF
-
-
