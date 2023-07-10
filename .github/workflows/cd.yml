@@ -14,6 +14,6 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
       - name: 'deploy to server'
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} << EOF
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} <<EOF
             echo "hello bros"
           EOF
