@@ -18,5 +18,5 @@ jobs:
       #       echo "hello bros"
       #     EOF
       - run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} echo "hi there"
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@139.59.152.110 echo "hi there"
 
