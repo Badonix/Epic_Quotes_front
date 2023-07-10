@@ -12,11 +12,9 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-      # - name: 'deploy to server'
-      #   run: |
-      #     ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} <<EOF
-      #       echo "hello bros"
-      #     EOF
-      - run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@139.59.152.110 echo "hi there"
+      - name: 'deploy to server'
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@139.59.152.110 <<EOF
+            echo "hello bros"
+          EOF
 
