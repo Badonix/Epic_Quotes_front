@@ -16,6 +16,7 @@ export const Profile = ({ user }: any) => {
       <Navbar setSidebarActive={setSidebarActive} />
       <section className='md:min-h-screen h-screen md:py-24 flex-col md:flex-row flex lg:pr-16 lg:pl-0 md:px-8'>
         <Sidebar
+          user={user}
           setSidebarActive={setSidebarActive}
           sidebarActive={sidebarActive}
           currentPage='profile'

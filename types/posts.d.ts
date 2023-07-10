@@ -26,6 +26,14 @@ export type UserType = {
   avatar: string;
 };
 
+export type CommentType = {
+  id?: number;
+  body: string;
+  user_id: number;
+  post_id: number;
+  user: UserType;
+};
+
 export type PostType = {
   id: number;
   user_id: number;
@@ -37,4 +45,5 @@ export type PostType = {
   image: string;
   movie: MovieType;
   user: UserType;
+  comments: CommentType[];
 };

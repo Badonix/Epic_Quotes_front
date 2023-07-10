@@ -1,4 +1,8 @@
-import { addMovie as AddMovieType, updateProfileType } from '@/types';
+import {
+  addMovie as AddMovieType,
+  addCommentType,
+  updateProfileType,
+} from '@/types';
 import axios from 'axios';
 
 const instance = axios.create({
@@ -211,5 +215,10 @@ export const updateProfile = async (data: updateProfileType) => {
 
 export const fetchPosts = async (page: number) => {
   const response = await instance.get('/api/quotes' + `?page=${page}`);
+  return response;
+};
+
+export const addComment = async (data: addCommentType) => {
+  const response = await instance.post('/api/comments', data);
   return response;
 };

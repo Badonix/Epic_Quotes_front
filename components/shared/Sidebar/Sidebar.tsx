@@ -5,7 +5,10 @@ import React from 'react';
 import { PropsType } from './types';
 import Link from 'next/link';
 
-const Sidebar: React.FC<PropsType> = ({ sidebarActive, currentPage }) => {
+const Sidebar: React.FC<PropsType> = ({ sidebarActive, currentPage, user }) => {
+  const userSrc = user?.avatar
+    ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${user.avatar}`
+    : '/assets/default-pfp.png';
   return (
     <>
       <div
@@ -18,15 +21,16 @@ const Sidebar: React.FC<PropsType> = ({ sidebarActive, currentPage }) => {
             alt='pfp'
             width={60}
             height={60}
-            src='/assets/images/default-pfp.png'
+            loader={() => userSrc}
+            src={userSrc}
             className={
               currentPage === 'profile'
-                ? 'rounded-full border-2 border-red-600'
-                : 'rounded-full'
+                ? 'rounded-full border-2 border-red-600 w-15 h-15'
+                : 'rounded-full w-15 h-15'
             }
           />
           <div className='h-60 flex flex-col justify-between items-between text-white'>
-            <h2 className='text-2xl'>Nino Tabagari</h2>
+            <h2 className='text-2xl'>{user?.username}</h2>
             <div className='text-gray-300'>
               <Link href='/profile'>Edit your profile</Link>
             </div>

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useAddQuote } from './useAddQuote';
 import { ErrorMessage } from '@hookform/error-message';
 import { useState } from 'react';
-export const AddQuoteModal = ({ movies, setPosts }: any) => {
+export const AddQuoteModal = ({ movies, setPosts, user }: any) => {
   const { setOpenModal, wrapperRef } = useModal();
   const [movieDropdown, setMovieDropdown] = useState<boolean>(false);
   const [movieValue, setMovieValue] = useState();
@@ -20,6 +20,9 @@ export const AddQuoteModal = ({ movies, setPosts }: any) => {
     validateBanner,
     setValue,
   } = useAddQuote(setPosts);
+  const userSrc = user?.avatar
+    ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${user?.avatar}`
+    : '/assets/default-pfp.png';
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -38,10 +41,12 @@ export const AddQuoteModal = ({ movies, setPosts }: any) => {
             <Image
               width={60}
               height={60}
-              src='/assets/images/default-pfp.png'
+              className='w-15 h-15 object-cover rounded-full'
+              src={userSrc}
+              loader={() => userSrc}
               alt='pfp'
             />
-            <h2 className='text-white text-xl'>Nino Tabagari</h2>
+            <h2 className='text-white text-xl'>{user?.username}</h2>
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}

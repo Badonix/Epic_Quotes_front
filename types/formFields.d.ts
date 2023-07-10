@@ -33,3 +33,8 @@ export type addQuote = {
   image?: string;
   movie_id?: number;
 };
+
+export type addCommentType = {
+  post_id?: number;
+  body?: string;
+};

@@ -2,8 +2,10 @@ import { Add, Navbar, Search, Sidebar } from '@/components';
 import { AddMovie, MovieCard } from '@/components/movies';
 import { ModalContext } from '@/context';
 import { useMovies } from '@/hooks/useMovies';
+import { me } from '@/services';
+import { GetServerSidePropsContext } from 'next';
 import React, { useContext } from 'react';
-const Movies = () => {
+const Movies = ({ user }: any) => {
   const { setSidebarActive, sidebarActive, movies, setMovies } = useMovies();
   const { openModal, setOpenModal } = useContext(ModalContext);
 
@@ -15,6 +17,7 @@ const Movies = () => {
       <Navbar setSidebarActive={setSidebarActive} />
       <section className='min-h-screen py-24 flex lg:pr-16 lg:pl-0 px-8'>
         <Sidebar
+          user={user}
           setSidebarActive={setSidebarActive}
           sidebarActive={sidebarActive}
           currentPage='movies'
@@ -53,5 +56,16 @@ const Movies = () => {
     </>
   );
 };
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  let user;
+  try {
+    const userRes = await me(context.req.headers.cookie);
+    user = userRes.data;
+  } catch (e) {
+    console.log(e);
+  }
+  return { props: { user } };
+}
 
 export default Movies;
