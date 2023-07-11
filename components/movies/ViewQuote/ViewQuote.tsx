@@ -1,15 +1,13 @@
 import { PostComment } from '@/components/feed';
 import { Close, Comment, Edit, Heart, Trash } from '@/components/icons';
 import Image from 'next/image';
-import { useModal } from '@/hooks';
+import { useAvatar, useModal } from '@/hooks';
 import { useViewQuote } from './useViewQuote';
 import { CommentType } from '@/types';
 export const ViewQuote = ({ activeQuote, setActiveQuote, user }: any) => {
   const { wrapperRef, setOpenModal } = useModal();
   const { handleDelete } = useViewQuote(activeQuote.id);
-  const userSrc = user?.avatar
-    ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${user?.avatar}`
-    : '/assets/default-pfp.png';
+  const userSrc = useAvatar(user);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -51,6 +49,7 @@ export const ViewQuote = ({ activeQuote, setActiveQuote, user }: any) => {
               src={userSrc}
               loader={() => userSrc}
               alt='pfp'
+              className='w-15 h-15 rounded-full object-cover'
             />
             <h2 className='text-white text-xl'>{user?.username}</h2>
           </div>

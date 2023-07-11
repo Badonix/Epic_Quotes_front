@@ -1,5 +1,5 @@
 import { Close, Dropdown, Movie, Photo } from '@/components/icons';
-import { useModal } from '@/hooks';
+import { useAvatar, useModal } from '@/hooks';
 import Image from 'next/image';
 import { useAddQuote } from './useAddQuote';
 import { ErrorMessage } from '@hookform/error-message';
@@ -20,9 +20,7 @@ export const AddQuoteModal = ({ movies, setPosts, user }: any) => {
     validateBanner,
     setValue,
   } = useAddQuote(setPosts);
-  const userSrc = user?.avatar
-    ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${user?.avatar}`
-    : '/assets/default-pfp.png';
+  const userSrc = useAvatar(user);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div

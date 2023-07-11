@@ -1,7 +1,7 @@
 import { Close, Photo } from '@/components';
 import Image from 'next/image';
 import React from 'react';
-import { useModal } from '@/hooks';
+import { useAvatar, useModal } from '@/hooks';
 import { useEditMovie } from './useEditMovie';
 import { ErrorMessage } from '@hookform/error-message';
 export const AddMovie = ({ setMovies, movies, movie, user }: any) => {
@@ -16,9 +16,7 @@ export const AddMovie = ({ setMovies, movies, movie, user }: any) => {
     getInputProps,
     preview,
   } = useEditMovie(setMovies, movies, movie);
-  const userSrc = user?.avatar
-    ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${user?.avatar}`
-    : '/assets/default-pfp.png';
+  const userSrc = useAvatar(user);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -40,6 +38,7 @@ export const AddMovie = ({ setMovies, movies, movie, user }: any) => {
               src={userSrc}
               loader={() => userSrc}
               alt='pfp'
+              className='w-15 h-15 rounded-full object-cover'
             />
             <h2 className='text-white text-xl'>{user?.username}</h2>
           </div>

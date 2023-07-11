@@ -2,11 +2,11 @@ import { fetchCSRFToken, updateProfile } from '@/services';
 import { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { User } from './types';
+import { UserType } from '@/types';
 export const useProfileForm = (
   confirmation: boolean,
   setConfirmation: React.Dispatch<React.SetStateAction<boolean>>,
-  user: User
+  user: UserType
 ) => {
   const [usernameActive, setUsernameActive] = useState<boolean>(false);
   const [emailActive, setEmailActive] = useState<boolean>(false);

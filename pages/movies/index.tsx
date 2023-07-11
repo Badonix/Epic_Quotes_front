@@ -12,7 +12,7 @@ const Movies = ({ user }: any) => {
   return (
     <>
       {openModal === 'addmovie' && (
-        <AddMovie setMovies={setMovies} movies={movies} />
+        <AddMovie user={user} setMovies={setMovies} movies={movies} />
       )}
       <Navbar setSidebarActive={setSidebarActive} />
       <section className='min-h-screen py-24 flex lg:pr-16 lg:pl-0 px-8'>

@@ -4,3 +4,4 @@ export * from './usePasswordReset';
 export * from './useNewsFeed';
 export * from './useMovie';
 export * from './useProfile';
+export * from './useAvatar';

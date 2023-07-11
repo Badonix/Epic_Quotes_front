@@ -2,14 +2,12 @@ import { Close, Photo, Trash } from '@/components/icons';
 import Image from 'next/image';
 import { useEditQuote } from './useEditQuote';
 import { ErrorMessage } from '@hookform/error-message';
-import { useModal } from '@/hooks';
+import { useAvatar, useModal } from '@/hooks';
 export const EditQuote = ({ activeQuote, user }: any) => {
   const { errors, handleSubmit, onSubmit, register, preview } =
     useEditQuote(activeQuote);
   const { wrapperRef, setOpenModal } = useModal();
-  const userSrc = user?.avatar
-    ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${user?.avatar}`
-    : '/assets/default-pfp.png';
+  const userSrc = useAvatar(user);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div

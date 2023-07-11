@@ -3,6 +3,7 @@ import { useProfileForm } from './useProfileForm';
 import { ErrorMessage } from '@hookform/error-message';
 import { showLowercaseError, showLengthError } from './helpers';
 import { ProfileFormProps } from './types';
+import { useAvatar } from '@/hooks';
 export const ProfileForm: React.FC<ProfileFormProps> = ({
   user,
   setConfirmation,
@@ -30,6 +31,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
     windowWidth,
     userData,
   } = useProfileForm(confirmation, setConfirmation, user);
+  const avatar = useAvatar(user);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -38,12 +40,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
       <div className='flex flex-col justify-center items-center gap-2 md:absolute left-1/2 -top-24 md:-translate-x-1/2 '>
         <label htmlFor='avatar'>
           <img
-            src={
-              preview ||
-              (user?.avatar
-                ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${user?.avatar}`
-                : '/assets/default-pfp.png')
-            }
+            src={preview || avatar}
             alt='pfp'
             className='w-44 h-44 object-cover rounded-full cursor-pointer'
           />

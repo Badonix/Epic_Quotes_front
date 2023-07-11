@@ -4,11 +4,10 @@ import React from 'react';
 import { PostComment } from '../PostComment';
 import { PropsType } from './types';
 import { usePost } from './usePost';
+import { useAvatar } from '@/hooks';
 const Post: React.FC<PropsType> = ({ post, user }) => {
-  const authorSrc = `${process.env.NEXT_PUBLIC_API_URL}/storage/${post?.user?.avatar}`;
-  const userSrc = user?.avatar
-    ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${user?.avatar}`
-    : '/assets/default-pfp.png';
+  const authorSrc = useAvatar(post.user);
+  const userSrc = useAvatar(user);
   const { handleSubmit, onSubmit, register, newComments } = usePost();
   return (
     <article className='w-full rounded-xl bg-singlepost p-6'>

@@ -1,3 +1,4 @@
+import { UserType } from '@/types';
 import { FieldErrors, FieldValues } from 'react-hook-form';
 
 export interface ErrorType extends FieldErrors<FieldValues> {
@@ -11,18 +12,8 @@ export interface ErrorType extends FieldErrors<FieldValues> {
   };
 }
 
-export interface User {
-  avatar: string;
-  created_at: string;
-  updated_at: string;
-  username: string;
-  email: string;
-  id: string;
-  google_id: string;
-}
-
 export interface ProfileFormProps {
-  user: User;
+  user: UserType;
   setConfirmation: React.Dispatch<React.SetStateAction<boolean>>;
   confirmation: boolean;
 }

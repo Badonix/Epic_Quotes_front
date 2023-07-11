@@ -4,11 +4,10 @@ import Image from 'next/image';
 import React from 'react';
 import { PropsType } from './types';
 import Link from 'next/link';
+import { useAvatar } from '@/hooks';
 
 const Sidebar: React.FC<PropsType> = ({ sidebarActive, currentPage, user }) => {
-  const userSrc = user?.avatar
-    ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${user.avatar}`
-    : '/assets/default-pfp.png';
+  const userSrc = useAvatar(user);
   return (
     <>
       <div

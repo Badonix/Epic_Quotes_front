@@ -1,11 +1,10 @@
 import Image from 'next/image';
 import React from 'react';
 import { PropsType } from './types';
+import { useAvatar } from '@/hooks';
 
 const PostComment: React.FC<PropsType> = ({ comment }) => {
-  const src = comment?.user?.avatar
-    ? `${process.env.NEXT_PUBLIC_API_URL}/storage/${comment.user.avatar}`
-    : `/assets/images/default-pfp.png`;
+  const src = useAvatar(comment.user);
   return (
     <div className='flex mt-6 gap-6'>
       <div className='flex-shrink-0'>
