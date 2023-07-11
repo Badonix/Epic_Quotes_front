@@ -8,7 +8,6 @@ import { useModal } from '@/hooks';
 const Login = () => {
   const { handleSubmit, onSubmit, errors, reset, error, loading } = useLogin();
   const { wrapperRef, setOpenModal } = useModal();
-  console.log(errors);
   return (
     <div className='bg-modal-transparent backdrop-blur fixed h-screen w-screen flex items-center justify-center z-50'>
       <div

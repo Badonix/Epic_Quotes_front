@@ -33,11 +33,9 @@ export const useAddMovie = (setMovies: any, movies: any) => {
       let updatedMovies = [response.data, ...movies];
       setMovies(updatedMovies);
       setOpenModal('');
-      console.log(response);
       setLoading(false);
     } catch (e) {
       setLoading(false);
-      console.log(e);
     }
   };
 
@@ -52,7 +50,6 @@ export const useAddMovie = (setMovies: any, movies: any) => {
     let objectUrl: any;
     if (banner) {
       objectUrl = URL.createObjectURL(banner[0]);
-      console.log(objectUrl);
       setPreview(objectUrl);
     }
 

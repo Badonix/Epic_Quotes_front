@@ -148,10 +148,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const userRes = await me(context.req.headers.cookie);
     user = userRes.data;
     movie = response.data;
-    console.log(movie);
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
   return {
     props: {
       movie,

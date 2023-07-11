@@ -9,12 +9,9 @@ export const usePost = () => {
   const onSubmit = async (data: addCommentType) => {
     try {
       const response = await addComment(data);
-      console.log(response);
       setNewComments((prev) => [...[response.data], ...prev]);
       reset();
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   return { register, handleSubmit, onSubmit, newComments };

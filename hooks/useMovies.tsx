@@ -8,9 +8,7 @@ export const useMovies = () => {
     try {
       const res = await fetchMovies();
       return res.data;
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   };
 
   useEffect(() => {

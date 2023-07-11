@@ -20,9 +20,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           destination: '/me',
         },
       };
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   }
 
   return {};

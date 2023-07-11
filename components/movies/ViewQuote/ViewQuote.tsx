@@ -21,7 +21,6 @@ export const ViewQuote = ({ activeQuote, setActiveQuote, user }: any) => {
             <div
               onClick={() => {
                 setOpenModal('editquote');
-                console.log(activeQuote);
                 setActiveQuote(activeQuote);
               }}
               className='cursor-pointer'

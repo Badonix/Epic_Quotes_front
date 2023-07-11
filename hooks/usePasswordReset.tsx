@@ -8,7 +8,6 @@ export const usePasswordReset = () => {
   const router = useRouter();
   const email = router.query.email;
   const token = router.query.token;
-  console.log(email, token);
   const password = useWatch({ name: 'password' });
   const {
     handleSubmit,
@@ -16,7 +15,6 @@ export const usePasswordReset = () => {
     reset,
   } = useFormContext();
   const fields = useWatch();
-  console.log(fields);
   const onSubmit = async (data: any) => {
     try {
       await fetchCSRFToken();

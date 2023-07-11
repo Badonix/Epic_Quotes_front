@@ -67,17 +67,13 @@ const NewsFeed = ({ movies, quotes, user }: any) => {
 export async function getServerSideProps(context: any) {
   let movies, quotes, user;
   try {
-    console.log(context.req.headers.cookie);
     const res = await fetchMovies(context.req.headers.cookie);
     const quotesData = await fetchPosts(1);
     const userRes = await me(context.req.headers.cookie);
     user = userRes.data;
     quotes = quotesData.data.data;
-    console.log(user);
     movies = res.data;
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
   return { props: { movies, quotes, user } };
 }
 export default NewsFeed;

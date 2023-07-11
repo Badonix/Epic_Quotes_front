@@ -24,7 +24,6 @@ export const useEditMovie = (setMovies: any, movies: any, movie: any) => {
       banner: '',
     },
   });
-  console.log(movie);
 
   const banner = useWatch({ control, name: 'banner' });
 
@@ -45,7 +44,6 @@ export const useEditMovie = (setMovies: any, movies: any, movie: any) => {
       setLoading(false);
     } catch (e) {
       setLoading(false);
-      console.log(e);
     }
   };
 
@@ -53,7 +51,6 @@ export const useEditMovie = (setMovies: any, movies: any, movie: any) => {
     let objectUrl: any;
     if (banner && typeof banner[0] !== 'string') {
       objectUrl = URL.createObjectURL(banner[0]);
-      console.log(objectUrl);
       setPreview(objectUrl);
     }
 

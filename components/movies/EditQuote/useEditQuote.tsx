@@ -26,7 +26,6 @@ export const useEditQuote = (quote: any) => {
       res.status === 200 && router.reload();
     } catch (e) {
       setLoading(false);
-      console.log(e);
     }
   };
 
@@ -34,7 +33,6 @@ export const useEditQuote = (quote: any) => {
     let objectUrl: any;
     if (banner) {
       objectUrl = URL.createObjectURL(banner[0]);
-      console.log(objectUrl);
       setPreview(objectUrl);
     }
 

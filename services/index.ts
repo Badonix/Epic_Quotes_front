@@ -79,7 +79,6 @@ export const googleSignIn = async (data: any, cookie: any) => {
       cookie: cookie,
     },
   });
-  console.log(response);
   return response;
 };
 
@@ -94,7 +93,6 @@ export const addMovie = async (data: AddMovieType) => {
     release_year: year,
     budget,
   };
-  console.log(movieData);
   const response = await instance.post('/api/movies', movieData, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -141,7 +139,6 @@ export const editMovie = async (data: any, id: number) => {
     release_year: year,
     budget,
   };
-  console.log(movieData);
 
   const response = await instance.post(`/api/movies/${id}/edit`, movieData, {
     headers: {
@@ -158,7 +155,6 @@ export const addQuote = async (data: any) => {
     movie_id,
     image: image[0],
   };
-  console.log(body);
   const response = await instance.post('/api/quotes', quoteData, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -190,7 +186,6 @@ export const editQuote = async (quoteId: number, data: any) => {
     image: image[0],
     movie_id,
   };
-  console.log(data);
   const response = await instance.post(
     '/api/quotes/' + quoteId + '/edit',
     quoteData,

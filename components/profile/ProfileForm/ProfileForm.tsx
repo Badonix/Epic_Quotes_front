@@ -410,7 +410,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                   Cancel
                 </p>
                 <button
-                  onClick={() => console.log('zd')}
                   type='submit'
                   className='disabled:bg-red-700 rounded-4 px-4 py-2 bg-red-600 text-white'
                 >

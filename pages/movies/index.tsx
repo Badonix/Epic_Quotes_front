@@ -62,9 +62,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     const userRes = await me(context.req.headers.cookie);
     user = userRes.data;
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
   return { props: { user } };
 }
 

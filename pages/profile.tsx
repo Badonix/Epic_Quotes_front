@@ -55,9 +55,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   let user;
   try {
     user = await me(ctx.req.headers.cookie);
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
   return { props: { user: user?.data } };
 }
 

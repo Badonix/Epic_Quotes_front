@@ -28,18 +28,15 @@ export const useAddMovieQuote = (movieId: number) => {
 
   const onSubmit = async (data: any) => {
     try {
-      console.log(data);
       data.movie_id = movieId;
       setLoading(true);
       await fetchCSRFToken();
       const response = await addQuote(data);
       response.status === 201 && router.reload();
       setOpenModal('');
-      console.log(response);
       setLoading(false);
     } catch (e) {
       setLoading(false);
-      console.log(e);
     }
   };
 
@@ -47,7 +44,6 @@ export const useAddMovieQuote = (movieId: number) => {
     let objectUrl: any;
     if (banner) {
       objectUrl = URL.createObjectURL(banner[0]);
-      console.log(objectUrl);
       setPreview(objectUrl);
     }
 
