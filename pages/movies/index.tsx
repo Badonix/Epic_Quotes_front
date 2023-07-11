@@ -3,9 +3,10 @@ import { AddMovie, MovieCard } from '@/components/movies';
 import { ModalContext } from '@/context';
 import { useMovies } from '@/hooks/useMovies';
 import { me } from '@/services';
+import { UserType } from '@/types';
 import { GetServerSidePropsContext } from 'next';
 import React, { useContext } from 'react';
-const Movies = ({ user }: any) => {
+const Movies = (user: UserType) => {
   const { setSidebarActive, sidebarActive, movies, setMovies } = useMovies();
   const { openModal, setOpenModal } = useContext(ModalContext);
 

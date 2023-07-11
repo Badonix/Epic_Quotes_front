@@ -2,7 +2,8 @@ import { MovieComment } from '@/components';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-export const MovieCard = ({ movie, id }: any) => {
+import { PropsType } from './types';
+export const MovieCard: React.FC<PropsType> = ({ movie, id }) => {
   const src = `${process.env.NEXT_PUBLIC_API_URL}/storage/${movie.banner}`;
   return (
     <div>

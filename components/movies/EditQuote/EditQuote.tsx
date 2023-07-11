@@ -3,7 +3,8 @@ import Image from 'next/image';
 import { useEditQuote } from './useEditQuote';
 import { ErrorMessage } from '@hookform/error-message';
 import { useAvatar, useModal } from '@/hooks';
-export const EditQuote = ({ activeQuote, user }: any) => {
+import { PropsType } from './types';
+export const EditQuote: React.FC<PropsType> = ({ activeQuote, user }) => {
   const { errors, handleSubmit, onSubmit, register, preview } =
     useEditQuote(activeQuote);
   const { wrapperRef, setOpenModal } = useModal();
@@ -75,7 +76,7 @@ export const EditQuote = ({ activeQuote, user }: any) => {
                 <img
                   src={
                     preview ||
-                    `${process.env.NEXT_PUBLIC_API_URL}/storage/${activeQuote.image}`
+                    `${process.env.NEXT_PUBLIC_API_URL}/storage/${activeQuote?.image}`
                   }
                   className='w-full object-cover h-513 rounded-lg'
                 />

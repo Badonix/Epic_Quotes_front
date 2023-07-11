@@ -9,7 +9,8 @@ import {
 import Image from 'next/image';
 import { useQuoteCard } from './useQuoteCard';
 import { useModal } from '@/hooks';
-export const QuoteCard = ({ quote, setActiveQuote }: any) => {
+import { PropsType } from './types';
+export const QuoteCard: React.FC<PropsType> = ({ quote, setActiveQuote }) => {
   const src = `${process.env.NEXT_PUBLIC_API_URL}/storage/${quote.image}`;
   const { menuOpen, wrapperRef, setMenuOpen, handleDelete } = useQuoteCard();
   const { setOpenModal } = useModal();

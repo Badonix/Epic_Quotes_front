@@ -4,7 +4,8 @@ import React from 'react';
 import { useAvatar, useModal } from '@/hooks';
 import { useEditMovie } from './useEditMovie';
 import { ErrorMessage } from '@hookform/error-message';
-export const AddMovie = ({ setMovies, movies, movie, user }: any) => {
+import { PropsType } from './types';
+export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
   const { setOpenModal, wrapperRef } = useModal();
   const {
     register,
@@ -15,7 +16,7 @@ export const AddMovie = ({ setMovies, movies, movie, user }: any) => {
     getRootProps,
     getInputProps,
     preview,
-  } = useEditMovie(setMovies, movies, movie);
+  } = useEditMovie(movie);
   const userSrc = useAvatar(user);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
@@ -238,7 +239,7 @@ export const AddMovie = ({ setMovies, movies, movie, user }: any) => {
                   className='w-1/2 max-h-64'
                   src={
                     preview ||
-                    `${process.env.NEXT_PUBLIC_API_URL}/storage/${movie.banner}`
+                    `${process.env.NEXT_PUBLIC_API_URL}/storage/${movie?.banner}`
                   }
                   alt='Uploaded Image'
                 />

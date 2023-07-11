@@ -16,6 +16,7 @@ export type MovieType = {
     en: string;
     ka: string;
   };
+  quotes?: PostType[];
 };
 
 export type UserType = {
@@ -23,7 +24,7 @@ export type UserType = {
   username: string;
   email: string;
   google_id?: number;
-  avatar: string;
+  avatar?: string;
 };
 
 export type CommentType = {

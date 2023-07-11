@@ -2,7 +2,8 @@ import { editQuote, fetchCSRFToken } from '@/services';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm, useWatch } from 'react-hook-form';
-export const useEditQuote = (quote: any) => {
+import { PostType } from '@/types';
+export const useEditQuote = (quote: PostType | null) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [preview, setPreview] = useState('');
   const {
@@ -22,7 +23,7 @@ export const useEditQuote = (quote: any) => {
     try {
       data.movie_id = router.query.id;
       await fetchCSRFToken();
-      const res = await editQuote(quote.id, data);
+      const res = await editQuote(Number(quote?.id), data);
       res.status === 200 && router.reload();
     } catch (e) {
       setLoading(false);

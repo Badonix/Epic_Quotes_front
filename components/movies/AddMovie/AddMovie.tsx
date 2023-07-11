@@ -4,7 +4,8 @@ import React from 'react';
 import { useAvatar, useModal } from '@/hooks';
 import { useAddMovie } from './useAddMovie';
 import { ErrorMessage } from '@hookform/error-message';
-export const AddMovie = ({ setMovies, movies, user }: any) => {
+import { PropsType } from './types';
+export const AddMovie: React.FC<PropsType> = ({ setMovies, movies, user }) => {
   const { setOpenModal, wrapperRef } = useModal();
   const {
     register,

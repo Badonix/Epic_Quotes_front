@@ -8,10 +8,11 @@ import {
 import { ModalContext } from '@/context';
 import { useNewsFeed } from '@/hooks';
 import { fetchMovies, fetchPosts, me } from '@/services';
-import { PostType } from '@/types';
+import { FeedPropsType, PostType } from '@/types';
+import { NextPage } from 'next';
 import { useContext } from 'react';
 
-const NewsFeed = ({ movies, quotes, user }: any) => {
+const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
   const {
     setSearchActive,
     posts,

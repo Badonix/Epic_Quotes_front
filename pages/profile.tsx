@@ -1,9 +1,10 @@
 import { Back, Navbar, ProfileForm, Sidebar } from '@/components';
 import { useProfile } from '@/hooks';
 import { me } from '@/services';
-import { GetServerSidePropsContext } from 'next';
+import { UserType } from '@/types';
+import { GetServerSidePropsContext, NextPage } from 'next';
 
-export const Profile = ({ user }: any) => {
+export const Profile: NextPage<{ user: UserType }> = ({ user }) => {
   const {
     setSidebarActive,
     sidebarActive,

@@ -4,7 +4,8 @@ import React from 'react';
 import { useAvatar, useModal } from '@/hooks';
 import { useAddMovieQuote } from './useAddMovieQuote';
 import { ErrorMessage } from '@hookform/error-message';
-export const AddMovie = ({ movie, user }: any) => {
+import { PropsType } from './types';
+export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
   const { setOpenModal, wrapperRef } = useModal();
   const {
     register,
@@ -16,7 +17,7 @@ export const AddMovie = ({ movie, user }: any) => {
     getInputProps,
     preview,
     validateBanner,
-  } = useAddMovieQuote(movie.id);
+  } = useAddMovieQuote(Number(movie.id));
   const src = `${process.env.NEXT_PUBLIC_API_URL}/storage/${movie.banner}`;
   const userSrc = useAvatar(user);
   return (

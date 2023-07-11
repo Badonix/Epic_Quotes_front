@@ -4,10 +4,16 @@ import Image from 'next/image';
 import { useAddQuote } from './useAddQuote';
 import { ErrorMessage } from '@hookform/error-message';
 import { useState } from 'react';
-export const AddQuoteModal = ({ movies, setPosts, user }: any) => {
+import { PropsType } from './types';
+import { MovieType } from '@/types';
+export const AddQuoteModal: React.FC<PropsType> = ({
+  movies,
+  setPosts,
+  user,
+}) => {
   const { setOpenModal, wrapperRef } = useModal();
   const [movieDropdown, setMovieDropdown] = useState<boolean>(false);
-  const [movieValue, setMovieValue] = useState();
+  const [movieValue, setMovieValue] = useState<string>('');
   const {
     errors,
     getRootProps,
@@ -130,7 +136,7 @@ export const AddQuoteModal = ({ movies, setPosts, user }: any) => {
                 <Dropdown />
                 {movieDropdown && (
                   <div className='z-30 transition-all max-h-36 scrollbar-thin scrollbar-thumb-slate-50 overflow-y-auto absolute w-full left-0 top-full'>
-                    {movies.map((movie: any) => {
+                    {movies.map((movie: MovieType) => {
                       return (
                         <div
                           onClick={() => {

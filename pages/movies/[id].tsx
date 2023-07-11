@@ -12,11 +12,11 @@ import { EditMovie, QuoteCard } from '@/components';
 import { ModalContext } from '@/context';
 import { useMovie } from '@/hooks';
 import { fetchMovie, me } from '@/services';
-import { UserType } from '@/types';
+import { MovieType, PostType, UserType } from '@/types';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import React, { useContext, useState } from 'react';
 
-export const Movie: NextPage<{ movie: any; user: UserType }> = ({
+export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
   movie,
   user,
 }) => {
@@ -35,11 +35,7 @@ export const Movie: NextPage<{ movie: any; user: UserType }> = ({
         />
       )}
       {openModal === 'editquote' && (
-        <EditQuote
-          user={user}
-          setActiveQuote={setActiveQuote}
-          activeQuote={activeQuote}
-        />
+        <EditQuote user={user} activeQuote={activeQuote} />
       )}
       <Navbar setSidebarActive={setSidebarActive} />
       <section className='min-h-screen pt-24 py-6 flex lg:pr-16 lg:pl-0 px-8'>
@@ -112,7 +108,7 @@ export const Movie: NextPage<{ movie: any; user: UserType }> = ({
             <div className='w-full mt-10'>
               <div className='flex items-center gap-4'>
                 <h2 className='text-white text-2xl'>
-                  Quotes (total {movie.quotes.length})
+                  Quotes (total {movie?.quotes?.length})
                 </h2>
                 <div className='w-px bg-search h-10'></div>
                 <div
@@ -125,7 +121,7 @@ export const Movie: NextPage<{ movie: any; user: UserType }> = ({
               </div>
             </div>
             <div className='mt-10 flex flex-col gap-10'>
-              {movie.quotes.map((quote: any) => (
+              {movie?.quotes?.map((quote: PostType) => (
                 <QuoteCard
                   setActiveQuote={setActiveQuote}
                   key={quote.id}

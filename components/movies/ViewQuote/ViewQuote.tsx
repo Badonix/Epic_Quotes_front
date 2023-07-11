@@ -4,9 +4,14 @@ import Image from 'next/image';
 import { useAvatar, useModal } from '@/hooks';
 import { useViewQuote } from './useViewQuote';
 import { CommentType } from '@/types';
-export const ViewQuote = ({ activeQuote, setActiveQuote, user }: any) => {
+import { PropsType } from './types';
+export const ViewQuote: React.FC<PropsType> = ({
+  activeQuote,
+  setActiveQuote,
+  user,
+}) => {
   const { wrapperRef, setOpenModal } = useModal();
-  const { handleDelete } = useViewQuote(activeQuote.id);
+  const { handleDelete } = useViewQuote(Number(activeQuote?.id));
   const userSrc = useAvatar(user);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
@@ -56,20 +61,20 @@ export const ViewQuote = ({ activeQuote, setActiveQuote, user }: any) => {
           <div className='pb-11 mt-7 flex flex-col gap-6 w-full'>
             <div className='flex flex-col gap-3 text-2xl italic text-white'>
               <div className='border border-search rounded-md px-4 py-2 flex items-center relative'>
-                <p>&quot;{activeQuote.body.en}&quot;</p>
+                <p>&quot;{activeQuote?.body.en}&quot;</p>
                 <p className='absolute right-6 text-xl text-gray-600 not-italic'>
                   Eng
                 </p>
               </div>
               <div className='border border-search rounded-md px-4 py-2 flex items-center relative'>
-                <p>&quot;{activeQuote.body.ka}&quot;</p>
+                <p>&quot;{activeQuote?.body.ka}&quot;</p>
                 <p className='absolute right-6 text-xl text-gray-600 not-italic'>
                   ქარ
                 </p>
               </div>
             </div>
             <img
-              src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${activeQuote.image}`}
+              src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${activeQuote?.image}`}
               className='w-full object-cover h-513 rounded-lg'
             />
             <div className='flex items-center gap-4 text-xl'>

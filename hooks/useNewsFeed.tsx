@@ -1,8 +1,9 @@
 import { fetchPosts } from '@/services';
+import { PostType } from '@/types';
 import { useEffect, useRef, useState } from 'react';
 import { useInfiniteQuery, useQuery } from 'react-query';
 
-export const useNewsFeed = (quotes: any) => {
+export const useNewsFeed = (quotes: PostType[]) => {
   const [sidebarActive, setSidebarActive] = useState<boolean>(false);
   const [searchActive, setSearchActive] = useState<boolean>(false);
   const [posts, setPosts] = useState(quotes);
@@ -10,7 +11,7 @@ export const useNewsFeed = (quotes: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const loadMoreRef = useRef(null);
 
-  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+  const { data, fetchNextPage } = useInfiniteQuery({
     queryKey: ['projects'],
     getNextPageParam: (prevData: any) => {
       if (prevData.data.next_page_url) {

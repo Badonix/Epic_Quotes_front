@@ -1,9 +1,13 @@
 import { addMovie, fetchCSRFToken } from '@/services';
-import { useCallback, useEffect, useState } from 'react';
+import { SetStateAction, useCallback, useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useModal } from '@/hooks';
 import { useDropzone } from 'react-dropzone';
-export const useAddMovie = (setMovies: any, movies: any) => {
+import { MovieType } from '@/types';
+export const useAddMovie = (
+  setMovies: React.Dispatch<SetStateAction<MovieType[]>>,
+  movies: MovieType[]
+) => {
   const { setOpenModal } = useModal();
   const [loading, setLoading] = useState<boolean>(false);
   const [preview, setPreview] = useState('');
