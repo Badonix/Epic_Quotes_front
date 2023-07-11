@@ -9,7 +9,6 @@ import React, { useContext } from 'react';
 const Movies: NextPage<{ user: UserType }> = ({ user }) => {
   const { setSidebarActive, sidebarActive, movies, setMovies } = useMovies();
   const { openModal, setOpenModal } = useContext(ModalContext);
-  console.log(user);
   return (
     <>
       {openModal === 'addmovie' && (
