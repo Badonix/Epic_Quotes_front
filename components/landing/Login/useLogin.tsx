@@ -14,7 +14,7 @@ export const useLogin = () => {
   const onSubmit = async (data: any) => {
     try {
       await fetchCSRFToken();
-      const res = await login(data);
+      await login(data);
       router.push('/news-feed');
       setLoading(false);
     } catch (e: any) {
