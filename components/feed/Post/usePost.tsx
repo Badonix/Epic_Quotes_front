@@ -18,7 +18,6 @@ export const usePost = (likes: LikesType[], user: UserType) => {
   useEffect(() => {
     let hasLiked = false;
     likes.forEach((like: LikesType) => {
-      console.log(like.user_id, user.id);
       if (like.user_id == user.id) {
         hasLiked = true;
       }
@@ -27,15 +26,13 @@ export const usePost = (likes: LikesType[], user: UserType) => {
   }, []);
   const handleLike = async (id: Number) => {
     if (!liked) {
-      let res = await addLike(id);
+      await addLike(id);
       setLiked(true);
       setLikeCount((prev) => prev + 1);
-      console.log(res);
     } else {
-      let res = await removeLike(id);
+      await removeLike(id);
       setLiked(false);
       setLikeCount((prev) => prev - 1);
-      console.log(res);
     }
   };
 

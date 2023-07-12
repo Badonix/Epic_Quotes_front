@@ -41,7 +41,9 @@ const Post: React.FC<PropsType> = ({ post, user }) => {
       />
       <div className='border-b border-search text-white py-6 flex items-center gap-6'>
         <div className='cursor-pointer flex items-center gap-3'>
-          <p className='text-lg'>3</p>
+          <p className='text-lg'>
+            {post.comments?.length + newComments?.length}
+          </p>
           <Comment />
         </div>
         <div className='cursor-pointer flex items-center gap-3'>
