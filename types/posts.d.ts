@@ -47,4 +47,11 @@ export type PostType = {
   movie: MovieType;
   user: UserType;
   comments: CommentType[];
+  likes: LikesType[];
+};
+
+export type LikesType = {
+  id: number;
+  user_id: number;
+  quote_id: number;
 };
