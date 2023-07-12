@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import React from 'react';
 import { PropsType } from './types';
-import { useAvatar } from '@/hooks';
+import { getAvatar } from '@/helpers';
 
 const PostComment: React.FC<PropsType> = ({ comment }) => {
-  const src = useAvatar(comment.user);
+  const src = getAvatar(comment.user);
   return (
     <div className='flex mt-6 gap-6'>
       <div className='flex-shrink-0'>

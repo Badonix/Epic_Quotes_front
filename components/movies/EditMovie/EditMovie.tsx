@@ -1,10 +1,11 @@
 import { Close, Photo } from '@/components';
 import Image from 'next/image';
 import React from 'react';
-import { useAvatar, useModal } from '@/hooks';
+import { useModal } from '@/hooks';
 import { useEditMovie } from './useEditMovie';
 import { ErrorMessage } from '@hookform/error-message';
 import { PropsType } from './types';
+import { getAvatar } from '@/helpers';
 export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
   const { setOpenModal, wrapperRef } = useModal();
   const {
@@ -17,7 +18,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
     getInputProps,
     preview,
   } = useEditMovie(movie);
-  const userSrc = useAvatar(user);
+  const userSrc = getAvatar(user);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div

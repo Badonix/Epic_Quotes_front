@@ -4,10 +4,10 @@ import React from 'react';
 import { PostComment } from '../PostComment';
 import { PropsType } from './types';
 import { usePost } from './usePost';
-import { useAvatar } from '@/hooks';
+import { getAvatar } from '@/helpers';
 const Post: React.FC<PropsType> = ({ post, user }) => {
-  const authorSrc = useAvatar(post.user);
-  const userSrc = useAvatar(user);
+  const authorSrc = getAvatar(post.user);
+  const userSrc = getAvatar(user);
   const { handleSubmit, onSubmit, register, newComments } = usePost();
   return (
     <article className='w-full rounded-xl bg-singlepost p-6'>

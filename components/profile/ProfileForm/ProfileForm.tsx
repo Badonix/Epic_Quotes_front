@@ -3,7 +3,7 @@ import { useProfileForm } from './useProfileForm';
 import { ErrorMessage } from '@hookform/error-message';
 import { showLowercaseError, showLengthError } from './helpers';
 import { ProfileFormProps } from './types';
-import { useAvatar } from '@/hooks';
+import { getAvatar } from '@/helpers';
 export const ProfileForm: React.FC<ProfileFormProps> = ({
   user,
   setConfirmation,
@@ -31,7 +31,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
     windowWidth,
     userData,
   } = useProfileForm(confirmation, setConfirmation, user);
-  const avatar = useAvatar(user);
+  const avatar = getAvatar(user);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

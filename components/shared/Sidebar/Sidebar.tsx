@@ -4,10 +4,10 @@ import Image from 'next/image';
 import React from 'react';
 import { PropsType } from './types';
 import Link from 'next/link';
-import { useAvatar } from '@/hooks';
+import { getAvatar } from '@/helpers';
 
 const Sidebar: React.FC<PropsType> = ({ sidebarActive, currentPage, user }) => {
-  const userSrc = useAvatar(user);
+  const userSrc = getAvatar(user);
   return (
     <>
       <div

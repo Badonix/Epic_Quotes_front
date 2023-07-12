@@ -1,11 +1,12 @@
 import { Close, Dropdown, Movie, Photo } from '@/components/icons';
-import { useAvatar, useModal } from '@/hooks';
+import { useModal } from '@/hooks';
 import Image from 'next/image';
 import { useAddQuote } from './useAddQuote';
 import { ErrorMessage } from '@hookform/error-message';
 import { useState } from 'react';
 import { PropsType } from './types';
 import { MovieType } from '@/types';
+import { getAvatar } from '@/helpers';
 export const AddQuoteModal: React.FC<PropsType> = ({
   movies,
   setPosts,
@@ -26,7 +27,7 @@ export const AddQuoteModal: React.FC<PropsType> = ({
     validateBanner,
     setValue,
   } = useAddQuote(setPosts);
-  const userSrc = useAvatar(user);
+  const userSrc = getAvatar(user);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div

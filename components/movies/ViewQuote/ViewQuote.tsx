@@ -1,10 +1,11 @@
 import { PostComment } from '@/components/feed';
 import { Close, Comment, Edit, Heart, Trash } from '@/components/icons';
 import Image from 'next/image';
-import { useAvatar, useModal } from '@/hooks';
+import { useModal } from '@/hooks';
 import { useViewQuote } from './useViewQuote';
 import { CommentType } from '@/types';
 import { PropsType } from './types';
+import { getAvatar } from '@/helpers';
 export const ViewQuote: React.FC<PropsType> = ({
   activeQuote,
   setActiveQuote,
@@ -12,7 +13,7 @@ export const ViewQuote: React.FC<PropsType> = ({
 }) => {
   const { wrapperRef, setOpenModal } = useModal();
   const { handleDelete } = useViewQuote(Number(activeQuote?.id));
-  const userSrc = useAvatar(user);
+  const userSrc = getAvatar(user);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
