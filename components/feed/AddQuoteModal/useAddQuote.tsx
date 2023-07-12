@@ -28,17 +28,14 @@ export const useAddQuote = (setPosts: SetStateAction<any>) => {
 
   const onSubmit = async (data: addQuoteType) => {
     try {
-      console.log(data);
       setLoading(true);
       await fetchCSRFToken();
       const response = await addQuote(data);
       setOpenModal('');
       setPosts((prevPosts: [PostType]) => [...[response.data], ...prevPosts]);
-      console.log(response);
       setLoading(false);
     } catch (e) {
       setLoading(false);
-      console.log(e);
     }
   };
 
@@ -46,7 +43,6 @@ export const useAddQuote = (setPosts: SetStateAction<any>) => {
     let objectUrl: any;
     if (banner) {
       objectUrl = URL.createObjectURL(banner[0]);
-      console.log(objectUrl);
       setPreview(objectUrl);
     }
 

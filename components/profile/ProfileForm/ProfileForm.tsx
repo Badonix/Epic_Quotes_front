@@ -3,6 +3,7 @@ import { useProfileForm } from './useProfileForm';
 import { ErrorMessage } from '@hookform/error-message';
 import { showLowercaseError, showLengthError } from './helpers';
 import { ProfileFormProps } from './types';
+import { getAvatar } from '@/helpers';
 export const ProfileForm: React.FC<ProfileFormProps> = ({
   user,
   setConfirmation,
@@ -30,6 +31,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
     windowWidth,
     userData,
   } = useProfileForm(confirmation, setConfirmation, user);
+  const avatar = getAvatar(user);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -38,10 +40,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
       <div className='flex flex-col justify-center items-center gap-2 md:absolute left-1/2 -top-24 md:-translate-x-1/2 '>
         <label htmlFor='avatar'>
           <img
-            src={
-              preview ||
-              process.env.NEXT_PUBLIC_API_URL + '/storage/' + userData?.avatar
-            }
+            src={preview || avatar}
             alt='pfp'
             className='w-44 h-44 object-cover rounded-full cursor-pointer'
           />
@@ -57,7 +56,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
           <div className='flex items-center gap-4 relative'>
             <input
               disabled
-              value={userData.username}
+              value={userData?.username}
               className='w-full md:px-4 pr-9 md:py-2 py-3 outline-none border-b text-gray-300 border-search md:border-none bg-transparent md:bg-gray-300  rounded-md md:text-black text-xl'
               type='text'
             />
@@ -136,7 +135,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
           <label className='text-base text-white'>Email</label>
           <div className='flex items-center gap-4 relative'>
             <input
-              value={userData.email}
+              value={userData?.email}
               disabled
               className='w-full md:px-4 pr-9 md:py-2 py-3 outline-none border-b text-gray-300 border-search md:border-none bg-transparent md:bg-gray-300  rounded-md md:text-black text-xl'
               type='text'
@@ -220,7 +219,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
             )}
           </>
         )}
-        {!userData.google_id && (
+        {!userData?.google_id && (
           <div className='flex flex-col w-full max-w-md gap-2'>
             <label className='text-base text-white'>Password</label>
             <div className='flex items-center gap-4 relative'>
@@ -408,7 +407,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                   Cancel
                 </p>
                 <button
-                  onClick={() => console.log('zd')}
                   type='submit'
                   className='disabled:bg-red-700 rounded-4 px-4 py-2 bg-red-600 text-white'
                 >

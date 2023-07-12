@@ -11,27 +11,36 @@ import {
 import { EditMovie, QuoteCard } from '@/components';
 import { ModalContext } from '@/context';
 import { useMovie } from '@/hooks';
-import { fetchMovie } from '@/services';
+import { fetchMovie, me } from '@/services';
+import { MovieType, PostType, UserType } from '@/types';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import React, { useContext, useState } from 'react';
 
-export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
+export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
+  movie,
+  user,
+}) => {
   const { openModal, setOpenModal } = useContext(ModalContext);
   const { setSidebarActive, sidebarActive, handleDelete } = useMovie();
   const [activeQuote, setActiveQuote] = useState(null);
   return (
     <>
-      {openModal === 'editmovie' && <EditMovie movie={movie} />}
-      {openModal === 'addquote' && <AddMovieQuote movie={movie} />}
+      {openModal === 'editmovie' && <EditMovie user={user} movie={movie} />}
+      {openModal === 'addquote' && <AddMovieQuote user={user} movie={movie} />}
       {openModal === 'viewquote' && (
-        <ViewQuote setActiveQuote={setActiveQuote} activeQuote={activeQuote} />
+        <ViewQuote
+          user={user}
+          setActiveQuote={setActiveQuote}
+          activeQuote={activeQuote}
+        />
       )}
       {openModal === 'editquote' && (
-        <EditQuote setActiveQuote={setActiveQuote} activeQuote={activeQuote} />
+        <EditQuote user={user} activeQuote={activeQuote} />
       )}
       <Navbar setSidebarActive={setSidebarActive} />
       <section className='min-h-screen pt-24 py-6 flex lg:pr-16 lg:pl-0 px-8'>
         <Sidebar
+          user={user}
           sidebarActive={sidebarActive}
           setSidebarActive={setSidebarActive}
           currentPage='movies'
@@ -40,7 +49,7 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
           <h2 className='text-white text-2xl'>Movie Description</h2>
           <div className='flex mt-6 gap-5 lg:flex-row flex-col w-full'>
             <img
-              className='w-full lg:w-810 lg:h-441 rounded-xl object-cover w-full'
+              className='lg:w-810 lg:h-441 rounded-xl object-cover w-full'
               src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${movie.banner}`}
               alt='movie'
             />
@@ -58,7 +67,7 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
                   </div>
                   <div className='w-px bg-search h-7'></div>
                   <div
-                    onClick={() => handleDelete(movie.id)}
+                    onClick={() => handleDelete(Number(movie.id))}
                     className='cursor-pointer'
                   >
                     <Trash />
@@ -99,7 +108,7 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
             <div className='w-full mt-10'>
               <div className='flex items-center gap-4'>
                 <h2 className='text-white text-2xl'>
-                  Quotes (total {movie.quotes.length})
+                  Quotes (total {movie?.quotes?.length})
                 </h2>
                 <div className='w-px bg-search h-10'></div>
                 <div
@@ -112,7 +121,7 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
               </div>
             </div>
             <div className='mt-10 flex flex-col gap-10'>
-              {movie.quotes.map((quote: any) => (
+              {movie?.quotes?.map((quote: PostType) => (
                 <QuoteCard
                   setActiveQuote={setActiveQuote}
                   key={quote.id}
@@ -129,18 +138,19 @@ export const Movie: NextPage<{ movie: any }> = ({ movie }) => {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
-  let movie;
+  let movie, user;
   try {
     const response = await fetchMovie(Number(id), context.req.headers.cookie);
+    const userRes = await me(context.req.headers.cookie);
+    user = userRes.data;
     movie = response.data;
-    console.log(movie);
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
   return {
     props: {
       movie,
+      user,
     },
   };
 }
+
 export default Movie;

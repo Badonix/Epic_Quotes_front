@@ -4,7 +4,9 @@ import React from 'react';
 import { useModal } from '@/hooks';
 import { useAddMovie } from './useAddMovie';
 import { ErrorMessage } from '@hookform/error-message';
-export const AddMovie = ({ setMovies, movies }: any) => {
+import { PropsType } from './types';
+import { getAvatar } from '@/helpers';
+export const AddMovie: React.FC<PropsType> = ({ setMovies, movies, user }) => {
   const { setOpenModal, wrapperRef } = useModal();
   const {
     register,
@@ -17,7 +19,7 @@ export const AddMovie = ({ setMovies, movies }: any) => {
     preview,
     validateBanner,
   } = useAddMovie(setMovies, movies);
-
+  const avatar = getAvatar(user);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -36,10 +38,12 @@ export const AddMovie = ({ setMovies, movies }: any) => {
             <Image
               width={60}
               height={60}
-              src='/assets/images/default-pfp.png'
+              loader={() => avatar}
+              src={avatar}
               alt='pfp'
+              className='w-15 h-15 object-cover rounded-full'
             />
-            <h2 className='text-white text-xl'>Nino Tabagari</h2>
+            <h2 className='text-white text-xl'>{user?.username}</h2>
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}

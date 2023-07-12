@@ -1,4 +1,8 @@
-import { addMovie as AddMovieType, updateProfileType } from '@/types';
+import {
+  addMovie as AddMovieType,
+  addCommentType,
+  updateProfileType,
+} from '@/types';
 import axios from 'axios';
 
 const instance = axios.create({
@@ -75,7 +79,6 @@ export const googleSignIn = async (data: any, cookie: any) => {
       cookie: cookie,
     },
   });
-  console.log(response);
   return response;
 };
 
@@ -90,7 +93,6 @@ export const addMovie = async (data: AddMovieType) => {
     release_year: year,
     budget,
   };
-  console.log(movieData);
   const response = await instance.post('/api/movies', movieData, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -137,7 +139,6 @@ export const editMovie = async (data: any, id: number) => {
     release_year: year,
     budget,
   };
-  console.log(movieData);
 
   const response = await instance.post(`/api/movies/${id}/edit`, movieData, {
     headers: {
@@ -154,7 +155,6 @@ export const addQuote = async (data: any) => {
     movie_id,
     image: image[0],
   };
-  console.log(body);
   const response = await instance.post('/api/quotes', quoteData, {
     headers: {
       'Content-Type': 'multipart/form-data',
@@ -186,7 +186,6 @@ export const editQuote = async (quoteId: number, data: any) => {
     image: image[0],
     movie_id,
   };
-  console.log(data);
   const response = await instance.post(
     '/api/quotes/' + quoteId + '/edit',
     quoteData,
@@ -211,5 +210,10 @@ export const updateProfile = async (data: updateProfileType) => {
 
 export const fetchPosts = async (page: number) => {
   const response = await instance.get('/api/quotes' + `?page=${page}`);
+  return response;
+};
+
+export const addComment = async (data: addCommentType) => {
+  const response = await instance.post('/api/comments', data);
   return response;
 };

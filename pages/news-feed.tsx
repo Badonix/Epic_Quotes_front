@@ -7,11 +7,12 @@ import {
 } from '@/components';
 import { ModalContext } from '@/context';
 import { useNewsFeed } from '@/hooks';
-import { fetchMovies, fetchPosts } from '@/services';
-import { PostType } from '@/types';
+import { fetchMovies, fetchPosts, me } from '@/services';
+import { FeedPropsType, PostType } from '@/types';
+import { NextPage } from 'next';
 import { useContext } from 'react';
 
-const NewsFeed = ({ movies, quotes }: any) => {
+const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
   const {
     setSearchActive,
     posts,
@@ -26,7 +27,7 @@ const NewsFeed = ({ movies, quotes }: any) => {
   return (
     <>
       {openModal === 'postquote' && (
-        <AddQuoteModal setPosts={setPosts} movies={movies} />
+        <AddQuoteModal user={user} setPosts={setPosts} movies={movies} />
       )}
       <FeedNavbar
         setSearchActive={setSearchActive}
@@ -34,6 +35,7 @@ const NewsFeed = ({ movies, quotes }: any) => {
       />
       <section className='py-24 flex justify-between'>
         <Sidebar
+          user={user}
           currentPage='news-feed'
           setSidebarActive={setSidebarActive}
           sidebarActive={sidebarActive}
@@ -45,14 +47,14 @@ const NewsFeed = ({ movies, quotes }: any) => {
           />
           <div className='w-full px-10 mt-6 flex flex-col gap-10'>
             {posts.map((post: PostType) => (
-              <Post key={post.id} post={post} />
+              <Post user={user} key={post.id} post={post} />
             ))}
             {data?.pages
               .flatMap((data: any) => {
                 return data.data.data;
               })
               ?.map((post: PostType) => {
-                return <Post key={post.id} post={post} />;
+                return <Post user={user} key={post.id} post={post} />;
               })}
             <div ref={loadMoreRef} className='w-full h-3'></div>
           </div>
@@ -64,16 +66,15 @@ const NewsFeed = ({ movies, quotes }: any) => {
 };
 
 export async function getServerSideProps(context: any) {
-  let movies, quotes;
+  let movies, quotes, user;
   try {
-    console.log(context.req.headers.cookie);
     const res = await fetchMovies(context.req.headers.cookie);
     const quotesData = await fetchPosts(1);
+    const userRes = await me(context.req.headers.cookie);
+    user = userRes.data;
     quotes = quotesData.data.data;
     movies = res.data;
-  } catch (e) {
-    console.log(e);
-  }
-  return { props: { movies, quotes } };
+  } catch (e) {}
+  return { props: { movies, quotes, user } };
 }
 export default NewsFeed;

@@ -3,9 +3,17 @@ import { Close, Comment, Edit, Heart, Trash } from '@/components/icons';
 import Image from 'next/image';
 import { useModal } from '@/hooks';
 import { useViewQuote } from './useViewQuote';
-export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
+import { CommentType } from '@/types';
+import { PropsType } from './types';
+import { getAvatar } from '@/helpers';
+export const ViewQuote: React.FC<PropsType> = ({
+  activeQuote,
+  setActiveQuote,
+  user,
+}) => {
   const { wrapperRef, setOpenModal } = useModal();
-  const { handleDelete } = useViewQuote(activeQuote.id);
+  const { handleDelete } = useViewQuote(Number(activeQuote?.id));
+  const userSrc = getAvatar(user);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -17,7 +25,6 @@ export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
             <div
               onClick={() => {
                 setOpenModal('editquote');
-                console.log(activeQuote);
                 setActiveQuote(activeQuote);
               }}
               className='cursor-pointer'
@@ -45,28 +52,30 @@ export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
             <Image
               width={60}
               height={60}
-              src='/assets/images/default-pfp.png'
+              src={userSrc}
+              loader={() => userSrc}
               alt='pfp'
+              className='w-15 h-15 rounded-full object-cover'
             />
-            <h2 className='text-white text-xl'>Nino Tabagari</h2>
+            <h2 className='text-white text-xl'>{user?.username}</h2>
           </div>
           <div className='pb-11 mt-7 flex flex-col gap-6 w-full'>
             <div className='flex flex-col gap-3 text-2xl italic text-white'>
               <div className='border border-search rounded-md px-4 py-2 flex items-center relative'>
-                <p>&quot;{activeQuote.body.en}&quot;</p>
+                <p>&quot;{activeQuote?.body.en}&quot;</p>
                 <p className='absolute right-6 text-xl text-gray-600 not-italic'>
                   Eng
                 </p>
               </div>
               <div className='border border-search rounded-md px-4 py-2 flex items-center relative'>
-                <p>&quot;{activeQuote.body.ka}&quot;</p>
+                <p>&quot;{activeQuote?.body.ka}&quot;</p>
                 <p className='absolute right-6 text-xl text-gray-600 not-italic'>
                   ქარ
                 </p>
               </div>
             </div>
             <img
-              src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${activeQuote.image}`}
+              src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${activeQuote?.image}`}
               className='w-full object-cover h-513 rounded-lg'
             />
             <div className='flex items-center gap-4 text-xl'>
@@ -80,11 +89,10 @@ export const ViewQuote = ({ activeQuote, setActiveQuote }: any) => {
               </div>
             </div>
           </div>
-          <div className='max-h-56 overflow-auto scrollbar-thin scrollbar-thumb-slate-50'>
-            <PostComment />
-            <PostComment />
-            <PostComment />
-            <PostComment />
+          <div className='max-h-40 overflow-auto scrollbar-thin scrollbar-thumb-slate-50'>
+            {activeQuote?.comments?.map((comment: CommentType) => (
+              <PostComment comment={comment} key={comment.id} />
+            ))}
           </div>
           <div className='flex items-center gap-6 py-6'>
             <Image

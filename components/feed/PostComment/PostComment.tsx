@@ -1,25 +1,28 @@
 import Image from 'next/image';
 import React from 'react';
+import { PropsType } from './types';
+import { getAvatar } from '@/helpers';
 
-const PostComment = () => {
+const PostComment: React.FC<PropsType> = ({ comment }) => {
+  const src = getAvatar(comment.user);
   return (
     <div className='flex mt-6 gap-6'>
       <div className='flex-shrink-0'>
         <Image
+          unoptimized
           width={52}
           height={52}
+          loader={() => src}
           alt='pfp'
-          src='/assets/images/default-pfp.png'
+          className='w-52px h-52px rounded-full object-cover'
+          src={src}
         />
       </div>
-      <div className='flex flex-col gap-3 pt-3 py-6 border-b border-search'>
-        <h2 className='text-white text-xl font-bold'>Nina Baldadze</h2>
-        <p className='text-white text-xl'>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-          nunc vel massa facilisis consequat elit morbi convallis convallis.
-          Volutpat vitae et nisl et. Adipiscing enim integer mi leo nisl. Arcu
-          vitae mauris odio eget.
-        </p>
+      <div className='flex flex-col gap-3 w-full pt-3 py-6 border-b border-search'>
+        <h2 className='text-white text-xl font-bold'>
+          {comment?.user?.username}
+        </h2>
+        <p className='text-white text-xl break-all'>{comment?.body}</p>
       </div>
     </div>
   );

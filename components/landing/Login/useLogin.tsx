@@ -14,13 +14,11 @@ export const useLogin = () => {
   const onSubmit = async (data: any) => {
     try {
       await fetchCSRFToken();
-      const res = await login(data);
-      console.log(res);
+      await login(data);
       router.push('/news-feed');
       setLoading(false);
     } catch (e: any) {
       setLoading(false);
-      console.log(e);
       if (e.response && e.response.status === 401) {
         setError('Wrong credentials');
       }

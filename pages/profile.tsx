@@ -1,9 +1,10 @@
 import { Back, Navbar, ProfileForm, Sidebar } from '@/components';
 import { useProfile } from '@/hooks';
 import { me } from '@/services';
-import { GetServerSidePropsContext } from 'next';
+import { UserType } from '@/types';
+import { GetServerSidePropsContext, NextPage } from 'next';
 
-export const Profile = ({ user }: any) => {
+export const Profile: NextPage<{ user: UserType }> = ({ user }) => {
   const {
     setSidebarActive,
     sidebarActive,
@@ -16,6 +17,7 @@ export const Profile = ({ user }: any) => {
       <Navbar setSidebarActive={setSidebarActive} />
       <section className='md:min-h-screen h-screen md:py-24 flex-col md:flex-row flex lg:pr-16 lg:pl-0 md:px-8'>
         <Sidebar
+          user={user}
           setSidebarActive={setSidebarActive}
           sidebarActive={sidebarActive}
           currentPage='profile'
@@ -54,9 +56,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   let user;
   try {
     user = await me(ctx.req.headers.cookie);
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
   return { props: { user: user?.data } };
 }
 

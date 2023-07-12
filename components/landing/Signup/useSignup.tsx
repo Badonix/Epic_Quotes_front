@@ -26,7 +26,6 @@ export const useSignup = () => {
         setOpenModal('checkEmail');
       }
     } catch (e: any) {
-      console.log(e);
       if (e.response?.status == 422) {
         setIsLoading(false);
         e.response.data?.data?.email &&

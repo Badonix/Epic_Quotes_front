@@ -4,7 +4,9 @@ import React from 'react';
 import { useModal } from '@/hooks';
 import { useEditMovie } from './useEditMovie';
 import { ErrorMessage } from '@hookform/error-message';
-export const AddMovie = ({ setMovies, movies, movie }: any) => {
+import { PropsType } from './types';
+import { getAvatar } from '@/helpers';
+export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
   const { setOpenModal, wrapperRef } = useModal();
   const {
     register,
@@ -15,8 +17,8 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
     getRootProps,
     getInputProps,
     preview,
-  } = useEditMovie(setMovies, movies, movie);
-
+  } = useEditMovie(movie);
+  const userSrc = getAvatar(user);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -35,10 +37,12 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
             <Image
               width={60}
               height={60}
-              src='/assets/images/default-pfp.png'
+              src={userSrc}
+              loader={() => userSrc}
               alt='pfp'
+              className='w-15 h-15 rounded-full object-cover'
             />
-            <h2 className='text-white text-xl'>Nino Tabagari</h2>
+            <h2 className='text-white text-xl'>{user?.username}</h2>
           </div>
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -236,7 +240,7 @@ export const AddMovie = ({ setMovies, movies, movie }: any) => {
                   className='w-1/2 max-h-64'
                   src={
                     preview ||
-                    `${process.env.NEXT_PUBLIC_API_URL}/storage/${movie.banner}`
+                    `${process.env.NEXT_PUBLIC_API_URL}/storage/${movie?.banner}`
                   }
                   alt='Uploaded Image'
                 />

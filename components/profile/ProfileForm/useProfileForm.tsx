@@ -2,11 +2,11 @@ import { fetchCSRFToken, updateProfile } from '@/services';
 import { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { User } from './types';
+import { UserType } from '@/types';
 export const useProfileForm = (
   confirmation: boolean,
   setConfirmation: React.Dispatch<React.SetStateAction<boolean>>,
-  user: User
+  user: UserType
 ) => {
   const [usernameActive, setUsernameActive] = useState<boolean>(false);
   const [emailActive, setEmailActive] = useState<boolean>(false);
@@ -50,7 +50,6 @@ export const useProfileForm = (
   });
 
   const onSubmit = async (data: any) => {
-    console.log(data);
     try {
       await fetchCSRFToken();
       let profileData = data;
@@ -64,9 +63,8 @@ export const useProfileForm = (
       setEmailActive(false);
       setPasswordActive(false);
       setPreview(undefined);
-      console.log(response);
+      router.push('/profile');
     } catch (e: any) {
-      console.log(e);
       if (e.response.data.errors.email) {
         setError('email', { type: 'unique', message: 'Email already taken' });
         setConfirmation(false);
@@ -141,7 +139,6 @@ export const useProfileForm = (
     let objectUrl: any;
     if (avatar && avatar[0] instanceof File) {
       objectUrl = URL.createObjectURL(avatar[0]);
-      console.log(objectUrl);
       setPreview(objectUrl);
       setConfirmation(true);
     }

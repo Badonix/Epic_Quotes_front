@@ -3,7 +3,8 @@ import { useForm, useWatch } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
 import { editMovie, fetchCSRFToken } from '@/services';
 import { useRouter } from 'next/router';
-export const useEditMovie = (setMovies: any, movies: any, movie: any) => {
+import { MovieType } from '@/types';
+export const useEditMovie = (movie: MovieType) => {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const [preview, setPreview] = useState('');
@@ -24,7 +25,6 @@ export const useEditMovie = (setMovies: any, movies: any, movie: any) => {
       banner: '',
     },
   });
-  console.log(movie);
 
   const banner = useWatch({ control, name: 'banner' });
 
@@ -40,12 +40,11 @@ export const useEditMovie = (setMovies: any, movies: any, movie: any) => {
     try {
       setLoading(true);
       await fetchCSRFToken();
-      const response = await editMovie(data, movie.id);
+      const response = await editMovie(data, Number(movie.id));
       response.status === 200 && router.reload();
       setLoading(false);
     } catch (e) {
       setLoading(false);
-      console.log(e);
     }
   };
 
@@ -53,7 +52,6 @@ export const useEditMovie = (setMovies: any, movies: any, movie: any) => {
     let objectUrl: any;
     if (banner && typeof banner[0] !== 'string') {
       objectUrl = URL.createObjectURL(banner[0]);
-      console.log(objectUrl);
       setPreview(objectUrl);
     }
 
