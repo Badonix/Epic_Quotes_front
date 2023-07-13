@@ -4,10 +4,12 @@ import { useForm, useWatch } from 'react-hook-form';
 import { useModal } from '@/hooks';
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 export const useAddMovieQuote = (movieId: number) => {
   const { setOpenModal } = useModal();
   const [loading, setLoading] = useState<boolean>(false);
   const [preview, setPreview] = useState('');
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -52,7 +54,7 @@ export const useAddMovieQuote = (movieId: number) => {
 
   const validateBanner = (value: FileList) => {
     if (!value || value.length === 0) {
-      return 'Quote image is required';
+      return t('addquote.image_required');
     }
     return true;
   };

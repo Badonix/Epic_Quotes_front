@@ -15,11 +15,14 @@ import { fetchMovie, me } from '@/services';
 import { MovieType, PostType, UserType } from '@/types';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import React, { useContext, useState } from 'react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
   movie,
   user,
 }) => {
+  const { t } = useTranslation();
   const { openModal, setOpenModal } = useContext(ModalContext);
   const { setSidebarActive, sidebarActive, handleDelete } = useMovie();
   const [activeQuote, setActiveQuote] = useState(null);
@@ -46,7 +49,7 @@ export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
           currentPage='movies'
         />
         <div className='mt-7 w-full'>
-          <h2 className='text-white text-2xl'>Movie Description</h2>
+          <h2 className='text-white text-2xl'>{t('movie.description')}</h2>
           <div className='flex mt-6 gap-5 lg:flex-row flex-col w-full'>
             <img
               className='lg:w-810 lg:h-441 rounded-xl object-cover w-full'
@@ -83,7 +86,7 @@ export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
               </div>
               <div>
                 <p className='font-bold text-lg text-gray-300'>
-                  Director:
+                  {t('movie.director')}
                   <span className='font-normal text-white ml-2'>
                     {movie.director.en}
                   </span>
@@ -91,7 +94,7 @@ export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
               </div>
               <div>
                 <p className='font-bold text-lg text-gray-300'>
-                  Budget:
+                  {t('movie.budget')}
                   <span className='font-normal text-white ml-2'>
                     {movie.budget}$
                   </span>
@@ -108,7 +111,8 @@ export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
             <div className='w-full mt-10'>
               <div className='flex items-center gap-4'>
                 <h2 className='text-white text-2xl'>
-                  Quotes (total {movie?.quotes?.length})
+                  {t('movie.quote')} ({t('movie.total')} {movie?.quotes?.length}
+                  )
                 </h2>
                 <div className='w-px bg-search h-10'></div>
                 <div
@@ -116,7 +120,7 @@ export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
                   className='flex items-center gap-1 lg:gap-2 text-base lg:text-xl cursor-pointer text-white bg-red-600 lg:px-4 py-3 px-3 whitespace-nowrap rounded-md'
                 >
                   <Add />
-                  Add Quote
+                  {t('movie.add_quote')}
                 </div>
               </div>
             </div>
@@ -139,6 +143,8 @@ export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { id } = context.query;
   let movie, user;
+  const { locale = 'en' } = context;
+
   try {
     const response = await fetchMovie(Number(id), context.req.headers.cookie);
     const userRes = await me(context.req.headers.cookie);
@@ -149,6 +155,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       movie,
       user,
+      ...(await serverSideTranslations(locale)),
     },
   };
 }

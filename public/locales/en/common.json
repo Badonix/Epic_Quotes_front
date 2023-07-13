@@ -73,5 +73,58 @@
       "changed_successfully": "Your password changed successfully",
       "log_in": "Log in"
     }
-  }
+  },
+  "movies": {
+    "list": "My list of movies",
+    "total": "Total",
+    "add": "Add movie",
+    "search": "Search",
+    "addmovie": {
+      "add_movie": "Add movie",
+      "movie_name_required": "Movie name is required",
+      "genre": "Genre",
+      "movie_genre_required": "Movie genre is required",
+      "movie_year_required": "Release year is required",
+      "budget": "Budget",
+      "movie_budget_required": "Movie budget is required",
+      "movie_director_required": "Movie director is required",
+      "movie_description_required": "Movie description is required",
+      "drop": "Drag & drop image here or",
+      "choose": "Choose the file",
+      "banner_required": "Movie banner is required"
+    },
+    "editmovie": {
+      "replace": "Replace",
+      "edit": "Edit movie"
+    }
+  },
+  "movie": {
+    "editquote": {
+      "delete": "Delete",
+      "edit_quote": "Edit quote",
+      "quote_required": "Quote is required",
+      "change": "Change image",
+      "save": "Save changes"
+    },
+    "description": "Movie description",
+    "director": "Director",
+    "budget": "Budget",
+    "quote": "Quotes",
+    "add_quote": "Add quote",
+    "total": "Total",
+    "quotecard": {
+      "view": "View quote",
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+  "addquote": {
+    "add_quote": "Add quote",
+    "director": "Director",
+    "drag": "Drag & drop image here or",
+    "choose": "Choose file",
+    "image_required": "Quote image is required",
+    "quote_required": "Quote is required"
+  },
+  "view_quote": "View quote"
 }

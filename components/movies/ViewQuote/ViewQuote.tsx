@@ -6,6 +6,7 @@ import { useViewQuote } from './useViewQuote';
 import { CommentType } from '@/types';
 import { PropsType } from './types';
 import { getAvatar } from '@/helpers';
+import { useTranslation } from 'next-i18next';
 export const ViewQuote: React.FC<PropsType> = ({
   activeQuote,
   setActiveQuote,
@@ -15,6 +16,7 @@ export const ViewQuote: React.FC<PropsType> = ({
   const { handleDelete, handleSubmit, onSubmit, register, newComments } =
     useViewQuote(Number(activeQuote?.id));
   const userSrc = getAvatar(user);
+  const { t } = useTranslation();
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -37,7 +39,7 @@ export const ViewQuote: React.FC<PropsType> = ({
               <Trash />
             </div>
           </div>
-          <h2 className='text-2xl'>View Quote</h2>
+          <h2 className='text-2xl'>{t('view_quote')}</h2>
           <div
             className='cursor-pointer w-32 flex justify-end'
             onClick={() => {

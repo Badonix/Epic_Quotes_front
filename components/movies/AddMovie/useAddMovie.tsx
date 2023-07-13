@@ -4,6 +4,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { useModal } from '@/hooks';
 import { useDropzone } from 'react-dropzone';
 import { MovieType } from '@/types';
+import { useTranslation } from 'next-i18next';
 export const useAddMovie = (
   setMovies: React.Dispatch<SetStateAction<MovieType[]>>,
   movies: MovieType[]
@@ -18,7 +19,7 @@ export const useAddMovie = (
     formState: { errors },
     control,
   } = useForm();
-
+  const { t } = useTranslation();
   const banner = useWatch({ control, name: 'banner' });
 
   const onDrop = useCallback((acceptedFiles: any) => {
@@ -45,7 +46,7 @@ export const useAddMovie = (
 
   const validateBanner = (value: FileList) => {
     if (!value || value.length === 0) {
-      return 'Movie banner is required';
+      return t('movies.addmovie.banner_required');
     }
     return true;
   };

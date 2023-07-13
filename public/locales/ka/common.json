@@ -72,5 +72,58 @@
       "changed_successfully": "შენი პაროლი წარმატებით შეიცვალა",
       "log_in": "შესვლა"
     }
-  }
+  },
+  "movies": {
+    "list": "ჩემი ფილმების სია",
+    "total": "ჯამში",
+    "add": "ფილმის დამატება",
+    "search": "ძებნა",
+    "addmovie": {
+      "add_movie": "ფილმის დამატება",
+      "movie_name_required": "ფილმის სახელი სავალდებულოა",
+      "genre": "ჟანრი",
+      "movie_genre_required": "ჯანრის არჩევა სავალდებულოა",
+      "movie_year_required": "წლის არჩევა სავალდებულოა",
+      "budget": "ბიუჯეტი",
+      "movie_budget_required": "ფილმის ბიუჯეტი სავალდებულოა",
+      "movie_director_required": "ფილმის რეჟისორი სავალდებულოა",
+      "movie_description_required": "ფიმლის აღწერა სავალდებულოა",
+      "drop": "აიღეთ და ჩააგდეთ ფოტო აქ ან ",
+      "choose": "აირჩიეთ ფაილი",
+      "banner_required": "ფილმის ბანერი სავალდებულოა"
+    },
+    "editmovie": {
+      "replace": "შეცვლა",
+      "edit": "ფილმის რედაქტირება"
+    }
+  },
+  "movie": {
+    "editquote": {
+      "delete": "წაშლა",
+      "edit_quote": "ციტატის შეცვლა",
+      "quote_required": "ციტატა აუცილებელია",
+      "change": "ფოტოს შეცვლა",
+      "save": "ცვლილებების შენახვა"
+    },
+    "description": "ფილმის აღწერა",
+    "director": "რეჟისორი",
+    "budget": "ბიუჯეტი",
+    "quote": "ციტატები",
+    "add_quote": "ციტატის დამატება",
+    "total": "სულ",
+    "quotecard": {
+      "view": "ციტატის ნახვა",
+      "edit": "შეცვლა",
+      "delete": "წაშლა"
+    }
+  },
+  "addquote": {
+    "add_quote": "ციტატის დამატება",
+    "director": "რეჟისორი",
+    "drag": "ფოტო აიღე & ჩააგდე აქ ან",
+    "choose": "აირჩიე ფაილი",
+    "image_required": "ციტატის ფოტო აუცილებელია",
+    "quote_required": "ციტატა აუცილებელია"
+  },
+  "view_quote": "ციტატის ნახვა"
 }

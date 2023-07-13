@@ -6,6 +6,7 @@ import { useAddMovieQuote } from './useAddMovieQuote';
 import { ErrorMessage } from '@hookform/error-message';
 import { PropsType } from './types';
 import { getAvatar } from '@/helpers';
+import { useTranslation } from 'next-i18next';
 export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
   const { setOpenModal, wrapperRef } = useModal();
   const {
@@ -21,6 +22,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
   } = useAddMovieQuote(Number(movie.id));
   const src = `${process.env.NEXT_PUBLIC_API_URL}/storage/${movie.banner}`;
   const userSrc = getAvatar(user);
+  const { t } = useTranslation();
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -29,7 +31,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
       >
         <div className='flex justify-between items-center py-9 px-10 border-b border-search'>
           <div></div>
-          <h2 className='text-2xl'>Add Quote</h2>
+          <h2 className='text-2xl'>{t('addquote.add_quote')}</h2>
           <div className='cursor-pointer' onClick={() => setOpenModal('')}>
             <Close />
           </div>
@@ -69,7 +71,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                   </div>
                 </div>
                 <p className='font-bold text-lg text-gray-300'>
-                  Director:
+                  {t('addquote.director')}:
                   <span className='font-normal text-white ml-2'>
                     {movie.director.en}
                   </span>
@@ -83,7 +85,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                   placeholder={'Start creating new quote'}
                   disabled={loading}
                   {...register('body.en', {
-                    required: 'Quote is required',
+                    required: t('addquote.quote_required'),
                   })}
                   className='pl-3 italic pr-12 px-4 py-2 w-full bg-transparent border border-search outline-none rounded-4'
                 />
@@ -99,7 +101,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                   placeholder='ახალი ციტატა'
                   disabled={loading}
                   {...register('body.ka', {
-                    required: 'ციტატა აუცილებელია',
+                    required: t('addquote.quote_required'),
                   })}
                   className='pl-3 italic pr-12 px-4 py-2 w-full bg-transparent border border-search outline-none rounded-4'
                 />
@@ -120,7 +122,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                 )}
                 <div className='flex items-center gap-2'>
                   <Photo />
-                  <p>Drag & drop your image here or</p>
+                  <p>{t('addquote.drag')}</p>
                 </div>
                 <input
                   {...getInputProps()}
@@ -136,7 +138,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                   className='p-2 bg-purple-800   text-white'
                   htmlFor='image'
                 >
-                  Choose file
+                  {t('addquote.choose')}
                 </label>
               </div>
               <p className='absolute -bottom-5 text-red-600'>
@@ -148,7 +150,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
               type='submit'
               className='disabled:bg-red-700 rounded-4 py-2 w-full bg-red-600 text-white'
             >
-              Add quote
+              {t('addquote.add_quote')}
             </button>
           </form>
         </div>
