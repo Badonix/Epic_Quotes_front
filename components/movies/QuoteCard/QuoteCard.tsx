@@ -11,9 +11,11 @@ import { useQuoteCard } from './useQuoteCard';
 import { useModal } from '@/hooks';
 import { PropsType } from './types';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 export const QuoteCard: React.FC<PropsType> = ({ quote, setActiveQuote }) => {
   const src = `${process.env.NEXT_PUBLIC_API_URL}/storage/${quote.image}`;
   const { t } = useTranslation();
+  const { locale } = useRouter();
   const { menuOpen, wrapperRef, setMenuOpen, handleDelete } = useQuoteCard();
   const { setOpenModal } = useModal();
   return (
@@ -44,7 +46,7 @@ export const QuoteCard: React.FC<PropsType> = ({ quote, setActiveQuote }) => {
             <p>{t('movie.quotecard.edit')}</p>
           </div>
           <div
-            onClick={() => handleDelete(Number(quote.id))}
+            onClick={() => handleDelete(Number(quote?.id))}
             className='flex text-white gap-4 items-center cursor-pointer'
           >
             <Trash />
@@ -68,7 +70,7 @@ export const QuoteCard: React.FC<PropsType> = ({ quote, setActiveQuote }) => {
           alt='quote-image'
         />
         <div className='text-center w-full text-2xl text-gray-300 italic flex items-center justify-center'>
-          <h2>{quote.body.en}</h2>
+          <h2>{locale == 'ka' ? quote?.body.ka : quote?.body?.en}</h2>
         </div>
       </div>
       <hr></hr>

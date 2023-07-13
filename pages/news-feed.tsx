@@ -79,7 +79,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     movies = res.data;
   } catch (e) {}
   return {
-    props: { movies, quotes, user, ...(await serverSideTranslations(locale)) },
+    props: {
+      movies,
+      quotes,
+      user,
+      ...(await serverSideTranslations(locale)),
+    },
   };
 }
 export default NewsFeed;

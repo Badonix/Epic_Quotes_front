@@ -16,7 +16,8 @@ const Post: React.FC<PropsType> = ({ post, user }) => {
     newComments,
     handleLike,
     liked,
-  } = usePost(post.likes, user);
+    locale,
+  } = usePost(post?.likes, user);
   return (
     <article className='w-full rounded-xl bg-singlepost p-6'>
       <div className='flex items-center gap-4'>
@@ -32,17 +33,18 @@ const Post: React.FC<PropsType> = ({ post, user }) => {
         <h2 className='text-white text-xl'>{post?.user?.username}</h2>
       </div>
       <p className='mt-4 text-white text-lg'>
-        “{post.body.en}”movie- {post.movie.title.en}. ({post.movie.release_year}
-        )
+        “{locale == 'ka' ? post?.body?.ka : post?.body?.en}”movie-{' '}
+        {locale == 'ka' ? post?.movie?.title?.ka : post?.movie?.title?.en}. (
+        {post?.movie?.release_year})
       </p>
       <img
-        src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${post.image}`}
+        src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${post?.image}`}
         className='w-full rounded-lg mt-7'
       />
       <div className='border-b border-search text-white py-6 flex items-center gap-6'>
         <div className='cursor-pointer flex items-center gap-3'>
           <p className='text-lg'>
-            {post.comments?.length + newComments?.length}
+            {post?.comments?.length + newComments?.length}
           </p>
           <Comment />
         </div>
@@ -55,10 +57,10 @@ const Post: React.FC<PropsType> = ({ post, user }) => {
       </div>
       <div className='max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-900'>
         {newComments?.map((comment) => (
-          <PostComment key={comment.id} comment={comment} />
+          <PostComment key={comment?.id} comment={comment} />
         ))}
         {post?.comments?.map((comment) => (
-          <PostComment key={comment.id} comment={comment} />
+          <PostComment key={comment?.id} comment={comment} />
         ))}
       </div>
       <form
@@ -79,7 +81,7 @@ const Post: React.FC<PropsType> = ({ post, user }) => {
           className='w-full bg-post text-white px-7 py-3 rounded-lg outline-none text-xl'
           placeholder='Write a comment'
         />
-        <input {...register('post_id')} type='hidden' value={post.id} />
+        <input {...register('post_id')} type='hidden' value={post?.id} />
       </form>
     </article>
   );

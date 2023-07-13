@@ -17,12 +17,13 @@ import { GetServerSidePropsContext, NextPage } from 'next';
 import React, { useContext, useState } from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
-
-export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
-  movie,
-  user,
-}) => {
+import { useRouter } from 'next/router';
+export const Movie: NextPage<{
+  movie: MovieType;
+  user: UserType;
+}> = ({ movie, user }) => {
   const { t } = useTranslation();
+  const { locale } = useRouter();
   const { openModal, setOpenModal } = useContext(ModalContext);
   const { setSidebarActive, sidebarActive, handleDelete } = useMovie();
   const [activeQuote, setActiveQuote] = useState(null);
@@ -53,13 +54,13 @@ export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
           <div className='flex mt-6 gap-5 lg:flex-row flex-col w-full'>
             <img
               className='lg:w-810 lg:h-441 rounded-xl object-cover w-full'
-              src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${movie.banner}`}
+              src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${movie?.banner}`}
               alt='movie'
             />
             <div className='flex flex-col gap-6'>
               <div className='flex items-center justify-between gap-4'>
                 <h2 className='font-bold text-orange-200 text-2xl'>
-                  {movie.title.en}
+                  {locale == 'ka' ? movie?.title.ka : movie?.title.en}
                 </h2>
                 <div className='flex items-center gap-4 rounded-xl bg-modal px-4 py-2'>
                   <div
@@ -70,7 +71,7 @@ export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
                   </div>
                   <div className='w-px bg-search h-7'></div>
                   <div
-                    onClick={() => handleDelete(Number(movie.id))}
+                    onClick={() => handleDelete(Number(movie?.id))}
                     className='cursor-pointer'
                   >
                     <Trash />
@@ -80,7 +81,7 @@ export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
               <div>
                 <div className='flex'>
                   <div className='text-white bg-gray-500 rounded-md px-3 py-1'>
-                    {movie.genre}
+                    {movie?.genre}
                   </div>
                 </div>
               </div>
@@ -88,7 +89,7 @@ export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
                 <p className='font-bold text-lg text-gray-300'>
                   {t('movie.director')}
                   <span className='font-normal text-white ml-2'>
-                    {movie.director.en}
+                    {locale == 'ka' ? movie?.director.ka : movie?.director.en}
                   </span>
                 </p>
               </div>
@@ -96,13 +97,15 @@ export const Movie: NextPage<{ movie: MovieType; user: UserType }> = ({
                 <p className='font-bold text-lg text-gray-300'>
                   {t('movie.budget')}
                   <span className='font-normal text-white ml-2'>
-                    {movie.budget}$
+                    {movie?.budget}$
                   </span>
                 </p>
               </div>
               <div>
                 <p className='text-gray-300 text-lg max-w-xl'>
-                  {movie.description.en}
+                  {locale == 'ka'
+                    ? movie?.description.ka
+                    : movie?.description.en}
                 </p>
               </div>
             </div>

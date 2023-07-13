@@ -27,6 +27,7 @@ export const AddQuoteModal: React.FC<PropsType> = ({
     onSubmit,
     validateBanner,
     setValue,
+    locale,
   } = useAddQuote(setPosts);
   const { t } = useTranslation();
   const userSrc = getAvatar(user);
@@ -140,17 +141,19 @@ export const AddQuoteModal: React.FC<PropsType> = ({
                 <Dropdown />
                 {movieDropdown && (
                   <div className='z-30 transition-all max-h-36 scrollbar-thin scrollbar-thumb-slate-50 overflow-y-auto absolute w-full left-0 top-full'>
-                    {movies.map((movie: MovieType) => {
+                    {movies?.map((movie: MovieType) => {
                       return (
                         <div
                           onClick={() => {
                             setValue('movie_id', movie.id);
-                            setMovieValue(movie.title.en);
+                            locale == 'ka'
+                              ? setMovieValue(movie.title.ka)
+                              : setMovieValue(movie.title.en);
                           }}
                           key={movie.id}
                           className='hover:bg-gray-700 w-full bg-gray-950 px-4 py-3 text-white text-xl'
                         >
-                          {movie.title.en}
+                          {locale == 'ka' ? movie.title.ka : movie.title.en}
                         </div>
                       );
                     })}
