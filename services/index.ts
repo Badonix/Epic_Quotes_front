@@ -217,3 +217,13 @@ export const addComment = async (data: addCommentType) => {
   const response = await instance.post('/api/comments', data);
   return response;
 };
+
+export const addLike = async (id: Number) => {
+  const response = await instance.post('/api/like/' + id);
+  return response;
+};
+
+export const removeLike = async (id: Number) => {
+  const response = await instance.post('/api/unlike/' + id);
+  return response;
+};

@@ -46,11 +46,11 @@ const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
             setSearchActive={setSearchActive}
           />
           <div className='w-full px-10 mt-6 flex flex-col gap-10'>
-            {posts.map((post: PostType) => (
+            {posts?.map((post: PostType) => (
               <Post user={user} key={post.id} post={post} />
             ))}
             {data?.pages
-              .flatMap((data: any) => {
+              ?.flatMap((data: any) => {
                 return data.data.data;
               })
               ?.map((post: PostType) => {

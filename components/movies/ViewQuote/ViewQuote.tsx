@@ -12,13 +12,14 @@ export const ViewQuote: React.FC<PropsType> = ({
   user,
 }) => {
   const { wrapperRef, setOpenModal } = useModal();
-  const { handleDelete } = useViewQuote(Number(activeQuote?.id));
+  const { handleDelete, handleSubmit, onSubmit, register, newComments } =
+    useViewQuote(Number(activeQuote?.id));
   const userSrc = getAvatar(user);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
         ref={wrapperRef}
-        className='backdrop-blur-md bg-sidebar text-white w-11/12 max-w-4xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl'
+        className='bg-sidebar text-white w-11/12 max-w-4xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl'
       >
         <div className='flex justify-between items-center py-9 px-10 border-b border-search'>
           <div className='flex items-center gap-4 w-32'>
@@ -80,33 +81,51 @@ export const ViewQuote: React.FC<PropsType> = ({
             />
             <div className='flex items-center gap-4 text-xl'>
               <div className='flex items-center gap-3'>
-                <p>3</p>
+                <p>
+                  {activeQuote?.comments.length
+                    ? activeQuote?.comments?.length + newComments.length
+                    : activeQuote?.comments?.length}
+                </p>
                 <Comment />
               </div>
               <div className='flex items-center gap-3'>
-                <p>3</p>
+                <p>{activeQuote?.likes.length}</p>
                 <Heart />
               </div>
             </div>
           </div>
           <div className='max-h-40 overflow-auto scrollbar-thin scrollbar-thumb-slate-50'>
+            {newComments?.map((comment: CommentType) => (
+              <PostComment comment={comment} key={comment.id} />
+            ))}
             {activeQuote?.comments?.map((comment: CommentType) => (
               <PostComment comment={comment} key={comment.id} />
             ))}
           </div>
-          <div className='flex items-center gap-6 py-6'>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className='flex items-center gap-6 py-6'
+          >
             <Image
               width={52}
               height={52}
               alt='pfp'
-              src='/assets/images/default-pfp.png'
+              loader={() => userSrc}
+              src={userSrc}
+              className='w-52px h-52px rounded-full object-cover'
             />
             <input
+              {...register('body')}
               type='text'
               placeholder='Write a comment'
               className='bg-post px-4 py-3 text-xl outline-none text-white rounded-md w-full'
             />
-          </div>
+            <input
+              {...register('post_id')}
+              type='hidden'
+              value={activeQuote?.id}
+            />
+          </form>
         </div>
       </div>
     </div>

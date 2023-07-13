@@ -1,11 +1,13 @@
-import { addComment } from '@/services';
-import { CommentType, addCommentType } from '@/types';
-import { useState } from 'react';
+import { addComment, addLike, removeLike } from '@/services';
+import { CommentType, LikesType, UserType, addCommentType } from '@/types';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-export const usePost = () => {
+export const usePost = (likes: LikesType[], user: UserType) => {
   const { register, handleSubmit, reset } = useForm();
   const [newComments, setNewComments] = useState<CommentType[]>([]);
+  const [liked, setLiked] = useState<boolean>(false);
+  const [likeCount, setLikeCount] = useState<number>(likes?.length);
   const onSubmit = async (data: addCommentType) => {
     try {
       const response = await addComment(data);
@@ -13,6 +15,30 @@ export const usePost = () => {
       reset();
     } catch (e) {}
   };
+  useEffect(() => {
+    const hasLiked = likes.find((like) => like.user_id === user.id);
+    hasLiked ? setLiked(true) : setLiked(false);
+  }, []);
 
-  return { register, handleSubmit, onSubmit, newComments };
+  const handleLike = async (id: Number) => {
+    if (!liked) {
+      await addLike(id);
+      setLiked(true);
+      setLikeCount((prev) => prev + 1);
+    } else {
+      await removeLike(id);
+      setLiked(false);
+      setLikeCount((prev) => prev - 1);
+    }
+  };
+
+  return {
+    register,
+    likeCount,
+    handleSubmit,
+    onSubmit,
+    newComments,
+    handleLike,
+    liked,
+  };
 };

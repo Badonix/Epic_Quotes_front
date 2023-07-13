@@ -39,6 +39,7 @@ export const EditQuote: React.FC<PropsType> = ({ activeQuote, user }) => {
               src={userSrc}
               loader={() => userSrc}
               alt='pfp'
+              className='w-15 h-15 rounded-full object-cover'
             />
             <h2 className='text-white text-xl'>{user?.username}</h2>
           </div>

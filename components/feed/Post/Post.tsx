@@ -8,7 +8,15 @@ import { getAvatar } from '@/helpers';
 const Post: React.FC<PropsType> = ({ post, user }) => {
   const authorSrc = getAvatar(post.user);
   const userSrc = getAvatar(user);
-  const { handleSubmit, onSubmit, register, newComments } = usePost();
+  const {
+    handleSubmit,
+    onSubmit,
+    register,
+    likeCount,
+    newComments,
+    handleLike,
+    liked,
+  } = usePost(post.likes, user);
   return (
     <article className='w-full rounded-xl bg-singlepost p-6'>
       <div className='flex items-center gap-4'>
@@ -33,16 +41,20 @@ const Post: React.FC<PropsType> = ({ post, user }) => {
       />
       <div className='border-b border-search text-white py-6 flex items-center gap-6'>
         <div className='cursor-pointer flex items-center gap-3'>
-          <p className='text-lg'>3</p>
+          <p className='text-lg'>
+            {post.comments?.length + newComments?.length}
+          </p>
           <Comment />
         </div>
         <div className='cursor-pointer flex items-center gap-3'>
-          <p className='text-lg'>10</p>
-          <Heart />
+          <p className='text-lg'>{likeCount}</p>
+          <div onClick={() => handleLike(post?.id)}>
+            <Heart active={liked} />
+          </div>
         </div>
       </div>
       <div className='max-h-48 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-900'>
-        {newComments.map((comment) => (
+        {newComments?.map((comment) => (
           <PostComment key={comment.id} comment={comment} />
         ))}
         {post?.comments?.map((comment) => (

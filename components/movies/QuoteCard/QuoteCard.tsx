@@ -72,11 +72,11 @@ export const QuoteCard: React.FC<PropsType> = ({ quote, setActiveQuote }) => {
       <hr></hr>
       <div className='flex items-center gap-6'>
         <div className='flex items-center gap-3'>
-          <p className='text-white text-xl'>3</p>
+          <p className='text-white text-xl'>{quote?.comments?.length}</p>
           <Comment />
         </div>
         <div className='flex items-center gap-3'>
-          <p className='text-white text-xl'>3</p>
+          <p className='text-white text-xl'>{quote?.likes?.length}</p>
           <Heart />
         </div>
       </div>
