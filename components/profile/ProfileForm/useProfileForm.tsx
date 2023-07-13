@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { UserType } from '@/types';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 export const useProfileForm = (
   confirmation: boolean,
   setConfirmation: React.Dispatch<React.SetStateAction<boolean>>,
