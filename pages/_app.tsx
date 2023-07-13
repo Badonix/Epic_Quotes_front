@@ -3,7 +3,8 @@ import '/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useForm, FormProvider } from 'react-hook-form';
 import { QueryClient, QueryClientProvider } from 'react-query';
-export default function App({ Component, pageProps }: AppProps) {
+import { appWithTranslation } from 'next-i18next';
+const App = ({ Component, pageProps }: AppProps) => {
   const methods = useForm();
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -21,4 +22,6 @@ export default function App({ Component, pageProps }: AppProps) {
       </FormProvider>
     </QueryClientProvider>
   );
-}
+};
+
+export default appWithTranslation(App);

@@ -1,0 +1,77 @@
+{
+  "form": {
+    "password": "Password",
+    "password_required": "Password is required",
+    "password_short": "Password should be at least 8 characters",
+    "password_long": "Password should not exceede 15 characters",
+    "email": "Email",
+    "email_required": "Email is required",
+    "email_invalid": "Invalid email address",
+    "username": "Username",
+    "password_confirmation": "Confirm Password",
+    "password_confirmation_required": "Password confirmation is required",
+    "password_confirmation_mismatch": "Passwords do not match",
+    "username_validation": "At least 3 & max.15 lower case characters",
+    "username_required": "Username is required",
+    "username_short": "Username should be at least 3 characters long",
+    "username_long": "Username should not exceed 15 characters",
+    "email_short": "Email must be at least 3 characters",
+    "password_validation": "At least 8 & max.15 lower case characters"
+  },
+
+  "landing": {
+    "welcome": "Find any quote in millions of movie lines",
+    "get_started": "Get started",
+    "sign_up": "Sign Up",
+    "log_in": "Log in",
+    "signup": {
+      "google_signup": "Sign up with google",
+      "log_in": "Log in",
+      "already_account": "Already have an account?",
+      "start_journey": "Start your journey!",
+      "create_profile": "Create your account",
+      "username_placeholder": "At least 3 & max.15 lower case characters",
+      "email_placeholder": "Enter your email",
+      "password_placeholder": "At least 8 & max.15 lower case characters",
+      "password_confirmation_placeholder": "Confirm password"
+    },
+    "login": {
+      "login_to_account": "Log in to your account",
+      "welcome_back": "Welcome back! Please enter your details.",
+      "email_placeholder": "Enter your email",
+      "remember_me": "Remember me",
+      "forgot_password": "Forgot password?",
+      "signin": "Sign in",
+      "google_signin": "Sign in with Google",
+      "no_account": "Dont have an account?",
+      "signup": "Sign up"
+    },
+    "email_check": {
+      "thanks": "Thank you!",
+      "follow_instructions": "Please check your email and follow the instructions to activate your account.",
+      "go_login": "Go to login"
+    },
+    "email_verified": {
+      "thanks": "Thank you!",
+      "activated": "Your account has been activated.",
+      "go_feed": "Go to my news feed"
+    },
+    "forgot_password": {
+      "forgot_password": "Forgot password?",
+      "instructions": " Enter the email and we’ll send an email with instructions to reset your password",
+      "send": "Send instructions",
+      "back": "Back to log in"
+    },
+    "reset_check": {
+      "check_email": "Check your email",
+      "sent": "We have sent a password recover instructions to your email",
+      "log_in": "Log in",
+      "skip": "Skip, I'll confirm later"
+    },
+    "reset_success": {
+      "success": "Success!",
+      "changed_successfully": "Your password changed successfully",
+      "log_in": "Log in"
+    }
+  }
+}
