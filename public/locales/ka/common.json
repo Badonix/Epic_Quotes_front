@@ -141,5 +141,28 @@
     "choose_movie": "აირჩიე ფილმი",
     "movie_required": "ფილმი აუცილებელია"
   },
-  "view_quote": "ციტატის ნახვა"
+  "view_quote": "ციტატის ნახვა",
+  "profile": {
+    "my_profile": "ჩემი პროფილი",
+    "username": "სახელი",
+    "username_required": "ახალი სახელი აუცილებელია",
+    "edit": "შეცვლა",
+    "cancel": "გაუქმბა",
+    "upload_new": "ახალი ფოტოს ატვირთვა",
+    "email": "ელფოსტა",
+    "email_required": "ახალი ელფოსტა აუცილებელია",
+    "password": "პაროლი",
+    "password_confirmation": "პაროლის გამეორება",
+    "new_username": "ახალი სახელი",
+    "new_email": "ახალი ელფოსტა",
+    "new_password": "ახალი პაროლი",
+    "email_invalid": "ელფოსტა არავალიდურია",
+    "confirm": "შენახვა",
+    "save": "შენახვა",
+    "sure": "დარწმუნებული ხარ რომ შეცვლა გინდა?",
+    "password_contain": "პაროლი უნდა შეიცავდეს:",
+    "length_error": "8 სიმბოლოს მაინც",
+    "lowercase_error": "15 პატარა ასოს მაინც",
+    "password_mismatch": "პაროლები არ ემთხვევა"
+  }
 }

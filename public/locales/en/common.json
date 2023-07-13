@@ -143,5 +143,28 @@
     "choose_movie": "Choose movie",
     "movie_required": "Movie is required"
   },
-  "view_quote": "View quote"
+  "view_quote": "View quote",
+  "profile": {
+    "my_profile": "My profile",
+    "username": "Username",
+    "username_required": "New username is required",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "upload_new": "Upload new image",
+    "email": "Email",
+    "email_required": "New email is required",
+    "password": "Password",
+    "password_confirmation": "Password Confirmation",
+    "new_username": "New username",
+    "new_email": "New email",
+    "new_password": "New password",
+    "email_invalid": "Email is invalid",
+    "confirm": "Save changes",
+    "save": "Save changes",
+    "sure": "Are you sure to make changes?",
+    "password_contain": "Password should contain:",
+    "length_error": "at least 8 symbols",
+    "lowercase_error": "at least 15 lowercase symbols",
+    "password_mismatch": "Passwords do not match"
+  }
 }
