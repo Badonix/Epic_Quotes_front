@@ -166,5 +166,19 @@
     "length_error": "at least 8 symbols",
     "lowercase_error": "at least 15 lowercase symbols",
     "password_mismatch": "Passwords do not match"
+  },
+  "reset": {
+    "create_new": "Create new password",
+    "different": "Your new password must be different from previous used passwords",
+    "password": "Password",
+    "password_validation": "At least 8 & max.15 lower case characters",
+    "confirm_password": "Confirm password",
+    "reset": "Reset",
+    "back": "Back to log in",
+    "password_required": "Password is required",
+    "password_confirmation_required": "Password confirmation is required",
+    "password_short": "Password should be at least 8 characters",
+    "password_long": "Password should not exceede 15 characters",
+    "password_mismatch": "Passwords do not match"
   }
 }

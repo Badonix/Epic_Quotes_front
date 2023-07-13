@@ -164,5 +164,19 @@
     "length_error": "8 სიმბოლოს მაინც",
     "lowercase_error": "15 პატარა ასოს მაინც",
     "password_mismatch": "პაროლები არ ემთხვევა"
+  },
+  "reset": {
+    "create_new": "ახალი პაროლის შექმნა",
+    "different": "ახალი პაროლი უნდა იყოს წინა პაროლებისგან განსხვავებული",
+    "password": "პაროლი",
+    "password_validation": "მინიმუმ 8 & მაქსიმუმ 15 პატარა ასო",
+    "confirm_password": "პაროლის გამეორება",
+    "reset": "აღდგენა",
+    "back": "უკან დაბრუნება",
+    "password_required": "პაროლი სავალდებულოა",
+    "password_confirmation_required": "პაროლის გამეორება აუცილებელია",
+    "password_short": "პაროლი უნდა იყოს მინიმუმ 8 სიმბოლო",
+    "password_long": "პაროლი არ უნდა აცდეს 15 სიმბოლოს",
+    "password_mismatch": "პაროლები არ ემთხვევა"
   }
 }
