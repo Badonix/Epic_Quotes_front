@@ -2,8 +2,10 @@ import React from 'react';
 import { Search, Write, Back } from '@/components/icons';
 import { PropsType } from './types';
 import { useModal } from '@/hooks';
+import { useTranslation } from 'next-i18next';
 const SearchPost: React.FC<PropsType> = ({ searchActive, setSearchActive }) => {
   const { setOpenModal } = useModal();
+  const { t } = useTranslation();
   return (
     <>
       {searchActive && (
@@ -19,13 +21,13 @@ const SearchPost: React.FC<PropsType> = ({ searchActive, setSearchActive }) => {
             <input
               autoFocus
               type='text'
-              placeholder='Search'
+              placeholder={t('newsfeed.search')}
               className='px-6 bg-transparent w-full h-full outline-none text-white'
             />
           </div>
           <div className='text-center flex flex-col gap-6 mt-5'>
-            <p>Enter @ to search movies</p>
-            <p>Enter # to search quotes </p>
+            <p>{t('newsfeed.search_movies')}</p>
+            <p>{t('newsfeed.search_quotes')}</p>
           </div>
         </div>
       )}
@@ -36,7 +38,7 @@ const SearchPost: React.FC<PropsType> = ({ searchActive, setSearchActive }) => {
         className='flex lg:hidden w-full -mt-2 px-9 py-8 gap-4 justify-center items-center'
       >
         <Write />
-        <p className='text-gray-300'>Write new quote</p>
+        <p className='text-gray-300'>{t('newsfeed.new_quote')}</p>
       </div>
       <div className='w-full px-10 mt-9 hidden lg:flex gap-4 transition-all'>
         {searchActive ? (
@@ -45,7 +47,7 @@ const SearchPost: React.FC<PropsType> = ({ searchActive, setSearchActive }) => {
             className='h-14 flex items-center gap-4 bg-post py-3 px-4 w-60 rounded-md cursor-pointer'
           >
             <Write />
-            <p className='text-white'>Write new quote</p>
+            <p className='text-white'>{t('newsfeed.new_quote')}</p>
           </button>
         ) : (
           <div
@@ -55,7 +57,7 @@ const SearchPost: React.FC<PropsType> = ({ searchActive, setSearchActive }) => {
             className='cursor-pointer bg-post py-3 h-14 px-3 pointer flex items-center rounded-lg w-full gap-4'
           >
             <Write />
-            <p className='text-white'>Write new quote</p>
+            <p className='text-white'>{t('newsfeed.new_quote')}</p>
           </div>
         )}
 
@@ -70,7 +72,7 @@ const SearchPost: React.FC<PropsType> = ({ searchActive, setSearchActive }) => {
               <input
                 autoFocus
                 type='text'
-                placeholder='Enter @ to search movies, Enter # to search quotes '
+                placeholder={t('newsfeed.search_placeholder')}
                 className='pl-10 bg-transparent border-b border-gray-300 w-full h-14 outline-none text-gray-300'
               />
             </div>
@@ -80,7 +82,7 @@ const SearchPost: React.FC<PropsType> = ({ searchActive, setSearchActive }) => {
               onClick={() => setSearchActive(true)}
             >
               <Search />
-              <p className='text-gray-300'>Search</p>{' '}
+              <p className='text-gray-300'>{t('newsfeed.search')}</p>{' '}
             </div>
           )}
         </div>

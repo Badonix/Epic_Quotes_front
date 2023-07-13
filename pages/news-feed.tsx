@@ -9,7 +9,8 @@ import { ModalContext } from '@/context';
 import { useNewsFeed } from '@/hooks';
 import { fetchMovies, fetchPosts, me } from '@/services';
 import { FeedPropsType, PostType } from '@/types';
-import { NextPage } from 'next';
+import { GetServerSidePropsContext, NextPage } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useContext } from 'react';
 
 const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
@@ -65,8 +66,10 @@ const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
   );
 };
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   let movies, quotes, user;
+  const { locale = 'en' } = context;
+
   try {
     const res = await fetchMovies(context.req.headers.cookie);
     const quotesData = await fetchPosts(1);
@@ -75,6 +78,8 @@ export async function getServerSideProps(context: any) {
     quotes = quotesData.data.data;
     movies = res.data;
   } catch (e) {}
-  return { props: { movies, quotes, user } };
+  return {
+    props: { movies, quotes, user, ...(await serverSideTranslations(locale)) },
+  };
 }
 export default NewsFeed;

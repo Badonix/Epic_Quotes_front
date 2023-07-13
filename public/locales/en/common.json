@@ -1,4 +1,16 @@
 {
+  "sidebar": {
+    "news_feed": "News feed",
+    "movies_list": "List of movies",
+    "edit_profile": "Edit your profile"
+  },
+  "newsfeed": {
+    "search": "Search",
+    "search_movies": "Start with @ to search movies",
+    "search_quotes": "Start with # to search quotes",
+    "new_quote": "Write new quote",
+    "search_placeholder": "Start with @ to search movie, with # to search quotes"
+  },
   "form": {
     "password": "Password",
     "password_required": "Password is required",
@@ -44,7 +56,8 @@
       "signin": "Sign in",
       "google_signin": "Sign in with Google",
       "no_account": "Dont have an account?",
-      "signup": "Sign up"
+      "signup": "Sign up",
+      "email": "ელფოსტა"
     },
     "email_check": {
       "thanks": "Thank you!",
@@ -124,7 +137,10 @@
     "drag": "Drag & drop image here or",
     "choose": "Choose file",
     "image_required": "Quote image is required",
-    "quote_required": "Quote is required"
+    "quote_required": "Quote is required",
+    "quote_image_required": "Quote image is required",
+    "choose_movie": "Choose movie",
+    "movie_required": "Movie is required"
   },
   "view_quote": "View quote"
 }

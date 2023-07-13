@@ -4,10 +4,12 @@ import { useForm, useWatch } from 'react-hook-form';
 import { useModal } from '@/hooks';
 import { useDropzone } from 'react-dropzone';
 import { PostType, addQuote as addQuoteType } from '@/types';
+import { useTranslation } from 'next-i18next';
 export const useAddQuote = (setPosts: SetStateAction<any>) => {
   const { setOpenModal } = useModal();
   const [loading, setLoading] = useState<boolean>(false);
   const [preview, setPreview] = useState('');
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -51,7 +53,7 @@ export const useAddQuote = (setPosts: SetStateAction<any>) => {
 
   const validateBanner = (value: FileList) => {
     if (!value || value.length === 0) {
-      return 'Quote image is required';
+      return t('addquote.quote_image_required');
     }
     return true;
   };
