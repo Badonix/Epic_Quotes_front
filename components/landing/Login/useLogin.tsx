@@ -6,6 +6,7 @@ export const useLogin = () => {
   const [error, setError] = useState<null | string>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+  const { locale } = useRouter();
   const {
     handleSubmit,
     formState: { errors },
@@ -20,7 +21,9 @@ export const useLogin = () => {
     } catch (e: any) {
       setLoading(false);
       if (e.response && e.response.status === 401) {
-        setError('Wrong credentials');
+        locale == 'en'
+          ? setError('Wrong credentials')
+          : setError('არასწორი ინფო');
       }
     }
   };

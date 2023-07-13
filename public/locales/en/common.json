@@ -155,6 +155,7 @@
     "email_required": "New email is required",
     "password": "Password",
     "password_confirmation": "Password Confirmation",
+    "password_confirmation_required": "Password Confirmation is required",
     "new_username": "New username",
     "new_email": "New email",
     "new_password": "New password",
@@ -165,7 +166,8 @@
     "password_contain": "Password should contain:",
     "length_error": "at least 8 symbols",
     "lowercase_error": "at least 15 lowercase symbols",
-    "password_mismatch": "Passwords do not match"
+    "password_mismatch": "Passwords do not match",
+    "password_required": "New password is required"
   },
   "reset": {
     "create_new": "Create new password",

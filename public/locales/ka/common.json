@@ -147,12 +147,13 @@
     "username": "სახელი",
     "username_required": "ახალი სახელი აუცილებელია",
     "edit": "შეცვლა",
-    "cancel": "გაუქმბა",
+    "cancel": "გაუქმება",
     "upload_new": "ახალი ფოტოს ატვირთვა",
     "email": "ელფოსტა",
     "email_required": "ახალი ელფოსტა აუცილებელია",
     "password": "პაროლი",
     "password_confirmation": "პაროლის გამეორება",
+    "password_confirmation_required": "პაროლის გამეორება აუცილებელია",
     "new_username": "ახალი სახელი",
     "new_email": "ახალი ელფოსტა",
     "new_password": "ახალი პაროლი",
@@ -163,7 +164,8 @@
     "password_contain": "პაროლი უნდა შეიცავდეს:",
     "length_error": "8 სიმბოლოს მაინც",
     "lowercase_error": "15 პატარა ასოს მაინც",
-    "password_mismatch": "პაროლები არ ემთხვევა"
+    "password_mismatch": "პაროლები არ ემთხვევა",
+    "password_required": "ახალი პაროლი სავალდებულოა"
   },
   "reset": {
     "create_new": "ახალი პაროლის შექმნა",
