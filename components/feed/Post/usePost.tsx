@@ -2,9 +2,10 @@ import { addComment, addLike, removeLike } from '@/services';
 import { CommentType, LikesType, UserType, addCommentType } from '@/types';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
+import { useRouter } from 'next/router';
 export const usePost = (likes: LikesType[], user: UserType) => {
   const { register, handleSubmit, reset } = useForm();
+  const { locale } = useRouter();
   const [newComments, setNewComments] = useState<CommentType[]>([]);
   const [liked, setLiked] = useState<boolean>(false);
   const [likeCount, setLikeCount] = useState<number>(likes?.length);
@@ -16,7 +17,7 @@ export const usePost = (likes: LikesType[], user: UserType) => {
     } catch (e) {}
   };
   useEffect(() => {
-    const hasLiked = likes.find((like) => like.user_id === user.id);
+    const hasLiked = likes?.find((like) => like.user_id === user.id);
     hasLiked ? setLiked(true) : setLiked(false);
   }, []);
 
@@ -40,5 +41,6 @@ export const usePost = (likes: LikesType[], user: UserType) => {
     newComments,
     handleLike,
     liked,
+    locale,
   };
 };

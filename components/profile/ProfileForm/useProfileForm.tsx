@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { UserType } from '@/types';
+import { useTranslation } from 'next-i18next';
 export const useProfileForm = (
   confirmation: boolean,
   setConfirmation: React.Dispatch<React.SetStateAction<boolean>>,
@@ -14,6 +15,8 @@ export const useProfileForm = (
   const [preview, setPreview] = useState();
   const [windowWidth, setWindowWidth] = useState<number | null>(null);
   const [userData, setUserData] = useState(user);
+  const { locale } = useRouter();
+  const { t } = useTranslation();
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -66,16 +69,22 @@ export const useProfileForm = (
       router.push('/profile');
     } catch (e: any) {
       if (e.response.data.errors.email) {
-        setError('email', { type: 'unique', message: 'Email already taken' });
+        setError('email', {
+          type: 'unique',
+          message:
+            locale == 'en' ? 'Email already taken' : 'ელფოსტა დაკავებულია',
+        });
         setConfirmation(false);
       } else if (e.response.data.errors.username) {
         setError('username', {
           type: 'unique',
-          message: 'Username already taken',
+          message:
+            locale == 'en' ? 'Username already taken' : 'სახელი დაკავებულია',
         });
         setError('mobile_username', {
           type: 'unique',
-          message: 'Username already taken',
+          message:
+            locale == 'en' ? 'Username already taken' : 'სახელი დაკავებულია',
         });
         setConfirmation(false);
       }
@@ -86,11 +95,11 @@ export const useProfileForm = (
     const lowercaseCount = (value?.match(lowercaseRegex) || []).length;
 
     if (lowercaseCount < 15) {
-      return 'Password should contain at least 15 lowercase characters';
+      return t('profile.lowercase_error');
     }
     setError('password', {
       type: 'validate',
-      message: 'Password should contain at least 15 lowercase characters',
+      message: t('profile.lowercase_error'),
     });
 
     return true;
@@ -100,7 +109,7 @@ export const useProfileForm = (
     !username
       ? setError('username', {
           type: 'required',
-          message: 'Username is required',
+          message: t('profile.username_required'),
         })
       : setConfirmation(true);
   };
@@ -108,7 +117,7 @@ export const useProfileForm = (
     if (!email) {
       setError('email', {
         type: 'required',
-        message: 'Email is reqiured',
+        message: t('profile.email_required'),
       });
     } else {
       setConfirmation(true);
@@ -119,17 +128,17 @@ export const useProfileForm = (
     if (!password) {
       setError('password', {
         type: 'required',
-        message: 'Password is reqiured',
+        message: t('profile.password_required'),
       });
     } else if (!passwordConfirmation) {
       setError('password_confirmation', {
         type: 'required',
-        message: 'Password confirmation is required',
+        message: t('profile.password_confirmation_required'),
       });
     } else if (passwordConfirmation != password) {
       setError('password_confirmation', {
         type: 'validate',
-        message: 'Passwords do not match',
+        message: t('profile.password_mismatch'),
       });
     } else {
       setConfirmation(true);

@@ -1,0 +1,189 @@
+{
+  "logout": "გასვლა",
+  "sidebar": {
+    "news_feed": "სიახლეები",
+    "movies_list": "ფილმების სია",
+    "edit_profile": "პროფილის რედაქტირება"
+  },
+  "newsfeed": {
+    "search": "ძებნა",
+    "search_movies": "დაიწყე @-ით ფილმების მოსაძებნად",
+    "search_quotes": "დაიწყე #-ით ციტატების მოსაძებნად",
+    "new_quote": "ახალი ციტატის დაწერა",
+    "search_placeholder": "დაიწყე @-ით ფილმის მოსაძებნად, #-ით ციტატის მოსაძებნად"
+  },
+  "form": {
+    "password": "პაროლი",
+    "password_required": "პაროლი სავალდებულოა",
+    "password_short": "პაროლი უნდა იყოს მინიმუმ 8 სიმბოლო",
+    "password_long": "პაროლი არ უნდა აცდეს 15 სიმბოლოს",
+    "email": "ელფოსტა",
+    "email_required": "ელფოსტა სავალდებულოა",
+    "email_invalid": "ელფოსტა არავალიდურია",
+    "username": "სახელი",
+    "password_confirmation": "პაროლის გამეორება",
+    "password_confirmation_required": "პაროლის გამეორება აუცილებელია",
+    "password_confirmation_mismatch": "პაროლები არ ემთხვევა",
+    "username_validation": "მინ.3 მაქს.15 პატარა ასოები",
+    "username_required": "სახელი აუცილებელია",
+    "username_short": "სახელში უნდა იყოს მინიმუმ 3 სიმბოლო",
+    "username_long": "სახელი არ უნდა გასცდეს 15 სიმბოლოს",
+    "email_short": "ელფოსტა უნდა იყოს მინიმუმ 3 სიმბოლო",
+    "password_validation": "მინ.8 მაქს.15 პატარა ასოები"
+  },
+  "landing": {
+    "welcome": "იპოვეთ ნებისმიერი ციტატა მილიონობით ფილმიდან",
+    "get_started": "დაწყება",
+    "sign_up": "რეგისტრაცია",
+    "log_in": "შესვლა",
+    "signup": {
+      "google_signup": "გუგლით შესვლა",
+      "log_in": "შესვლა",
+      "already_account": "უკვე გაქვთ პროფილი?",
+      "start_journey": "თავგადასავლის დაწყება",
+      "create_profile": "პროფილის შექმნა",
+      "username_placeholder": "მინ.3 მაქს.15 პატარა ასოები",
+      "email_placeholder": "შეიყვანეთ ელფოსტა",
+      "password_placeholder": "მინ.8 მაქს.15 პატარა ასოები",
+      "password_confirmation_placeholder": "პაროლის გამეორება"
+    },
+    "login": {
+      "login_to_account": "პროფილში შესვლა",
+      "welcome_back": "კეთილი იყოს თქვენი დაბრუნება! გთხოვთ შეიყვანოთ თქვენი დეტალები.",
+      "email_placeholder": "შეიყვანეთ ელფოსტა",
+      "remember_me": "დამახსოვრება",
+      "forgot_password": "დაგავიწყდა პაროლი?",
+      "signin": "შესვლა",
+      "google_signin": "გუგლით შესვლა",
+      "no_account": "არ გაქვს პროფილი?",
+      "signup": "რეგისტრაცია"
+    },
+    "email_check": {
+      "thanks": "გმადლობთ!",
+      "follow_instructions": "გთხოვთ შეამოწმეთ მეილი და მიყევით ინსტრუქციას",
+      "go_login": "შესვლა"
+    },
+    "email_verified": {
+      "thanks": "გმადლობთ!",
+      "activated": "თქვენი პროფილი გააქტიურებულია",
+      "go_feed": "სიახლეებზე გადასვლა"
+    },
+    "forgot_password": {
+      "forgot_password": "დაგავიწყდა პაროლი?",
+      "instructions": "შეიყვანე ელფოსტა და პაროლის აღდგენის ინსტრუქციას გამოგიგზავნით",
+      "send": "ინსტრუქციის გაგზავნა",
+      "back": "უკან დაბრუნება"
+    },
+    "reset_check": {
+      "check_email": "ელფოსტა შეამოწმე",
+      "sent": "პაროლის აღდგენის ინსტრუქცია გამოგიგზავნეთ",
+      "log_in": "შესვლა",
+      "skip": "გამოვტოვებ, მოგვიანებით აღვადგენ"
+    },
+    "reset_success": {
+      "success": "წარმატება!",
+      "changed_successfully": "შენი პაროლი წარმატებით შეიცვალა",
+      "log_in": "შესვლა"
+    }
+  },
+  "movies": {
+    "list": "ჩემი ფილმების სია",
+    "total": "ჯამში",
+    "add": "ფილმის დამატება",
+    "search": "ძებნა",
+    "addmovie": {
+      "add_movie": "ფილმის დამატება",
+      "movie_name_required": "ფილმის სახელი სავალდებულოა",
+      "genre": "ჟანრი",
+      "movie_genre_required": "ჯანრის არჩევა სავალდებულოა",
+      "movie_year_required": "წლის არჩევა სავალდებულოა",
+      "budget": "ბიუჯეტი",
+      "movie_budget_required": "ფილმის ბიუჯეტი სავალდებულოა",
+      "movie_director_required": "ფილმის რეჟისორი სავალდებულოა",
+      "movie_description_required": "ფიმლის აღწერა სავალდებულოა",
+      "drop": "აიღეთ და ჩააგდეთ ფოტო აქ ან ",
+      "choose": "აირჩიეთ ფაილი",
+      "banner_required": "ფილმის ბანერი სავალდებულოა"
+    },
+    "editmovie": {
+      "replace": "შეცვლა",
+      "edit": "ფილმის რედაქტირება"
+    }
+  },
+  "movie": {
+    "editquote": {
+      "delete": "წაშლა",
+      "edit_quote": "ციტატის შეცვლა",
+      "quote_required": "ციტატა აუცილებელია",
+      "change": "ფოტოს შეცვლა",
+      "save": "ცვლილებების შენახვა"
+    },
+    "description": "ფილმის აღწერა",
+    "director": "რეჟისორი",
+    "budget": "ბიუჯეტი",
+    "quote": "ციტატები",
+    "add_quote": "ციტატის დამატება",
+    "total": "სულ",
+    "quotecard": {
+      "view": "ციტატის ნახვა",
+      "edit": "შეცვლა",
+      "delete": "წაშლა"
+    }
+  },
+  "addquote": {
+    "add_quote": "ციტატის დამატება",
+    "director": "რეჟისორი",
+    "drag": "ფოტო აიღე & ჩააგდე აქ ან",
+    "choose": "აირჩიე ფაილი",
+    "image_required": "ციტატის ფოტო აუცილებელია",
+    "quote_image_required": "ციტატის ფოტო აუცილებელია",
+    "quote_required": "ციტატა აუცილებელია",
+    "choose_movie": "აირჩიე ფილმი",
+    "movie_required": "ფილმი აუცილებელია"
+  },
+  "view_quote": "ციტატის ნახვა",
+  "profile": {
+    "my_profile": "ჩემი პროფილი",
+    "username": "სახელი",
+    "username_required": "ახალი სახელი აუცილებელია",
+    "edit": "შეცვლა",
+    "cancel": "გაუქმება",
+    "upload_new": "ახალი ფოტოს ატვირთვა",
+    "email": "ელფოსტა",
+    "email_required": "ახალი ელფოსტა აუცილებელია",
+    "password": "პაროლი",
+    "password_confirmation": "პაროლის გამეორება",
+    "password_confirmation_required": "პაროლის გამეორება აუცილებელია",
+    "new_username": "ახალი სახელი",
+    "new_email": "ახალი ელფოსტა",
+    "new_password": "ახალი პაროლი",
+    "email_invalid": "ელფოსტა არავალიდურია",
+    "confirm": "შენახვა",
+    "save": "შენახვა",
+    "sure": "დარწმუნებული ხარ რომ შეცვლა გინდა?",
+    "password_contain": "პაროლი უნდა შეიცავდეს:",
+    "length_error": "8 სიმბოლოს მაინც",
+    "lowercase_error": "15 პატარა ასოს მაინც",
+    "password_mismatch": "პაროლები არ ემთხვევა",
+    "password_required": "ახალი პაროლი სავალდებულოა"
+  },
+  "reset": {
+    "create_new": "ახალი პაროლის შექმნა",
+    "different": "ახალი პაროლი უნდა იყოს წინა პაროლებისგან განსხვავებული",
+    "password": "პაროლი",
+    "password_validation": "მინიმუმ 8 & მაქსიმუმ 15 პატარა ასო",
+    "confirm_password": "პაროლის გამეორება",
+    "reset": "აღდგენა",
+    "back": "უკან დაბრუნება",
+    "password_required": "პაროლი სავალდებულოა",
+    "password_confirmation_required": "პაროლის გამეორება აუცილებელია",
+    "password_short": "პაროლი უნდა იყოს მინიმუმ 8 სიმბოლო",
+    "password_long": "პაროლი არ უნდა აცდეს 15 სიმბოლოს",
+    "password_mismatch": "პაროლები არ ემთხვევა"
+  },
+  "expired": {
+    "expired": "ლინკს ვადა გაუვიდა!",
+    "description": "ლინკს ვადა გაუვიდა რადგან დიდი ხანი არ გამოგიყენებიათ",
+    "another": "ახალი ლინკის გამოგზავნა"
+  }
+}

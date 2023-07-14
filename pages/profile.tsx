@@ -3,6 +3,8 @@ import { useProfile } from '@/hooks';
 import { me } from '@/services';
 import { UserType } from '@/types';
 import { GetServerSidePropsContext, NextPage } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export const Profile: NextPage<{ user: UserType }> = ({ user }) => {
   const {
@@ -12,6 +14,7 @@ export const Profile: NextPage<{ user: UserType }> = ({ user }) => {
     confirmation,
     setConfirmation,
   } = useProfile();
+  const { t } = useTranslation();
   return (
     <>
       <Navbar setSidebarActive={setSidebarActive} />
@@ -33,7 +36,7 @@ export const Profile: NextPage<{ user: UserType }> = ({ user }) => {
         </div>
         <div className='md:mt-6 w-full md:h-auto h-full'>
           <h2 className='hidden md:block text-white text-2xl mt-4'>
-            My profile
+            {t('profile.my_profile')}
           </h2>
           <div className='w-full flex items-center justify-center h-full'>
             <section className='md:h-auto h-full w-full flex items-center justify-center'>
@@ -54,10 +57,14 @@ export const Profile: NextPage<{ user: UserType }> = ({ user }) => {
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   let user;
+  const { locale = 'en' } = ctx;
+
   try {
     user = await me(ctx.req.headers.cookie);
   } catch (e) {}
-  return { props: { user: user?.data } };
+  return {
+    props: { user: user?.data, ...(await serverSideTranslations(locale)) },
+  };
 }
 
 export default Profile;

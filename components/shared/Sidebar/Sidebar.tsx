@@ -5,9 +5,10 @@ import React from 'react';
 import { PropsType } from './types';
 import Link from 'next/link';
 import { getAvatar } from '@/helpers';
-
+import { useTranslation } from 'next-i18next';
 const Sidebar: React.FC<PropsType> = ({ sidebarActive, currentPage, user }) => {
   const userSrc = getAvatar(user);
+  const { t } = useTranslation();
   return (
     <>
       <div
@@ -31,18 +32,18 @@ const Sidebar: React.FC<PropsType> = ({ sidebarActive, currentPage, user }) => {
           <div className='h-60 flex flex-col justify-between items-between text-white'>
             <h2 className='text-2xl'>{user?.username}</h2>
             <div className='text-gray-300'>
-              <Link href='/profile'>Edit your profile</Link>
+              <Link href='/profile'>{t('sidebar.edit_profile')}</Link>
             </div>
           </div>
         </div>
         <div className='mt-10 flex flex-col gap-11'>
           <Link href={'/news-feed'} className='flex items-center gap-11'>
             <Home active={currentPage == 'news-feed'} />
-            <p className='text-2xl text-white'>News feed</p>
+            <p className='text-2xl text-white'>{t('sidebar.news_feed')}</p>
           </Link>
           <Link href='/movies' className='flex items-center gap-11'>
             <Movie active={currentPage == 'movies'} />
-            <p className='text-2xl text-white'>List of movies</p>
+            <p className='text-2xl text-white'>{t('sidebar.movies_list')}</p>
           </Link>
         </div>
       </div>

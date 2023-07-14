@@ -5,11 +5,13 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useModal } from '@/hooks';
 import { PropsType } from './types';
 import { getAvatar } from '@/helpers';
+import { useTranslation } from 'next-i18next';
 export const EditQuote: React.FC<PropsType> = ({ activeQuote, user }) => {
   const { errors, handleSubmit, onSubmit, register, preview } =
     useEditQuote(activeQuote);
   const { wrapperRef, setOpenModal } = useModal();
   const userSrc = getAvatar(user);
+  const { t } = useTranslation();
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -20,10 +22,10 @@ export const EditQuote: React.FC<PropsType> = ({ activeQuote, user }) => {
           <div className='flex items-center gap-4 w-32'>
             <div className='cursor-pointer flex gap-2 items-center'>
               <Trash />
-              <p>Delete</p>
+              <p>{t('movie.editquote.delete')}</p>
             </div>
           </div>
-          <h2 className='text-2xl'>Edit Quote</h2>
+          <h2 className='text-2xl'>{t('movie.editquote.edit_quote')}</h2>
           <div
             onClick={() => setOpenModal('')}
             className='cursor-pointer w-32 flex justify-end'
@@ -50,7 +52,9 @@ export const EditQuote: React.FC<PropsType> = ({ activeQuote, user }) => {
             <div className='flex flex-col gap-8 text-2xl italic w-full text-white'>
               <div className='relative w-full'>
                 <textarea
-                  {...register('body.en', { required: 'Quote is required' })}
+                  {...register('body.en', {
+                    required: t('movie.editquote.quote_required'),
+                  })}
                   className='w-full italic bg-transparent outline-none border border-search rounded-md px-4 py-2 flex items-center relative'
                 ></textarea>
                 <p className='absolute right-6 top-3 text-xl text-gray-600 not-italic'>
@@ -62,7 +66,9 @@ export const EditQuote: React.FC<PropsType> = ({ activeQuote, user }) => {
               </div>
               <div className='relative w-full'>
                 <textarea
-                  {...register('body.ka', { required: 'Quote is required' })}
+                  {...register('body.ka', {
+                    required: t('movie.editquote.quote_required'),
+                  })}
                   className='w-full italic bg-transparent outline-none border border-search rounded-md px-4 py-2 flex items-center relative'
                 ></textarea>
                 <p className='absolute right-6 top-3 text-xl text-gray-600 not-italic'>
@@ -84,7 +90,7 @@ export const EditQuote: React.FC<PropsType> = ({ activeQuote, user }) => {
                 />
                 <div className='flex cursor-pointer flex-col items-center justify-center gap-2 px-4 py-4 bg-black bg-opacity-30 hover:bg-opacity-60 transition-all rounded-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
                   <Photo />
-                  <p className='text-white'>Change picture</p>
+                  <p className='text-white'>{t('movie.editquote.change')}</p>
                 </div>
               </label>
               <input id='img' type='file' hidden {...register('image')} />
@@ -93,7 +99,7 @@ export const EditQuote: React.FC<PropsType> = ({ activeQuote, user }) => {
               type='submit'
               className='disabled:bg-red-700 rounded-4 py-2 w-full bg-red-600 text-white'
             >
-              Save changes
+              {t('movie.editquote.save')}
             </button>
           </form>
         </div>

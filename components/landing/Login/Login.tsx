@@ -4,10 +4,12 @@ import React from 'react';
 import { useLogin } from './useLogin';
 import { ErrorMessage } from '@hookform/error-message';
 import { useModal } from '@/hooks';
+import { useTranslation } from 'next-i18next';
 
 const Login = () => {
   const { handleSubmit, onSubmit, errors, reset, error, loading } = useLogin();
   const { wrapperRef, setOpenModal } = useModal();
+  const { t } = useTranslation();
   return (
     <div className='bg-modal-transparent backdrop-blur fixed h-screen w-screen flex items-center justify-center z-50'>
       <div
@@ -24,24 +26,24 @@ const Login = () => {
           <Close />
         </div>
         <div className='flex flex-col items-center gap-3'>
-          <h2 className='text-3xl'>Log in to your account</h2>
-          <p className='text-base text-gray-500'>
-            Welcome back! Please enter your details.
+          <h2 className='text-3xl'>{t('landing.login.login_to_account')}</h2>
+          <p className='text-base text-gray-500 text-center'>
+            {t('landing.login.welcome_back')}
           </p>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-6'>
           <div className='relative'>
             <Input
               disabled={loading}
-              placeholder='Enter your email'
-              label='Email'
+              placeholder={t('landing.login.email_placeholder')}
+              label={t('landing.login.email')}
               required={true}
               name='login'
               validation={{
-                required: 'Email field is required',
+                required: t('form.email_required'),
                 minLength: {
                   value: 3,
-                  message: 'Email must be at least 3 characters ',
+                  message: t('form.email_short'),
                 },
               }}
             />
@@ -52,13 +54,13 @@ const Login = () => {
           <div className='relative'>
             <Input
               disabled={loading}
-              placeholder='At least 8 & max.15 lower case characters'
-              label='Password'
+              placeholder={t('form.password_validation')}
+              label={t('form.password')}
               type='password'
               required={true}
               name='password'
               validation={{
-                required: 'Password is required',
+                required: t('form.password_required'),
               }}
             />
             <p className='text-red-500 absolute -bottom-5 text-sm'>
@@ -75,7 +77,9 @@ const Login = () => {
                   type='checkbox'
                   id='remember_me'
                 />
-                <label htmlFor='remember_me'>Remember me</label>
+                <label htmlFor='remember_me'>
+                  {t('landing.login.remember_me')}
+                </label>
               </div>
               <p
                 onClick={() => {
@@ -84,7 +88,7 @@ const Login = () => {
                 }}
                 className='text-blue-600 underline cursor-pointer'
               >
-                Forgot password?
+                {t('landing.login.forgot_password')}
               </p>
             </div>
             <button
@@ -92,7 +96,7 @@ const Login = () => {
               type='submit'
               className='w-full disabled:bg-red-800 text-center py-2 text-base bg-red-600 rounded-4'
             >
-              Sign in
+              {t('landing.login.signin')}
             </button>
             <a
               href={process.env.NEXT_PUBLIC_API_URL + '/api/auth/redirect'}
@@ -100,13 +104,13 @@ const Login = () => {
               className='flex items-center justify-center gap-3 w-full text-center py-2 text-base bg-transparent border border-gray-300 rounded-4'
             >
               <Google />
-              Sign in with Google
+              {t('landing.login.google_signin')}
             </a>
           </div>
         </form>
 
         <p className='text-center text-gray-500'>
-          Dont have an account?
+          {t('landing.login.no_account')}
           <span
             onClick={() => {
               setOpenModal('signup');
@@ -114,7 +118,7 @@ const Login = () => {
             }}
             className='text-blue-600 underline cursor-pointer'
           >
-            Sign up
+            {t('landing.login.signup')}
           </span>
         </p>
       </div>

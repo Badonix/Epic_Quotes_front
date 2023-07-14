@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
 export const useLanguageDropdown = () => {
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -16,5 +18,15 @@ export const useLanguageDropdown = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-  return { isDropdownVisible, setIsDropdownVisible, dropdownRef };
+  const { locale } = router;
+  const handleLanguageChange = (locale: string) => {
+    router.push(router.pathname, router.asPath, { locale });
+  };
+  return {
+    isDropdownVisible,
+    setIsDropdownVisible,
+    dropdownRef,
+    handleLanguageChange,
+    locale,
+  };
 };

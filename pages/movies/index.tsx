@@ -6,9 +6,13 @@ import { me } from '@/services';
 import { UserType } from '@/types';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import React, { useContext } from 'react';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 const Movies: NextPage<{ user: UserType }> = ({ user }) => {
   const { setSidebarActive, sidebarActive, movies, setMovies } = useMovies();
   const { openModal, setOpenModal } = useContext(ModalContext);
+  const { t } = useTranslation();
   return (
     <>
       {openModal === 'addmovie' && (
@@ -26,23 +30,23 @@ const Movies: NextPage<{ user: UserType }> = ({ user }) => {
           <div className='flex items-center justify-between w-full'>
             <div className='flex gap-2 flex-col lg:flex-row'>
               <p className='text-xl lg:text-2xl text-white'>
-                My list of movies
+                {t('movies.list')}
               </p>
               <p className='text-white lg:text-2xl text-lg'>
-                (Total {movies.length})
+                ({t('movies.total')} {movies.length})
               </p>
             </div>
             <div className='flex items-center gap-8'>
               <div className='items-center gap-4 hidden lg:flex'>
                 <Search />
-                <p className='text-gray-300 text-xl'>Search</p>
+                <p className='text-gray-300 text-xl'>{t('movies.search')}</p>
               </div>
               <div
                 onClick={() => setOpenModal('addmovie')}
                 className='flex items-center gap-1 lg:gap-2 text-base lg:text-xl cursor-pointer text-white bg-red-600 lg:px-4 py-3 px-3 whitespace-nowrap w-full rounded-md'
               >
                 <Add />
-                Add movie
+                {t('movies.add')}
               </div>
             </div>
           </div>
@@ -59,11 +63,13 @@ const Movies: NextPage<{ user: UserType }> = ({ user }) => {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   let user;
+  const { locale = 'en' } = context;
+
   try {
     const userRes = await me(context.req.headers.cookie);
     user = userRes.data;
   } catch (e) {}
-  return { props: { user } };
+  return { props: { user, ...(await serverSideTranslations(locale)) } };
 }
 
 export default Movies;

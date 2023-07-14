@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { PropsType } from './types';
 import { MovieType } from '@/types';
 import { getAvatar } from '@/helpers';
+import { useTranslation } from 'next-i18next';
 export const AddQuoteModal: React.FC<PropsType> = ({
   movies,
   setPosts,
@@ -26,7 +27,9 @@ export const AddQuoteModal: React.FC<PropsType> = ({
     onSubmit,
     validateBanner,
     setValue,
+    locale,
   } = useAddQuote(setPosts);
+  const { t } = useTranslation();
   const userSrc = getAvatar(user);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
@@ -36,7 +39,7 @@ export const AddQuoteModal: React.FC<PropsType> = ({
       >
         <div className='flex justify-between items-center py-9 px-10 border-b border-search'>
           <div></div>
-          <h2 className='text-2xl'>Add Quote</h2>
+          <h2 className='text-2xl'>{t('addquote.add_quote')}</h2>
           <div onClick={() => setOpenModal('')}>
             <Close />
           </div>
@@ -64,7 +67,7 @@ export const AddQuoteModal: React.FC<PropsType> = ({
                   placeholder={'Start creating new quote'}
                   disabled={loading}
                   {...register('body.en', {
-                    required: 'Quote is required',
+                    required: t('addquote.quote_required'),
                   })}
                   className='pl-3 italic pr-12 px-4 py-2 w-full bg-transparent border border-search outline-none rounded-4'
                 />
@@ -80,7 +83,7 @@ export const AddQuoteModal: React.FC<PropsType> = ({
                   placeholder='ახალი ციტატა'
                   disabled={loading}
                   {...register('body.ka', {
-                    required: 'ციტატა აუცილებელია',
+                    required: t('addquote.quote_required'),
                   })}
                   className='pl-3 italic pr-12 px-4 py-2 w-full bg-transparent border border-search outline-none rounded-4'
                 />
@@ -101,7 +104,7 @@ export const AddQuoteModal: React.FC<PropsType> = ({
                 )}
                 <div className='flex items-center gap-2'>
                   <Photo />
-                  <p>Drag & drop your image here or</p>
+                  <p>{t('addquote.drag')}</p>
                 </div>
                 <input
                   {...getInputProps()}
@@ -117,7 +120,7 @@ export const AddQuoteModal: React.FC<PropsType> = ({
                   className='p-2 bg-purple-800   text-white'
                   htmlFor='image'
                 >
-                  Choose file
+                  {t('addquote.choose')}
                 </label>
               </div>
               <p className='absolute -bottom-5 text-red-600'>
@@ -131,23 +134,26 @@ export const AddQuoteModal: React.FC<PropsType> = ({
               >
                 <div className='text-white flex items-center gap-2'>
                   <Movie />
-                  <h2 className='text-2xl'>{movieValue || 'Choose movie'}</h2>
+                  <h2 className='text-2xl'>
+                    {movieValue || t('addquote.choose_movie')}
+                  </h2>
                 </div>
-                {/* icon */}
                 <Dropdown />
                 {movieDropdown && (
                   <div className='z-30 transition-all max-h-36 scrollbar-thin scrollbar-thumb-slate-50 overflow-y-auto absolute w-full left-0 top-full'>
-                    {movies.map((movie: MovieType) => {
+                    {movies?.map((movie: MovieType) => {
                       return (
                         <div
                           onClick={() => {
                             setValue('movie_id', movie.id);
-                            setMovieValue(movie.title.en);
+                            locale == 'ka'
+                              ? setMovieValue(movie.title.ka)
+                              : setMovieValue(movie.title.en);
                           }}
                           key={movie.id}
                           className='hover:bg-gray-700 w-full bg-gray-950 px-4 py-3 text-white text-xl'
                         >
-                          {movie.title.en}
+                          {locale == 'ka' ? movie.title.ka : movie.title.en}
                         </div>
                       );
                     })}
@@ -157,7 +163,9 @@ export const AddQuoteModal: React.FC<PropsType> = ({
               <input
                 type='number'
                 hidden
-                {...register('movie_id', { required: 'Movie is required' })}
+                {...register('movie_id', {
+                  required: t('addquote.movie_required'),
+                })}
               />
               <p className='absolute -bottom-5 text-red-600'>
                 <ErrorMessage name='movie_id' errors={errors} />
@@ -168,7 +176,7 @@ export const AddQuoteModal: React.FC<PropsType> = ({
               type='submit'
               className='disabled:bg-red-700 rounded-4 py-2 w-full bg-red-600 text-white'
             >
-              Add movie
+              {t('addquote.add_quote')}
             </button>
           </form>
         </div>

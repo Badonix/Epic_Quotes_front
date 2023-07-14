@@ -4,6 +4,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { showLowercaseError, showLengthError } from './helpers';
 import { ProfileFormProps } from './types';
 import { getAvatar } from '@/helpers';
+import { useTranslation } from 'next-i18next';
 export const ProfileForm: React.FC<ProfileFormProps> = ({
   user,
   setConfirmation,
@@ -32,6 +33,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
     userData,
   } = useProfileForm(confirmation, setConfirmation, user);
   const avatar = getAvatar(user);
+  const { t } = useTranslation();
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -47,12 +49,14 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
         </label>
         <input {...register('avatar')} type='file' hidden id='avatar' />
         <label htmlFor='profileimg' className='text-white text-xl'>
-          Upload new photo
+          {t('profile.upload_new')}
         </label>
       </div>
       <div className='flex items-center flex-col gap-12 md:mt-0 mt-10'>
         <div className='flex flex-col w-full max-w-md gap-2'>
-          <label className='text-base text-white'>Username</label>
+          <label className='text-base text-white'>
+            {t('profile.username')}
+          </label>
           <div className='flex items-center gap-4 relative'>
             <input
               disabled
@@ -66,7 +70,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
               }}
               className='text-gray-300 cursor-pointer text-xl md:static absolute right-0 '
             >
-              Edit
+              {t('profile.edit')}
             </p>
           </div>
         </div>
@@ -74,16 +78,20 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
           <>
             {windowWidth && windowWidth >= 768 ? (
               <div className='hidden md:flex flex-col w-full max-w-md gap-2'>
-                <label className='text-base text-white'>New username</label>
+                <label className='text-base text-white'>
+                  {t('profile.new_username')}
+                </label>
                 <div className='flex items-center gap-4 relative'>
                   <input
                     {...register('username', {
-                      required: 'Username is required',
+                      required: t('profile.username_required'),
                     })}
                     className='w-full md:px-4 pr-9 md:py-2 py-3 outline-none border-b text-gray-300 border-search md:border-none bg-transparent md:bg-gray-300  rounded-md md:text-black text-xl'
                     type='text'
                   />
-                  <p className='text-xl select-none text-transparent'>Edit</p>
+                  <p className='text-xl select-none text-transparent'>
+                    {t('profile.edit')}
+                  </p>
                   <p className='absolute -bottom-8 text-red-600 text-xl'>
                     <ErrorMessage errors={errors} name='username' />
                   </p>
@@ -92,11 +100,13 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
             ) : (
               <div className='md:hidden absolute top-0 h-full w-full lowres-profile-modal z-40'>
                 <div className='bg-navbar flex flex-col gap-2 px-8 py-20'>
-                  <label className='text-base text-white'>New username</label>
+                  <label className='text-base text-white'>
+                    {t('profile.new_username')}
+                  </label>
                   <div className='relative'>
                     <input
                       {...register('username', {
-                        required: 'Username is required',
+                        required: t('profile.username_required'),
                       })}
                       className='md:hidden w-full px-4 py-2 outline-none border-none bg-gray-300  rounded-md text-black text-xl'
                       type='text'
@@ -117,14 +127,14 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                     }}
                     className='cursor-pointer text-xl text-gray-300'
                   >
-                    Cancel
+                    {t('profile.cancel')}
                   </p>
                   <button
                     type='button'
                     className='disabled:bg-red-700 rounded-4 px-4 py-2 bg-red-600 text-white'
                     onClick={() => handleUsernameEdit()}
                   >
-                    Edit
+                    {t('profile.edit')}
                   </button>
                 </div>
               </div>
@@ -132,7 +142,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
           </>
         )}
         <div className='flex flex-col w-full max-w-md gap-2'>
-          <label className='text-base text-white'>Email</label>
+          <label className='text-base text-white'>{t('profile.email')}</label>
           <div className='flex items-center gap-4 relative'>
             <input
               value={userData?.email}
@@ -144,7 +154,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
               onClick={() => setEmailActive((prev) => !prev)}
               className='text-gray-300 cursor-pointer text-xl md:static absolute right-0 '
             >
-              Edit
+              {t('profile.edit')}
             </p>
           </div>
         </div>
@@ -152,21 +162,25 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
           <>
             {windowWidth && windowWidth >= 768 ? (
               <div className='hidden md:flex flex-col w-full max-w-md gap-2'>
-                <label className='text-base text-white'>New email</label>
+                <label className='text-base text-white'>
+                  {t('profile.new_email')}
+                </label>
                 <div className='flex items-center gap-4 relative'>
                   <input
                     {...register('email', {
-                      required: 'Email is required',
+                      required: t('profile.email_required'),
                       pattern: {
                         value:
                           /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                        message: 'Invalid email address',
+                        message: t('profile.email_invalid'),
                       },
                     })}
                     className='w-full md:px-4 pr-9 md:py-2 py-3 outline-none border-b text-gray-300 border-search md:border-none bg-transparent md:bg-gray-300  rounded-md md:text-black text-xl'
                     type='text'
                   />
-                  <p className='text-xl select-none text-transparent'>Edit</p>
+                  <p className='text-xl select-none text-transparent'>
+                    {t('profile.edit')}
+                  </p>
                   <p className='absolute -bottom-8 text-red-600 text-xl'>
                     <ErrorMessage errors={errors} name='email' />
                   </p>
@@ -175,15 +189,17 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
             ) : (
               <div className='md:hidden absolute top-0 h-full w-full lowres-profile-modal z-40'>
                 <div className='bg-navbar flex flex-col gap-2 px-8 py-20'>
-                  <label className='text-base text-white'>New Email</label>
+                  <label className='text-base text-white'>
+                    {t('profile.new_email')}
+                  </label>
                   <div className='relative'>
                     <input
                       {...register('email', {
-                        required: 'Email is required',
+                        required: t('profile.email_required'),
                         pattern: {
                           value:
                             /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                          message: 'Invalid email address',
+                          message: t('profile.email_invalid'),
                         },
                       })}
                       className='w-full px-4 py-2 outline-none border-none bg-gray-300  rounded-md text-black text-xl'
@@ -205,14 +221,14 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                     }}
                     className='cursor-pointer text-xl text-gray-300'
                   >
-                    Cancel
+                    {t('profile.cancel')}
                   </p>
                   <button
                     type='button'
                     className='disabled:bg-red-700 rounded-4 px-4 py-2 bg-red-600 text-white'
                     onClick={() => handleEmailEdit()}
                   >
-                    Edit
+                    {t('profile.edit')}
                   </button>
                 </div>
               </div>
@@ -221,7 +237,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
         )}
         {!userData?.google_id && (
           <div className='flex flex-col w-full max-w-md gap-2'>
-            <label className='text-base text-white'>Password</label>
+            <label className='text-base text-white'>
+              {t('profile.password')}
+            </label>
             <div className='flex items-center gap-4 relative'>
               <input
                 disabled
@@ -233,7 +251,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                 onClick={() => setPasswordActive((prev) => !prev)}
                 className='text-gray-300 cursor-pointer text-xl md:static absolute right-0 '
               >
-                Edit
+                {t('profile.edit')}
               </p>
             </div>
           </div>
@@ -246,50 +264,58 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                 <div className='hidden md:flex gap-4 w-full max-w-md'>
                   <div className='border border-search p-6 w-full rounded-md'>
                     <p className='text-white text-base'>
-                      Password shoud contain:
+                      {t('profile.password_contain')}
                     </p>
                     <ul className='list-disc list-inside mt-4'>
                       <li className={showLengthError(password)}>
-                        8 or more characters
+                        {t('profile.length_error')}
                       </li>
                       <li className={showLowercaseError(password, errors)}>
-                        15 lowercase characters
+                        {t('profile.lowercase_error')}
                       </li>
                     </ul>
                   </div>
-                  <p className='text-xl select-none text-transparent'>Edit</p>
+                  <p className='text-xl select-none text-transparent'>
+                    {t('profile.edit')}
+                  </p>
                 </div>
                 <div className='hidden md:flex flex-col w-full max-w-md gap-2'>
-                  <label className='text-base text-white'>New Password</label>
+                  <label className='text-base text-white'>
+                    {t('profile.new_password')}
+                  </label>
                   <div className='flex items-center gap-4 relative'>
                     <input
                       {...register('password', {
                         validate: validatePassword,
                         minLength: {
                           value: 8,
-                          message: 'Password must be at least 8 characters',
+                          message: t('profile.password_short'),
                         },
                       })}
                       className='w-full md:px-4 pr-9 md:py-2 py-3 outline-none border-b text-gray-300 border-search md:border-none bg-transparent md:bg-gray-300  rounded-md md:text-black text-xl'
                       type='password'
                     />
-                    <p className='text-xl select-none text-transparent'>Edit</p>
+                    <p className='text-xl select-none text-transparent'>
+                      {t('profile.edit')}
+                    </p>
                   </div>
                 </div>
                 <div className='hidden md:flex flex-col w-full max-w-md gap-2'>
                   <label className='text-base text-white'>
-                    Confirm password
+                    {t('profile.password_confirmation')}
                   </label>
                   <div className='flex items-center gap-4 relative'>
                     <input
                       {...register('password_confirmation', {
                         validate: (value: string) =>
-                          value == password || 'Passwords do not match',
+                          value == password || t('profile.password_mismatch'),
                       })}
                       className='w-full md:px-4 pr-9 md:py-2 py-3 outline-none border-b text-gray-300 border-search md:border-none bg-transparent md:bg-gray-300  rounded-md md:text-black text-xl'
                       type='password'
                     />
-                    <p className='text-xl select-none text-transparent'>Edit</p>
+                    <p className='text-xl select-none text-transparent'>
+                      {t('profile.edit')}
+                    </p>
                     <p className='absolute -bottom-8 text-red-600 text-xl'>
                       <ErrorMessage
                         errors={errors}
@@ -303,11 +329,13 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
               <div className='md:hidden absolute top-0 h-full w-full lowres-profile-modal z-40'>
                 <div className='bg-navbar flex flex-col gap-10 px-8 py-20'>
                   <div>
-                    <label className='text-base text-white'>New Password</label>
+                    <label className='text-base text-white'>
+                      {t('profile.new_password')}
+                    </label>
                     <div className='relative'>
                       <input
                         {...register('password', {
-                          required: 'Password is required',
+                          required: t('profile.password_required'),
                         })}
                         className='w-full px-4 py-2 outline-none border-none bg-gray-300  rounded-md text-black text-xl'
                         type='password'
@@ -319,13 +347,13 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                   </div>
                   <div>
                     <label className='text-base text-white'>
-                      Confirm Password
+                      {t('profile.password_confirmation')}
                     </label>
                     <div className='relative'>
                       <input
                         {...register('password_confirmation', {
                           validate: (value: string) =>
-                            value == password || 'Passwords do not match',
+                            value == password || t('profile.password_mismatch'),
                         })}
                         className='w-full px-4 py-2 outline-none border-none bg-gray-300  rounded-md text-black text-xl'
                         type='password'
@@ -350,14 +378,14 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                     }}
                     className='cursor-pointer text-xl text-gray-300'
                   >
-                    Cancel
+                    {t('profile.cancel')}
                   </p>
                   <button
                     type='button'
                     className='disabled:bg-red-700 rounded-4 px-4 py-2 bg-red-600 text-white'
                     onClick={() => handlePasswordEdit()}
                   >
-                    Edit
+                    {t('profile.edit')}
                   </button>
                 </div>
               </div>
@@ -377,13 +405,13 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
             }}
             className='cursor-pointer text-xl text-gray-300'
           >
-            Cancel
+            {t('profile.cancel')}
           </p>
           <button
             type='submit'
             className='disabled:bg-red-700 rounded-4 px-4 py-2 bg-red-600 text-white'
           >
-            Save changes
+            {t('profile.save')}
           </button>
         </div>
       ) : null}
@@ -393,7 +421,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
             <div className='absolute px-7 top-16 w-full left-0'>
               <div className='w-full border-b border-search flex-col pt-16  flex items-center justify-center rounded-r-none text-white'>
                 <div className='flex items-center justify-center w-full pt-16 rounded-t-md pb-12 bg-navbar'>
-                  <p className='text-base'>Are you sure to make changes?</p>
+                  <p className='text-base'>{t('profile.sure')}</p>
                 </div>
               </div>
               <div className='px-5 py-4 bg-navbar rounded-b-md flex items-center justify-between'>
@@ -404,13 +432,13 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                   }}
                   className='text-gray-300 cursor-pointer'
                 >
-                  Cancel
+                  {t('profile.cancel')}
                 </p>
                 <button
                   type='submit'
                   className='disabled:bg-red-700 rounded-4 px-4 py-2 bg-red-600 text-white'
                 >
-                  Confirm
+                  {t('profile.confirm')}
                 </button>
               </div>
             </div>

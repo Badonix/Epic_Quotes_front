@@ -6,6 +6,7 @@ import { useEditMovie } from './useEditMovie';
 import { ErrorMessage } from '@hookform/error-message';
 import { PropsType } from './types';
 import { getAvatar } from '@/helpers';
+import { useTranslation } from 'next-i18next';
 export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
   const { setOpenModal, wrapperRef } = useModal();
   const {
@@ -19,6 +20,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
     preview,
   } = useEditMovie(movie);
   const userSrc = getAvatar(user);
+  const { t } = useTranslation();
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -27,7 +29,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
       >
         <div className='flex justify-between items-center py-9 px-10 border-b border-search'>
           <div></div>
-          <h2 className='text-2xl'>Edit Movie</h2>
+          <h2 className='text-2xl'>{t('movies.editmovie.edit')}</h2>
           <div onClick={() => setOpenModal('')}>
             <Close />
           </div>
@@ -58,7 +60,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                 <input
                   disabled={loading}
                   {...register('title.en', {
-                    required: 'Movie name is required',
+                    required: t('movies.addmovie.movie_name_required'),
                   })}
                   type='text'
                   className='px-4 py-2 w-full bg-transparent border-y border-search outline-none'
@@ -81,7 +83,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                 <input
                   disabled={loading}
                   {...register('title.ka', {
-                    required: 'Movie name is required',
+                    required: t('movies.addmovie.movie_name_required'),
                   })}
                   type='text'
                   className='px-4 py-2 w-full bg-transparent border-y border-search outline-none'
@@ -97,12 +99,14 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
             <div className='relative'>
               <div className='flex items-center'>
                 <div className='py-2 rounded-l-4 border-y border-l border-search pl-4'>
-                  <label className='whitespace-nowrap text-white'>ჟანრი</label>
+                  <label className='whitespace-nowrap text-white'>
+                    {t('movies.addmovie.genre')}
+                  </label>
                 </div>
                 <input
                   disabled={loading}
                   {...register('genre', {
-                    required: 'Movie genre is required',
+                    required: t('movies.addmovie.movie_genre_required'),
                   })}
                   type='text'
                   className='px-4 py-2 w-full bg-transparent border-r rounded-r-4 border-y border-search outline-none'
@@ -122,7 +126,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                 <input
                   disabled={loading}
                   {...register('year', {
-                    required: 'Release year is required',
+                    required: t('movies.addmovie.movie_year_required'),
                   })}
                   type='number'
                   className='px-4 py-2 w-full bg-transparent border-r rounded-r-4 border-y border-search outline-none'
@@ -136,13 +140,13 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
               <div className='flex items-center'>
                 <div className='py-2 rounded-l-4 border-y border-l border-search pl-4'>
                   <label className='whitespace-nowrap text-white'>
-                    შემოსავალი{' '}
+                    {t('movies.addmovie.budget')}
                   </label>
                 </div>
                 <input
                   disabled={loading}
                   {...register('budget', {
-                    required: 'Budget field is required',
+                    required: t('movies.addmovie.movie_budget_required'),
                   })}
                   type='number'
                   className='px-4 py-2 w-full bg-transparent border-r rounded-r-4 border-y border-search outline-none'
@@ -162,7 +166,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                 <input
                   disabled={loading}
                   {...register('director.en', {
-                    required: 'Movie director is required',
+                    required: t('movies.addmovie.movie_director_required'),
                   })}
                   type='text'
                   className='px-4 py-2 w-full bg-transparent border-y border-search outline-none'
@@ -185,7 +189,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                 <input
                   disabled={loading}
                   {...register('director.ka', {
-                    required: 'Movie director is required',
+                    required: t('movies.addmovie.movie_director_required'),
                   })}
                   type='text'
                   className='px-4 py-2 w-full bg-transparent border-y border-search outline-none'
@@ -206,7 +210,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                 <textarea
                   disabled={loading}
                   {...register('description.en', {
-                    required: 'Movie description is required',
+                    required: t('movies.addmovie.movie_description_required'),
                   })}
                   className='pl-40 pr-12 px-4 py-2 w-full bg-transparent border border-search outline-none rounded-4'
                 />
@@ -224,7 +228,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                 <textarea
                   disabled={loading}
                   {...register('description.ka', {
-                    required: 'Movie description is reqiured',
+                    required: t('movies.addmovie.movie_description_required'),
                   })}
                   className='pl-40 pr-12 px-4 py-2 w-full bg-transparent border border-search outline-none rounded-4'
                 />
@@ -237,18 +241,20 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
             <div {...getRootProps()} className='relative'>
               <div className='py-7 px-4 flex items-center gap-4 border border-search rounded-4'>
                 <img
-                  className='w-1/2 max-h-64'
+                  className='w-1/2 max-h-64 shrink-0'
                   src={
                     preview ||
                     `${process.env.NEXT_PUBLIC_API_URL}/storage/${movie?.banner}`
                   }
                   alt='Uploaded Image'
                 />
-                <div className='flex flex-col items-center gap-4'>
-                  <h2 className='text-xl text-orange-200'>Replace photo</h2>
+                <div className='flex flex-col items-center gap-4 w-full justify-center'>
+                  <h2 className='text-xl text-orange-200'>
+                    {t('movies.editmovie.replace')}
+                  </h2>
                   <div className='flex items-center gap-2'>
                     <Photo />
-                    <p>Drag & drop your image here or</p>
+                    <p>{t('movies.addmovie.drop')}</p>
                   </div>
                   <input
                     {...getInputProps()}
@@ -262,7 +268,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                     className='p-2 bg-purple-800   text-white'
                     htmlFor='image'
                   >
-                    Choose file
+                    {t('movies.addmovie.choose')}
                   </label>
                 </div>
               </div>
@@ -275,7 +281,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
               type='submit'
               className='disabled:bg-red-700 rounded-4 py-2 w-full bg-red-600 text-white'
             >
-              Add movie
+              {t('movies.editmovie.edit')}
             </button>
           </form>
         </div>
