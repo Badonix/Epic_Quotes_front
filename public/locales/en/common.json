@@ -187,5 +187,14 @@
     "expired": "Link expired!",
     "description": "Login link has expired, because you haven’t used it",
     "another": "Request another link"
+  },
+  "unauthorized": {
+    "title": "You shall not pass",
+    "description": "Sorry, but you don’t have permission to access this page",
+    "return": "Return home"
+  },
+  "not_found": {
+    "description": "We can't see the page you are looking for",
+    "return": "Return home"
   }
 }

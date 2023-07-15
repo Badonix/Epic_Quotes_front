@@ -92,7 +92,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     if (e.response.status == 401 || e.response.status == 403) {
       return {
         redirect: {
-          destination: '/unauthorized',
+          destination: `/${locale}/unauthorized`,
           permanent: false,
         },
       };
