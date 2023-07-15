@@ -1,5 +1,5 @@
-import { Add, Navbar, Search, Sidebar } from '@/components';
-import { AddMovie, MovieCard } from '@/components/movies';
+import { Add, Navbar, Sidebar } from '@/components';
+import { AddMovie, MovieCard, SearchMovie } from '@/components/movies';
 import { ModalContext } from '@/context';
 import { useMovies } from '@/hooks/useMovies';
 import { me } from '@/services';
@@ -10,7 +10,16 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const Movies: NextPage<{ user: UserType }> = ({ user }) => {
-  const { setSidebarActive, sidebarActive, movies, setMovies } = useMovies();
+  const {
+    setSidebarActive,
+    sidebarActive,
+    movies,
+    setMovies,
+    searchOpen,
+    setSearchOpen,
+    searchResults,
+    setSearchResults,
+  } = useMovies();
   const { openModal, setOpenModal } = useContext(ModalContext);
   const { t } = useTranslation();
   return (
@@ -36,14 +45,17 @@ const Movies: NextPage<{ user: UserType }> = ({ user }) => {
                 ({t('movies.total')} {movies.length})
               </p>
             </div>
-            <div className='flex items-center gap-8'>
-              <div className='items-center gap-4 hidden lg:flex'>
-                <Search />
-                <p className='text-gray-300 text-xl'>{t('movies.search')}</p>
-              </div>
+            <div className='flex items-center sm:gap-8 gap-4'>
+              <SearchMovie
+                searchResult={searchResults}
+                setSearchResults={setSearchResults}
+                setSearchOpen={setSearchOpen}
+                searchOpen={searchOpen}
+              />
+
               <div
                 onClick={() => setOpenModal('addmovie')}
-                className='flex items-center gap-1 lg:gap-2 text-base lg:text-xl cursor-pointer text-white bg-red-600 lg:px-4 py-3 px-3 whitespace-nowrap w-full rounded-md'
+                className='flex items-center gap-1 lg:gap-2 text-base lg:text-xl cursor-pointer text-white bg-red-600 lg:px-4 py-3 px-3 whitespace-nowrap rounded-md'
               >
                 <Add />
                 {t('movies.add')}
@@ -51,9 +63,17 @@ const Movies: NextPage<{ user: UserType }> = ({ user }) => {
             </div>
           </div>
           <div className='mt-14 flex flex-wrap gap-12 justify-around'>
-            {movies.map((movie, index) => (
-              <MovieCard id={movie.id} key={index} movie={movie} />
-            ))}
+            {searchResults.length > 0
+              ? searchResults.map((movie) => (
+                  <MovieCard
+                    id={Number(movie.id)}
+                    key={movie.id}
+                    movie={movie}
+                  />
+                ))
+              : movies.map((movie, index) => (
+                  <MovieCard id={Number(movie.id)} key={index} movie={movie} />
+                ))}
           </div>
         </div>
       </section>
@@ -68,7 +88,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     const userRes = await me(context.req.headers.cookie);
     user = userRes.data;
-  } catch (e) {}
+  } catch (e: any) {
+    if (e.response.status == 401 || e.response.status == 403) {
+      return {
+        redirect: {
+          destination: `/${locale}/unauthorized`,
+          permanent: false,
+        },
+      };
+    } else {
+      console.log(e);
+    }
+  }
   return { props: { user, ...(await serverSideTranslations(locale)) } };
 }
 

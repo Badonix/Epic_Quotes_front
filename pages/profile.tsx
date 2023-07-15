@@ -61,7 +61,18 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
   try {
     user = await me(ctx.req.headers.cookie);
-  } catch (e) {}
+  } catch (e: any) {
+    if (e.response.status == 401 || e.response.status == 403) {
+      return {
+        redirect: {
+          destination: `/${locale}/unauthorized`,
+          permanent: false,
+        },
+      };
+    } else {
+      console.log(e);
+    }
+  }
   return {
     props: { user: user?.data, ...(await serverSideTranslations(locale)) },
   };

@@ -36,7 +36,7 @@ const Login = () => {
             <Input
               disabled={loading}
               placeholder={t('landing.login.email_placeholder')}
-              label={t('landing.login.email')}
+              label={t('form.email')}
               required={true}
               name='login'
               validation={{

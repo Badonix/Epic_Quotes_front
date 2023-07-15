@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { deleteQuote } from '@/services';
+import { checkAuth } from '@/helpers';
 export const useQuoteCard = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -23,8 +24,12 @@ export const useQuoteCard = () => {
   }, []);
 
   const handleDelete = async (id: number) => {
-    const response = await deleteQuote(Number(id));
-    response.status === 200 && router.reload();
+    try {
+      const response = await deleteQuote(Number(id));
+      response.status === 200 && router.reload();
+    } catch (e) {
+      checkAuth(e, router);
+    }
   };
 
   return {

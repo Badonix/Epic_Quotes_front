@@ -4,6 +4,7 @@ import { useDropzone } from 'react-dropzone';
 import { editMovie, fetchCSRFToken } from '@/services';
 import { useRouter } from 'next/router';
 import { MovieType } from '@/types';
+import { checkAuth } from '@/helpers';
 export const useEditMovie = (movie: MovieType) => {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -44,6 +45,7 @@ export const useEditMovie = (movie: MovieType) => {
       response.status === 200 && router.reload();
       setLoading(false);
     } catch (e) {
+      checkAuth(e, router);
       setLoading(false);
     }
   };
