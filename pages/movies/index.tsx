@@ -1,4 +1,4 @@
-import { Add, Navbar, Search, Sidebar } from '@/components';
+import { Add, Navbar, Sidebar } from '@/components';
 import { AddMovie, MovieCard, SearchMovie } from '@/components/movies';
 import { ModalContext } from '@/context';
 import { useMovies } from '@/hooks/useMovies';
