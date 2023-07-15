@@ -23,6 +23,8 @@ const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
     searchActive,
     setPosts,
     data,
+    searchResult,
+    setSearchResult,
   } = useNewsFeed(quotes);
   const { openModal } = useContext(ModalContext);
   return (
@@ -34,7 +36,7 @@ const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
         setSearchActive={setSearchActive}
         setSidebarActive={setSidebarActive}
       />
-      <section className='py-24 flex justify-between'>
+      <section className='py-24 flex justify-between min-h-screen'>
         <Sidebar
           user={user}
           currentPage='news-feed'
@@ -43,20 +45,30 @@ const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
         />
         <div className='flex flex-col w-full items-center'>
           <SearchPost
+            searchResult={searchResult}
+            setSearchResult={setSearchResult}
             searchActive={searchActive}
             setSearchActive={setSearchActive}
           />
           <div className='w-full px-10 mt-6 flex flex-col gap-10'>
-            {posts?.map((post: PostType) => (
-              <Post user={user} key={post.id} post={post} />
-            ))}
-            {data?.pages
-              ?.flatMap((data: any) => {
-                return data.data.data;
-              })
-              ?.map((post: PostType) => {
-                return <Post user={user} key={post.id} post={post} />;
-              })}
+            {searchResult.length > 0 &&
+              searchResult.map((post) => (
+                <Post user={user} key={post.id} post={post} />
+              ))}
+            {searchResult.length == 0 && (
+              <>
+                {posts?.map((post: PostType) => (
+                  <Post user={user} key={post.id} post={post} />
+                ))}
+                {data?.pages
+                  ?.flatMap((data: any) => {
+                    return data.data.data;
+                  })
+                  ?.map((post: PostType) => {
+                    return <Post user={user} key={post.id} post={post} />;
+                  })}
+              </>
+            )}
             <div ref={loadMoreRef} className='w-full h-3'></div>
           </div>
         </div>

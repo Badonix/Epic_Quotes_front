@@ -227,3 +227,8 @@ export const removeLike = async (id: Number) => {
   const response = await instance.post('/api/unlike/' + id);
   return response;
 };
+
+export const search = async (body: { search: string }) => {
+  const response = await instance.post('/api/search', body);
+  return response;
+};

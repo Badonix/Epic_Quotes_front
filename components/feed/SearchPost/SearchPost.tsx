@@ -3,33 +3,54 @@ import { Search, Write, Back } from '@/components/icons';
 import { PropsType } from './types';
 import { useModal } from '@/hooks';
 import { useTranslation } from 'next-i18next';
-const SearchPost: React.FC<PropsType> = ({ searchActive, setSearchActive }) => {
+import { useSearchPost } from './useSearchPost';
+const SearchPost: React.FC<PropsType> = ({
+  searchResult,
+  setSearchResult,
+  searchActive,
+  setSearchActive,
+}) => {
   const { setOpenModal } = useModal();
   const { t } = useTranslation();
+  const { register, onSubmit, handleSubmit, windowWidth } = useSearchPost(
+    searchResult,
+    setSearchResult
+  );
+
   return (
     <>
-      {searchActive && (
-        <div className='text-gray-300 lg:hidden top-0 w-screen flex flex-col h-full fixed z-50 bg-sidebar'>
-          <div className='flex items-center px-5 h-16 border-b border-search'>
-            <div
-              onClick={() => {
-                setSearchActive(false);
-              }}
-            >
-              <Back />
+      {windowWidth <= 1024 && (
+        <>
+          {searchActive && (
+            <div className='text-gray-300 lg:hidden top-0 w-screen flex flex-col h-full fixed z-50 bg-sidebar'>
+              <div className='flex items-center px-5 h-16 border-b border-search'>
+                <div
+                  onClick={() => {
+                    setSearchActive(false);
+                  }}
+                >
+                  <Back />
+                </div>
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className='w-full h-full'
+                >
+                  <input
+                    {...register('search')}
+                    autoFocus
+                    type='text'
+                    placeholder={t('newsfeed.search')}
+                    className='px-6 bg-transparent w-full h-full outline-none text-white'
+                  />
+                </form>
+              </div>
+              <div className='text-center flex flex-col gap-6 mt-5'>
+                <p>{t('newsfeed.search_movies')}</p>
+                <p>{t('newsfeed.search_quotes')}</p>
+              </div>
             </div>
-            <input
-              autoFocus
-              type='text'
-              placeholder={t('newsfeed.search')}
-              className='px-6 bg-transparent w-full h-full outline-none text-white'
-            />
-          </div>
-          <div className='text-center flex flex-col gap-6 mt-5'>
-            <p>{t('newsfeed.search_movies')}</p>
-            <p>{t('newsfeed.search_quotes')}</p>
-          </div>
-        </div>
+          )}
+        </>
       )}
       <div
         onClick={() => {
@@ -64,26 +85,33 @@ const SearchPost: React.FC<PropsType> = ({ searchActive, setSearchActive }) => {
         <div
           className={`flex items-center gap-4 h-14 ${searchActive && 'w-full'}`}
         >
-          {searchActive ? (
-            <div className='w-full relative flex items-center'>
-              <div className='absolute'>
-                <Search />
-              </div>
-              <input
-                autoFocus
-                type='text'
-                placeholder={t('newsfeed.search_placeholder')}
-                className='pl-10 bg-transparent border-b border-gray-300 w-full h-14 outline-none text-gray-300'
-              />
-            </div>
-          ) : (
-            <div
-              className='flex items-center gap-4 h-14 cursor-pointer'
-              onClick={() => setSearchActive(true)}
-            >
-              <Search />
-              <p className='text-gray-300'>{t('newsfeed.search')}</p>{' '}
-            </div>
+          {windowWidth > 1024 && (
+            <>
+              {searchActive ? (
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className='w-full relative flex items-center'
+                >
+                  <button type='submit' className='absolute'>
+                    <Search />
+                  </button>
+                  <input
+                    {...register('search')}
+                    autoFocus
+                    placeholder={t('newsfeed.search_placeholder')}
+                    className='pl-10 bg-transparent border-b border-gray-300 w-full h-14 outline-none text-gray-300'
+                  />
+                </form>
+              ) : (
+                <div
+                  className='flex items-center gap-4 h-14 cursor-pointer'
+                  onClick={() => setSearchActive(true)}
+                >
+                  <Search />
+                  <p className='text-gray-300'>{t('newsfeed.search')}</p>{' '}
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

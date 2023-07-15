@@ -9,6 +9,7 @@ export const useNewsFeed = (quotes: PostType[]) => {
   const [posts, setPosts] = useState(quotes);
   const [currentPage, setCurrentPage] = useState<number>(2);
   const [loading, setLoading] = useState<boolean>(false);
+  const [searchResult, setSearchResult] = useState<PostType[]>([]);
   const loadMoreRef = useRef(null);
 
   const { data, fetchNextPage } = useInfiniteQuery({
@@ -64,5 +65,7 @@ export const useNewsFeed = (quotes: PostType[]) => {
     loadMoreRef,
     setPosts,
     data,
+    searchResult,
+    setSearchResult,
   };
 };
