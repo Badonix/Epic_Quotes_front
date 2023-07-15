@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { SearchType } from './types';
 import { useWatch } from 'react-hook-form';
 import { PostType } from '@/types';
+import { checkAuth } from '@/helpers';
+import { useRouter } from 'next/router';
 export const useSearchPost = (
   searchResult: PostType[],
   setSearchResult: React.Dispatch<SetStateAction<PostType[]>>,
@@ -11,6 +13,7 @@ export const useSearchPost = (
 ) => {
   const { register, handleSubmit, control } = useForm<SearchType>();
   const [windowWidth, setWindowWidth] = useState<number>(1);
+  const router = useRouter();
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -29,10 +32,14 @@ export const useSearchPost = (
   }, []);
   const { search: searchValue } = useWatch({ control });
   const onSubmit = async (data: SearchType) => {
-    if (searchValue) {
-      let posts = await search(data);
-      setSearchResult(posts.data);
-      setSearchActive(false);
+    try {
+      if (searchValue) {
+        let posts = await search(data);
+        setSearchResult(posts.data);
+        setSearchActive(false);
+      }
+    } catch (e) {
+      checkAuth(e, router);
     }
   };
   useEffect(() => {

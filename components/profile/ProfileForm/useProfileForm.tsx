@@ -4,6 +4,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { UserType } from '@/types';
 import { useTranslation } from 'next-i18next';
+import { checkAuth } from '@/helpers';
 export const useProfileForm = (
   confirmation: boolean,
   setConfirmation: React.Dispatch<React.SetStateAction<boolean>>,
@@ -68,6 +69,7 @@ export const useProfileForm = (
       setPreview(undefined);
       router.push('/profile');
     } catch (e: any) {
+      checkAuth(e, router);
       if (e.response.data.errors.email) {
         setError('email', {
           type: 'unique',

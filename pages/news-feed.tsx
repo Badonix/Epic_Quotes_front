@@ -84,12 +84,24 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   try {
     const res = await fetchMovies(context.req.headers.cookie);
-    const quotesData = await fetchPosts(1);
+    const quotesData = await fetchPosts(1, context.req.headers.cookie);
     const userRes = await me(context.req.headers.cookie);
     user = userRes.data;
     quotes = quotesData.data.data;
     movies = res.data;
-  } catch (e) {}
+  } catch (e: any) {
+    console.log(e);
+    if (e.response.status == 401 || e.response.status == 403) {
+      return {
+        redirect: {
+          destination: '/unauthorized',
+          permanent: false,
+        },
+      };
+    } else {
+      console.log(e);
+    }
+  }
   return {
     props: {
       movies,

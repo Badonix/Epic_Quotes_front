@@ -17,7 +17,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       );
       return {
         redirect: {
-          destination: '/me',
+          destination: '/news-feed',
         },
       };
     } catch (e) {}

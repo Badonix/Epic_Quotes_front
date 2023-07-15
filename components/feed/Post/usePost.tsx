@@ -3,18 +3,22 @@ import { CommentType, LikesType, UserType, addCommentType } from '@/types';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import { checkAuth } from '@/helpers';
 export const usePost = (likes: LikesType[], user: UserType) => {
   const { register, handleSubmit, reset } = useForm();
   const { locale } = useRouter();
   const [newComments, setNewComments] = useState<CommentType[]>([]);
   const [liked, setLiked] = useState<boolean>(false);
   const [likeCount, setLikeCount] = useState<number>(likes?.length);
+  const router = useRouter();
   const onSubmit = async (data: addCommentType) => {
     try {
       const response = await addComment(data);
       setNewComments((prev) => [...[response.data], ...prev]);
       reset();
-    } catch (e) {}
+    } catch (e) {
+      checkAuth(e, router);
+    }
   };
   useEffect(() => {
     const hasLiked = likes?.find((like) => like.user_id === user.id);

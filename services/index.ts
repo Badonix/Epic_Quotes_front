@@ -4,7 +4,6 @@ import {
   updateProfileType,
 } from '@/types';
 import axios from 'axios';
-
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
@@ -13,21 +12,6 @@ const instance = axios.create({
   },
   withCredentials: true,
 });
-
-instance.interceptors.response.use(
-  async (response) => {
-    return response;
-  },
-
-  async (error) => {
-    const status = error?.response?.status;
-    if (status === 404) {
-    } else if (status === 403 || status === 401) {
-    }
-
-    return Promise.reject(error);
-  }
-);
 
 export const register = async (data: any) => {
   const response = await instance.post('/api/register', data);
@@ -208,8 +192,14 @@ export const updateProfile = async (data: updateProfileType) => {
   return response;
 };
 
-export const fetchPosts = async (page: number) => {
-  const response = await instance.get('/api/quotes' + `?page=${page}`);
+export const fetchPosts = async (page: number, cookie?: string) => {
+  const response = await instance.get('/api/quotes' + `?page=${page}`, {
+    headers: {
+      Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
+      Referer: process.env.NEXT_PUBLIC_API_REFERER,
+      Cookie: cookie,
+    },
+  });
   return response;
 };
 

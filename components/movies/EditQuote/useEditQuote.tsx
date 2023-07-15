@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm, useWatch } from 'react-hook-form';
 import { PostType } from '@/types';
+import { checkAuth } from '@/helpers';
 export const useEditQuote = (quote: PostType | null) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [preview, setPreview] = useState('');
@@ -26,6 +27,7 @@ export const useEditQuote = (quote: PostType | null) => {
       const res = await editQuote(Number(quote?.id), data);
       res.status === 200 && router.reload();
     } catch (e) {
+      checkAuth(e, router);
       setLoading(false);
     }
   };

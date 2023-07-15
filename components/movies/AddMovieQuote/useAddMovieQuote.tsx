@@ -5,6 +5,7 @@ import { useModal } from '@/hooks';
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { checkAuth } from '@/helpers';
 export const useAddMovieQuote = (movieId: number) => {
   const { setOpenModal } = useModal();
   const [loading, setLoading] = useState<boolean>(false);
@@ -38,6 +39,7 @@ export const useAddMovieQuote = (movieId: number) => {
       setOpenModal('');
       setLoading(false);
     } catch (e) {
+      checkAuth(e, router);
       setLoading(false);
     }
   };

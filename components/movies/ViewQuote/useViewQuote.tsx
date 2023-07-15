@@ -1,3 +1,4 @@
+import { checkAuth } from '@/helpers';
 import { addComment, deleteQuote } from '@/services';
 import { CommentType, addCommentType } from '@/types';
 import { useRouter } from 'next/router';
@@ -17,7 +18,9 @@ export const useViewQuote = (id: number) => {
       const response = await addComment(data);
       setNewComments((prev) => [...[response.data], ...prev]);
       reset();
-    } catch (e) {}
+    } catch (e) {
+      checkAuth(e, router);
+    }
   };
   return {
     handleDelete,

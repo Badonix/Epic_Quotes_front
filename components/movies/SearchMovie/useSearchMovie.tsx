@@ -1,5 +1,7 @@
+import { checkAuth } from '@/helpers';
 import { searchMovie } from '@/services';
 import { MovieType } from '@/types';
+import { useRouter } from 'next/router';
 import { SetStateAction, useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 
@@ -11,11 +13,16 @@ export const useSearchMovie = (
   const [windowWidth, setWindowWidth] = useState<number>(1);
   const { register, handleSubmit, control } = useForm<{ search: string }>();
   const { search } = useWatch({ control });
+  const router = useRouter();
   const onSubmit = async (data: { search: string }) => {
-    if (search) {
-      let res = await searchMovie(data);
-      setSearchResults(res.data);
-      setSearchOpen(false);
+    try {
+      if (search) {
+        let res = await searchMovie(data);
+        setSearchResults(res.data);
+        setSearchOpen(false);
+      }
+    } catch (e) {
+      checkAuth(e, router);
     }
   };
   useEffect(() => {

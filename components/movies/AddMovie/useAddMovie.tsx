@@ -5,6 +5,8 @@ import { useModal } from '@/hooks';
 import { useDropzone } from 'react-dropzone';
 import { MovieType } from '@/types';
 import { useTranslation } from 'next-i18next';
+import { checkAuth } from '@/helpers';
+import { useRouter } from 'next/router';
 export const useAddMovie = (
   setMovies: React.Dispatch<SetStateAction<MovieType[]>>,
   movies: MovieType[]
@@ -12,6 +14,7 @@ export const useAddMovie = (
   const { setOpenModal } = useModal();
   const [loading, setLoading] = useState<boolean>(false);
   const [preview, setPreview] = useState('');
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -40,6 +43,7 @@ export const useAddMovie = (
       setOpenModal('');
       setLoading(false);
     } catch (e) {
+      checkAuth(e, router);
       setLoading(false);
     }
   };

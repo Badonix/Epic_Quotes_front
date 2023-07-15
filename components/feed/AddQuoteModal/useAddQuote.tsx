@@ -6,8 +6,10 @@ import { useDropzone } from 'react-dropzone';
 import { PostType, addQuote as addQuoteType } from '@/types';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { checkAuth } from '@/helpers';
 export const useAddQuote = (setPosts: SetStateAction<any>) => {
   const { locale } = useRouter();
+  const router = useRouter();
   const { setOpenModal } = useModal();
   const [loading, setLoading] = useState<boolean>(false);
   const [preview, setPreview] = useState('');
@@ -39,6 +41,7 @@ export const useAddQuote = (setPosts: SetStateAction<any>) => {
       setPosts((prevPosts: [PostType]) => [...[response.data], ...prevPosts]);
       setLoading(false);
     } catch (e) {
+      checkAuth(e, router);
       setLoading(false);
     }
   };

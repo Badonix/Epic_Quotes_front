@@ -88,7 +88,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     const userRes = await me(context.req.headers.cookie);
     user = userRes.data;
-  } catch (e) {}
+  } catch (e: any) {
+    if (e.response.status == 401 || e.response.status == 403) {
+      return {
+        redirect: {
+          destination: '/unauthorized',
+          permanent: false,
+        },
+      };
+    } else {
+      console.log(e);
+    }
+  }
   return { props: { user, ...(await serverSideTranslations(locale)) } };
 }
 
