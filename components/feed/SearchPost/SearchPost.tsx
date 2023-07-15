@@ -14,7 +14,8 @@ const SearchPost: React.FC<PropsType> = ({
   const { t } = useTranslation();
   const { register, onSubmit, handleSubmit, windowWidth } = useSearchPost(
     searchResult,
-    setSearchResult
+    setSearchResult,
+    setSearchActive
   );
 
   return (

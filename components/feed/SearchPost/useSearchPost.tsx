@@ -6,7 +6,8 @@ import { useWatch } from 'react-hook-form';
 import { PostType } from '@/types';
 export const useSearchPost = (
   searchResult: PostType[],
-  setSearchResult: React.Dispatch<SetStateAction<PostType[]>>
+  setSearchResult: React.Dispatch<SetStateAction<PostType[]>>,
+  setSearchActive: React.Dispatch<SetStateAction<boolean>>
 ) => {
   const { register, handleSubmit, control } = useForm<SearchType>();
   const [windowWidth, setWindowWidth] = useState<number>(1);
@@ -28,9 +29,11 @@ export const useSearchPost = (
   }, []);
   const { search: searchValue } = useWatch({ control });
   const onSubmit = async (data: SearchType) => {
-    let posts = await search(data);
-    console.log(posts);
-    setSearchResult(posts.data);
+    if (searchValue) {
+      let posts = await search(data);
+      setSearchResult(posts.data);
+      setSearchActive(false);
+    }
   };
   useEffect(() => {
     if (searchResult && !searchValue) {

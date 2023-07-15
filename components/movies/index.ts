@@ -5,3 +5,4 @@ export * from './QuoteCard';
 export * from './AddMovieQuote';
 export * from './ViewQuote';
 export * from './EditQuote';
+export * from './SearchMovie';

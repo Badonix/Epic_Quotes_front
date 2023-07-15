@@ -232,3 +232,8 @@ export const search = async (body: { search: string }) => {
   const response = await instance.post('/api/search', body);
   return response;
 };
+
+export const searchMovie = async (body: { search: string }) => {
+  const response = await instance.post('/api/search/movies', body);
+  return response;
+};
