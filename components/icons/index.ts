@@ -20,3 +20,5 @@ export { default as Edit } from './Edit';
 export { default as Trash } from './Trash';
 export { default as ThreeDots } from './ThreeDots';
 export { default as Eye } from './Eye';
+export { default as CommentNotif } from './CommentNotif';
+export { default as LikeNotif } from './LikeNotif';

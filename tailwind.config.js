@@ -67,6 +67,12 @@ module.exports = {
       margin: {
         88: '88px',
       },
+      borderWidth: {
+        16: '16px',
+      },
+      spacing: {
+        22: '5.5rem',
+      },
     },
   },
   plugins: [require('tailwind-scrollbar')],
