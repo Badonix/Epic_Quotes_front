@@ -1,9 +1,10 @@
+import { NotificationsContext } from '@/context';
 import { fetchPosts } from '@/services';
-import { PostType } from '@/types';
-import { useEffect, useRef, useState } from 'react';
+import { PostType, UserType } from '@/types';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useInfiniteQuery, useQuery } from 'react-query';
 
-export const useNewsFeed = (quotes: PostType[]) => {
+export const useNewsFeed = (quotes: PostType[], user: UserType) => {
   const [sidebarActive, setSidebarActive] = useState<boolean>(false);
   const [searchActive, setSearchActive] = useState<boolean>(false);
   const [posts, setPosts] = useState(quotes);
@@ -11,7 +12,7 @@ export const useNewsFeed = (quotes: PostType[]) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [searchResult, setSearchResult] = useState<PostType[]>([]);
   const loadMoreRef = useRef(null);
-
+  const { setNotifications } = useContext(NotificationsContext);
   const { data, fetchNextPage } = useInfiniteQuery({
     queryKey: ['projects'],
     getNextPageParam: (prevData: any) => {
@@ -39,6 +40,7 @@ export const useNewsFeed = (quotes: PostType[]) => {
     fetchNextPage();
   }, [currentPage]);
   useEffect(() => {
+    setNotifications(user.notifications);
     const observer = new IntersectionObserver(handleObserver, {
       root: null,
       rootMargin: '0px',

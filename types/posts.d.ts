@@ -19,12 +19,24 @@ export type MovieType = {
   quotes?: PostType[];
 };
 
+export type NotificationType = {
+  id: number;
+  sender_id: number;
+  receiver_id: number;
+  type: string;
+  sender: UserType;
+  receiver: UserType;
+  read: boolean;
+  created_at: string;
+};
+
 export type UserType = {
   id?: number;
   username: string;
   email: string;
   google_id?: number;
   avatar?: string;
+  notifications: NotificationType[];
 };
 
 export type CommentType = {

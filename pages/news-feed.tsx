@@ -25,7 +25,7 @@ const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
     data,
     searchResult,
     setSearchResult,
-  } = useNewsFeed(quotes);
+  } = useNewsFeed(quotes, user);
   const { openModal } = useContext(ModalContext);
   return (
     <>
@@ -33,6 +33,7 @@ const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
         <AddQuoteModal user={user} setPosts={setPosts} movies={movies} />
       )}
       <FeedNavbar
+        user={user}
         setSearchActive={setSearchActive}
         setSidebarActive={setSidebarActive}
       />
@@ -90,7 +91,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     quotes = quotesData.data.data;
     movies = res.data;
   } catch (e: any) {
-    console.log(e);
     if (e.response.status == 401 || e.response.status == 403) {
       return {
         redirect: {
@@ -99,7 +99,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         },
       };
     } else {
-      console.log(e);
     }
   }
   return {

@@ -13,7 +13,7 @@ export const Profile: NextPage<{ user: UserType }> = ({ user }) => {
     router,
     confirmation,
     setConfirmation,
-  } = useProfile();
+  } = useProfile(user);
   const { t } = useTranslation();
   return (
     <>

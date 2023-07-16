@@ -19,7 +19,7 @@ const Movies: NextPage<{ user: UserType }> = ({ user }) => {
     setSearchOpen,
     searchResults,
     setSearchResults,
-  } = useMovies();
+  } = useMovies(user);
   const { openModal, setOpenModal } = useContext(ModalContext);
   const { t } = useTranslation();
   return (

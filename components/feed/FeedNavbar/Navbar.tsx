@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { LanguageDropdown, Notifications } from '@/components';
 import { Bell, Menu, Search } from '@/components';
 import { PropsType } from './types';
 import { useTranslation } from 'next-i18next';
 import { useNavbar } from './useNavbar';
+import { NotificationsContext } from '@/context';
 
-const Navbar: React.FC<PropsType> = ({ setSidebarActive, setSearchActive }) => {
+const Navbar: React.FC<PropsType> = ({
+  user,
+  setSidebarActive,
+  setSearchActive,
+}) => {
   const { t } = useTranslation();
-  const { notificationsActive, setNotificationsActive, notificationsRef } =
-    useNavbar();
+  const { notificationsActive, setNotificationsActive } = useNavbar(user);
+  const { notifCount } = useContext(NotificationsContext);
   return (
     <nav className='fixed z-40 w-full bg-navbar py-7 px-16 flex items-center justify-between shadow-sm'>
       <div
@@ -28,9 +33,11 @@ const Navbar: React.FC<PropsType> = ({ setSidebarActive, setSearchActive }) => {
           onClick={() => setNotificationsActive((prev) => !prev)}
           className='relative cursor-pointer h-full'
         >
-          <div className='-right-2 -top-2 absolute w-6 h-6 bg-red-600 rounded-full flex items-center justify-center'>
-            <p className='text-white'>3</p>
-          </div>
+          {notifCount != 0 && (
+            <div className='-right-2 -top-2 absolute w-6 h-6 bg-red-600 rounded-full flex items-center justify-center'>
+              <p className='text-white'>{notifCount}</p>
+            </div>
+          )}
           <Bell />
           {notificationsActive && (
             <div className='w-0 h-0 lg:-bottom-full -bottom-6 translate-y-1 border-16 border-l-transparent border-r-transparent border-t-transparent border-b-black bg-transparent absolute'></div>

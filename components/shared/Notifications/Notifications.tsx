@@ -1,27 +1,36 @@
-import { SetStateAction } from 'react';
+import { SetStateAction, useContext } from 'react';
 import { SingleNotification } from '../SingleNotification';
-
+import { NotificationsContext } from '@/context';
+import { useTranslation } from 'next-i18next';
 export const Notifications: React.FC<{
   setNotificationsActive: React.Dispatch<SetStateAction<boolean>>;
 }> = ({ setNotificationsActive }) => {
+  const { notifications, handleReadAll } = useContext(NotificationsContext);
+  const { t } = useTranslation();
   return (
-    <div className='bg-black rounded-md w-full px-8 py-10'>
+    <div className='bg-black rounded-md w-full px-8 py-10 max-h-75vh overflow-y-auto scrollbar-thin scrollbar-thumb-gray-900'>
       <div
         onClick={() => setNotificationsActive(false)}
-        className='absolute h-screen w-screen bg-transparent top-0 left-0 -z-10'
+        className='absolute  h-screen w-screen -left-full top-0 -z-10'
       ></div>
       <div className='flex items-center justify-between'>
-        <h2 className='text-white text-3xl'>Notifications</h2>
-        <p className='underline text-white text-xl cursor-pointer'>
-          Mark as all read
+        <h2 className='text-white text-3xl'>
+          {t('notifications.notifications')}
+        </h2>
+        <p
+          onClick={handleReadAll}
+          className='underline text-white text-xl cursor-pointer'
+        >
+          {t('notifications.mark_all')}
         </p>
       </div>
       <div className='mt-6 flex flex-col gap-4'>
-        <SingleNotification />
-        <SingleNotification />
-        <SingleNotification />
-        <SingleNotification />
-        <SingleNotification />
+        {notifications.map((notification) => (
+          <SingleNotification
+            key={notification.id}
+            notification={notification}
+          />
+        ))}
       </div>
     </div>
   );

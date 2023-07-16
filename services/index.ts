@@ -227,3 +227,13 @@ export const searchMovie = async (body: { search: string }) => {
   const response = await instance.post('/api/search/movies', body);
   return response;
 };
+
+export const markAsRead = async (id: number) => {
+  const response = await instance.post('/api/notifications/' + id);
+  return response;
+};
+
+export const markAllRead = async () => {
+  const response = await instance.post('/api/notifications/clear');
+  return response;
+};

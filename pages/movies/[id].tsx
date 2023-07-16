@@ -25,7 +25,7 @@ export const Movie: NextPage<{
   const { t } = useTranslation();
   const { locale } = useRouter();
   const { openModal, setOpenModal } = useContext(ModalContext);
-  const { setSidebarActive, sidebarActive, handleDelete } = useMovie();
+  const { setSidebarActive, sidebarActive, handleDelete } = useMovie(user);
   const [activeQuote, setActiveQuote] = useState(null);
   return (
     <>

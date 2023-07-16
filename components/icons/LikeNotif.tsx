@@ -7,10 +7,10 @@ export const LikeNotif = () => {
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <g clip-path='url(#clip0_638_29966)'>
+      <g clipPath='url(#clip0_638_29966)'>
         <path
-          fill-rule='evenodd'
-          clip-rule='evenodd'
+          fillRule='evenodd'
+          clipRule='evenodd'
           d='M11.9999 1.97108C18.6569 -4.87192 35.3009 7.10258 11.9999 22.5001C-11.3011 7.10408 5.34292 -4.87192 11.9999 1.97108Z'
           fill='#F3426C'
         />

@@ -1,9 +1,13 @@
 import { deleteMovie } from '@/services';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
+import { NotificationsContext } from '@/context';
+import { UserType } from '@/types';
 
-export const useMovie = () => {
+export const useMovie = (user: UserType) => {
   const [sidebarActive, setSidebarActive] = useState<boolean>(false);
+  const { setNotifications } = useContext(NotificationsContext);
+  setNotifications(user.notifications);
   const router = useRouter();
 
   const handleDelete = async (id: number) => {
