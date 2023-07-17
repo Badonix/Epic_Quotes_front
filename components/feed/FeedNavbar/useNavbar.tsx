@@ -1,4 +1,3 @@
-import { UserType } from '@/types';
 import { useState } from 'react';
 
 export const useNavbar = () => {
