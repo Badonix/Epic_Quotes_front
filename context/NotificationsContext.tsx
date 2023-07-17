@@ -6,7 +6,7 @@ import React, {
   useEffect,
   SetStateAction,
 } from 'react';
-
+import { useRouter } from 'next/router';
 export const NotificationsContext = createContext<{
   notifications: NotificationType[];
   setNotifications: React.Dispatch<SetStateAction<NotificationType[]>>;
@@ -29,6 +29,9 @@ export const NotificationsProvider = ({
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
   const [notifCount, setNotifCount] = useState<number>(0);
   const [userId, setUserId] = useState<number>();
+  const router = useRouter();
+  const { asPath } = router;
+  console.log(asPath);
 
   const countNewNotifs = () => {
     let counter = 0;
@@ -57,16 +60,18 @@ export const NotificationsProvider = ({
     );
   };
   const fetchUser = async () => {
-    const res = await me();
-    setUserId(res.data.id);
+    try {
+      const res = await me();
+      setUserId(res.data.id);
+    } catch (e) {}
   };
 
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [asPath]);
 
   useEffect(() => {
-    if (userId) {
+    if (userId && window.Echo && asPath !== '/' && asPath !== '/unauthorized') {
       window.Echo.private('notifications.' + userId).listen(
         'NotificationCreated',
         (data: { notification: NotificationType }) => {
@@ -75,7 +80,12 @@ export const NotificationsProvider = ({
       );
     }
     return () => {
-      if (userId) {
+      if (
+        userId &&
+        window.Echo &&
+        asPath !== '/' &&
+        asPath !== '/unauthorized'
+      ) {
         window.Echo.private('notifications.' + userId).stopListening(
           'NotificationCreated'
         );
