@@ -22,3 +22,5 @@ export { default as ThreeDots } from './ThreeDots';
 export { default as Eye } from './Eye';
 export { default as CommentNotif } from './CommentNotif';
 export { default as LikeNotif } from './LikeNotif';
+export { default as Correct } from './Correct';
+export { default as Invalid } from './Invalid';
