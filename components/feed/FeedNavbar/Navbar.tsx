@@ -5,6 +5,7 @@ import { PropsType } from './types';
 import { useTranslation } from 'next-i18next';
 import { useNavbar } from './useNavbar';
 import { NotificationsContext } from '@/context';
+import { instantiatePusher } from '@/helpers';
 
 const Navbar: React.FC<PropsType> = ({
   user,
@@ -14,6 +15,7 @@ const Navbar: React.FC<PropsType> = ({
   const { t } = useTranslation();
   const { notificationsActive, setNotificationsActive } = useNavbar(user);
   const { notifCount } = useContext(NotificationsContext);
+  instantiatePusher();
   return (
     <nav className='fixed z-40 w-full bg-navbar py-7 px-16 flex items-center justify-between shadow-sm'>
       <div

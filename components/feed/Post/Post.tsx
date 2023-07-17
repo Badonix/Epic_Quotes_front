@@ -17,7 +17,7 @@ const Post: React.FC<PropsType> = ({ post, user }) => {
     handleLike,
     liked,
     locale,
-  } = usePost(post?.likes, user);
+  } = usePost(post?.likes, user, post);
   return (
     <article className='w-full rounded-xl bg-singlepost p-6'>
       <div className='flex items-center gap-4'>
