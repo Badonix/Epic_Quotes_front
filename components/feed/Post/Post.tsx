@@ -33,9 +33,11 @@ const Post: React.FC<PropsType> = ({ post, user }) => {
         <h2 className='text-white text-xl'>{post?.user?.username}</h2>
       </div>
       <p className='mt-4 text-white text-lg'>
-        “{locale == 'ka' ? post?.body?.ka : post?.body?.en}”movie-{' '}
-        {locale == 'ka' ? post?.movie?.title?.ka : post?.movie?.title?.en}. (
-        {post?.movie?.release_year})
+        “{locale == 'ka' ? post?.body?.ka : post?.body?.en}"
+        <span className='mx-2 text-orange-200'>
+          {locale == 'ka' ? post?.movie?.title?.ka : post?.movie?.title?.en}
+        </span>
+        ({post?.movie?.release_year})
       </p>
       <img
         src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${post?.image}`}
