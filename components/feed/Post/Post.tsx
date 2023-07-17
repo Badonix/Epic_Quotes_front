@@ -33,7 +33,7 @@ const Post: React.FC<PropsType> = ({ post, user }) => {
         <h2 className='text-white text-xl'>{post?.user?.username}</h2>
       </div>
       <p className='mt-4 text-white text-lg'>
-        “{locale == 'ka' ? post?.body?.ka : post?.body?.en}"
+        &quot;{locale == 'ka' ? post?.body?.ka : post?.body?.en}&quot;
         <span className='mx-2 text-orange-200'>
           {locale == 'ka' ? post?.movie?.title?.ka : post?.movie?.title?.en}
         </span>

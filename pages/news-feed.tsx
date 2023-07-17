@@ -33,7 +33,6 @@ const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
         <AddQuoteModal user={user} setPosts={setPosts} movies={movies} />
       )}
       <FeedNavbar
-        user={user}
         setSearchActive={setSearchActive}
         setSidebarActive={setSidebarActive}
       />

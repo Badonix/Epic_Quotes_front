@@ -7,13 +7,9 @@ import { useNavbar } from './useNavbar';
 import { NotificationsContext } from '@/context';
 import { instantiatePusher } from '@/helpers';
 
-const Navbar: React.FC<PropsType> = ({
-  user,
-  setSidebarActive,
-  setSearchActive,
-}) => {
+const Navbar: React.FC<PropsType> = ({ setSidebarActive, setSearchActive }) => {
   const { t } = useTranslation();
-  const { notificationsActive, setNotificationsActive } = useNavbar(user);
+  const { notificationsActive, setNotificationsActive } = useNavbar();
   const { notifCount } = useContext(NotificationsContext);
   instantiatePusher();
   return (

@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Search, Write, Back } from '@/components/icons';
 import { PropsType } from './types';
-import { useModal } from '@/hooks';
 import { useTranslation } from 'next-i18next';
 import { useSearchPost } from './useSearchPost';
 import { ModalContext } from '@/context';
