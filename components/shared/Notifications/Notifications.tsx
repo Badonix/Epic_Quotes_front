@@ -1,4 +1,4 @@
-import { SetStateAction, useContext } from 'react';
+import { SetStateAction } from 'react';
 import { SingleNotification } from '../SingleNotification';
 import { useNotifications } from './useNotifications';
 export const Notifications: React.FC<{
