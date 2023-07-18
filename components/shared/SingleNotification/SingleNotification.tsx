@@ -1,18 +1,15 @@
-import { CommentNotif, LikeNotif } from '@/components/icons';
-import { getAvatar } from '@/helpers';
+import { CommentNotif, LikeNotif } from '@/components';
 import { NotificationType } from '@/types';
 import { useSingleNotification } from './useSingleNotification';
-import { useContext } from 'react';
-import { NotificationsContext } from '@/context';
-import { useTranslation } from 'next-i18next';
 
 export const SingleNotification: React.FC<{
   notification: NotificationType;
 }> = ({ notification }) => {
-  const src = getAvatar(notification.sender);
-  const { formattedTimestamp } = useSingleNotification(notification.created_at);
-  const { handleRead } = useContext(NotificationsContext);
-  const { t } = useTranslation();
+  const { formattedTimestamp, handleRead, src, t } = useSingleNotification(
+    notification.created_at,
+    notification
+  );
+
   return (
     <div
       onClick={() => {

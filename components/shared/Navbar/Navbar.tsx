@@ -1,16 +1,12 @@
-import React, { useContext } from 'react';
-import { LanguageDropdown, Notifications } from '@/components';
-import { Bell, Menu } from '@/components';
+import React from 'react';
+import { Bell, Menu, LanguageDropdown, Notifications } from '@/components';
 import { PropsType } from './types';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
 import { useNavbar } from './useNavbar';
-import { NotificationsContext } from '@/context';
 
 const Navbar: React.FC<PropsType> = ({ setSidebarActive }) => {
-  const { t } = useTranslation();
-  const { notificationsActive, setNotificationsActive } = useNavbar();
-  const { notifCount } = useContext(NotificationsContext);
+  const { notificationsActive, setNotificationsActive, notifCount, t } =
+    useNavbar();
   return (
     <nav className='fixed z-40 w-full bg-navbar py-7 px-16 flex items-center justify-between shadow-sm'>
       <div

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Search, Write, Back } from '@/components/icons';
+import { Search, Write, Back } from '@/components';
 import { PropsType } from './types';
 import { useTranslation } from 'next-i18next';
 import { useSearchPost } from './useSearchPost';

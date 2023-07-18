@@ -1,4 +1,4 @@
-import { markAllRead, markAsRead, me } from '@/services';
+import { markAllRead, markAsRead, getUser } from '@/services';
 import { NotificationType, UserType } from '@/types';
 import React, {
   createContext,
@@ -7,6 +7,7 @@ import React, {
   SetStateAction,
 } from 'react';
 import { useRouter } from 'next/router';
+import { useMutation, useQuery } from 'react-query';
 export const NotificationsContext = createContext<{
   notifications: NotificationType[];
   setNotifications: React.Dispatch<SetStateAction<NotificationType[]>>;
@@ -27,11 +28,17 @@ export const NotificationsProvider = ({
   children: React.ReactNode;
 }) => {
   const [notifications, setNotifications] = useState<NotificationType[]>([]);
-  const [notifCount, setNotifCount] = useState<number>(0);
-  const [userId, setUserId] = useState<number>();
+  const [notifCount, setNotifCount] = useState(0);
+  const [userId, setUserId] = useState(0);
   const router = useRouter();
   const { asPath } = router;
-  console.log(asPath);
+  const fetchUser = async () => {
+    try {
+      const res = await getUser();
+      setUserId(res.data.id);
+      return res.data;
+    } catch (e) {}
+  };
 
   const countNewNotifs = () => {
     let counter = 0;
@@ -59,16 +66,9 @@ export const NotificationsProvider = ({
       }))
     );
   };
-  const fetchUser = async () => {
-    try {
-      const res = await me();
-      setUserId(res.data.id);
-    } catch (e) {}
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, [asPath]);
+  const { data: user } = useQuery('user', fetchUser);
+  useMutation(handleRead);
+  useMutation(handleReadAll);
 
   useEffect(() => {
     if (userId && window.Echo && asPath !== '/' && asPath !== '/unauthorized') {
@@ -97,6 +97,11 @@ export const NotificationsProvider = ({
     countNewNotifs();
   }, [notifications]);
 
+  useEffect(() => {
+    if (user) {
+      setUserId(user.id);
+    }
+  }, [user]);
   const notificationsContextValue = {
     notifications,
     setNotifications,

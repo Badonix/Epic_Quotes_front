@@ -1,6 +1,6 @@
 import { Back, Navbar, ProfileForm, Sidebar } from '@/components';
 import { useProfile } from '@/hooks';
-import { me } from '@/services';
+import { getUser } from '@/services';
 import { UserType } from '@/types';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
@@ -60,7 +60,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const { locale = 'en' } = ctx;
 
   try {
-    user = await me(ctx.req.headers.cookie);
+    user = await getUser(ctx.req.headers.cookie);
   } catch (e: any) {
     if (e.response.status == 401 || e.response.status == 403) {
       return {

@@ -7,7 +7,7 @@ import {
 } from '@/components';
 import { ModalContext } from '@/context';
 import { useNewsFeed } from '@/hooks';
-import { fetchMovies, fetchPosts, me } from '@/services';
+import { fetchMovies, fetchPosts, getUser } from '@/services';
 import { FeedPropsType, PostType } from '@/types';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -85,7 +85,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {
     const res = await fetchMovies(context.req.headers.cookie);
     const quotesData = await fetchPosts(1, context.req.headers.cookie);
-    const userRes = await me(context.req.headers.cookie);
+    const userRes = await getUser(context.req.headers.cookie);
     user = userRes.data;
     quotes = quotesData.data.data;
     movies = res.data;

@@ -44,7 +44,7 @@ export const resetPassword = async (data: any) => {
   const response = await instance.post('/api/reset-password', data);
   return response;
 };
-export const me = async (cookie?: any) => {
+export const getUser = async (cookie?: any) => {
   const response = await instance.get('api/me', {
     headers: {
       Origin: process.env.NEXT_PUBLIC_API_ORIGIN,

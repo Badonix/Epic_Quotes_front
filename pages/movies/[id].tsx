@@ -11,7 +11,7 @@ import {
 import { EditMovie, QuoteCard } from '@/components';
 import { ModalContext } from '@/context';
 import { useMovie } from '@/hooks';
-import { fetchMovie, me } from '@/services';
+import { fetchMovie, getUser } from '@/services';
 import { MovieType, PostType, UserType } from '@/types';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import React, { useContext, useState } from 'react';
@@ -150,7 +150,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   try {
     const response = await fetchMovie(Number(id), context.req.headers.cookie);
-    const userRes = await me(context.req.headers.cookie);
+    const userRes = await getUser(context.req.headers.cookie);
     user = userRes.data;
     movie = response.data;
   } catch (e: any) {

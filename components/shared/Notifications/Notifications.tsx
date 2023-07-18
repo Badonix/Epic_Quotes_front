@@ -1,12 +1,10 @@
 import { SetStateAction, useContext } from 'react';
 import { SingleNotification } from '../SingleNotification';
-import { NotificationsContext } from '@/context';
-import { useTranslation } from 'next-i18next';
+import { useNotifications } from './useNotifications';
 export const Notifications: React.FC<{
   setNotificationsActive: React.Dispatch<SetStateAction<boolean>>;
 }> = ({ setNotificationsActive }) => {
-  const { notifications, handleReadAll } = useContext(NotificationsContext);
-  const { t } = useTranslation();
+  const { handleReadAll, notifications, t } = useNotifications();
   return (
     <div className='bg-black rounded-md w-full px-8 py-10 max-h-75vh overflow-y-auto scrollbar-thin scrollbar-thumb-gray-900'>
       <div

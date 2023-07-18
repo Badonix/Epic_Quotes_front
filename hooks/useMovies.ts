@@ -2,31 +2,26 @@ import { NotificationsContext } from '@/context';
 import { fetchMovies } from '@/services';
 import { MovieType, UserType } from '@/types';
 import { useContext, useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 
 export const useMovies = (user: UserType) => {
-  const [sidebarActive, setSidebarActive] = useState<boolean>(false);
+  const [sidebarActive, setSidebarActive] = useState(false);
   const [movies, setMovies] = useState<MovieType[]>([]);
-  const [searchOpen, setSearchOpen] = useState<boolean>(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [searchResults, setSearchResults] = useState<MovieType[]>([]);
   const { setNotifications } = useContext(NotificationsContext);
-  const getMovies = async () => {
-    try {
-      const res = await fetchMovies();
-      return res.data;
-    } catch (e) {}
+  const fetchMoviesData = async (): Promise<any> => {
+    const response = await fetchMovies();
+    return response?.data;
   };
-
+  const { data: moviesData } = useQuery('movies', fetchMoviesData);
   useEffect(() => {
-    const fetchMoviesData = async () => {
-      const moviesData = await getMovies();
-      if (moviesData) {
-        setMovies(moviesData);
-      }
-    };
-    fetchMoviesData();
+    if (moviesData) {
+      setMovies(moviesData);
+    }
 
     setNotifications(user.notifications);
-  }, []);
+  }, [moviesData]);
 
   return {
     sidebarActive,

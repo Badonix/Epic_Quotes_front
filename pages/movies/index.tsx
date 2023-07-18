@@ -2,7 +2,7 @@ import { Add, Navbar, Sidebar } from '@/components';
 import { AddMovie, MovieCard, SearchMovie } from '@/components/movies';
 import { ModalContext } from '@/context';
 import { useMovies } from '@/hooks/useMovies';
-import { me } from '@/services';
+import { getUser } from '@/services';
 import { UserType } from '@/types';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import React, { useContext } from 'react';
@@ -86,7 +86,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { locale = 'en' } = context;
 
   try {
-    const userRes = await me(context.req.headers.cookie);
+    const userRes = await getUser(context.req.headers.cookie);
     user = userRes.data;
   } catch (e: any) {
     if (e.response.status == 401 || e.response.status == 403) {

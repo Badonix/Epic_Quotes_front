@@ -5,7 +5,7 @@ import { NotificationsContext } from '@/context';
 import { UserType } from '@/types';
 
 export const useMovie = (user: UserType) => {
-  const [sidebarActive, setSidebarActive] = useState<boolean>(false);
+  const [sidebarActive, setSidebarActive] = useState(false);
   const { setNotifications } = useContext(NotificationsContext);
   setNotifications(user.notifications);
   const router = useRouter();

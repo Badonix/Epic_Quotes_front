@@ -5,11 +5,11 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { useInfiniteQuery, useQuery } from 'react-query';
 
 export const useNewsFeed = (quotes: PostType[], user: UserType) => {
-  const [sidebarActive, setSidebarActive] = useState<boolean>(false);
-  const [searchActive, setSearchActive] = useState<boolean>(false);
+  const [sidebarActive, setSidebarActive] = useState(false);
+  const [searchActive, setSearchActive] = useState(false);
   const [posts, setPosts] = useState(quotes);
-  const [currentPage, setCurrentPage] = useState<number>(2);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState(2);
+  const [loading, setLoading] = useState(false);
   const [searchResult, setSearchResult] = useState<PostType[]>([]);
   const loadMoreRef = useRef(null);
   const { setNotifications } = useContext(NotificationsContext);
