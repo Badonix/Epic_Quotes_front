@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { ModalContext } from '@/context';
-import { useFormContext, useWatch } from 'react-hook-form';
-import { fetchCSRFToken, register } from '@/services';
+import { useForm, useWatch } from 'react-hook-form';
+import { fetchCSRFToken, signUp } from '@/services';
 export const useSignup = () => {
   const { setOpenModal } = useContext(ModalContext);
   const [usernameError, setUsernameError] = useState<null | string>(null);
@@ -12,14 +12,18 @@ export const useSignup = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useFormContext();
+    register,
+    control,
+    setError,
+  } = useForm({ mode: 'all' });
+  const formData = useWatch({ control });
   const onSubmit = async (data: any) => {
     setIsLoading(true);
     setEmailError(null);
     setUsernameError(null);
     try {
       await fetchCSRFToken();
-      const res = await register(data);
+      const res = await signUp(data);
       if (res.status == 201) {
         setIsLoading(false);
         reset();
@@ -29,14 +33,14 @@ export const useSignup = () => {
       if (e.response?.status == 422) {
         setIsLoading(false);
         e.response.data?.data?.email &&
-          setEmailError(e.response.data?.data?.email[0]);
+          setError('email', { message: e.response.data?.data?.email[0] });
         e.response.data?.data?.username &&
-          setUsernameError(e.response.data?.data?.username[0]);
+          setError('username', { message: e.response.data?.data?.username[0] });
       }
       setIsLoading(false);
     }
   };
-  const password = useWatch({ name: 'password' });
+  const password = useWatch({ control, name: 'password' });
   return {
     handleSubmit,
     onSubmit,
@@ -46,5 +50,7 @@ export const useSignup = () => {
     usernameError,
     emailError,
     isLoading,
+    formData,
+    register,
   };
 };

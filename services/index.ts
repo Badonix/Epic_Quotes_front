@@ -13,7 +13,7 @@ const instance = axios.create({
   withCredentials: true,
 });
 
-export const register = async (data: any) => {
+export const signUp = async (data: any) => {
   const response = await instance.post('/api/register', data);
   return response;
 };

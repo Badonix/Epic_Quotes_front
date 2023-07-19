@@ -39,9 +39,9 @@ const Home: NextPage = () => {
         </div>
       </main>
       <div>
-        <Quote image={'bg-image1.png'} />
-        <Quote image={'bg-image2.png'} />
-        <Quote image={'bg-image3.png'} />
+        <Quote image={'bg-image1.webp'} />
+        <Quote image={'bg-image2.webp'} />
+        <Quote image={'bg-image3.webp'} />
       </div>
     </div>
   );
