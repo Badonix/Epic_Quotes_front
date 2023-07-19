@@ -8,7 +8,6 @@ import { PropsType } from './types';
 import { getAvatar } from '@/helpers';
 import { useTranslation } from 'next-i18next';
 import Select from 'react-select';
-import { GenreType } from '@/types';
 export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
   const { setOpenModal, wrapperRef } = useModal();
   const {

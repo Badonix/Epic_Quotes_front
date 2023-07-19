@@ -24,6 +24,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
   const src = `${process.env.NEXT_PUBLIC_API_URL}/storage/${movie.banner}`;
   const userSrc = getAvatar(user);
   const { t } = useTranslation();
+  console.log(movie?.genre);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -66,12 +67,17 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                 <h2 className='text-orange-200 text-2xl'>
                   {movie.title.en} ({movie.release_year})
                 </h2>
-                <div>
+                <div className='flex gap-3 flex-wrap'>
                   {movie &&
                     movie?.genre?.map((genre) => {
                       return (
-                        <div className='text-white bg-gray-500 rounded-md px-3 py-1'>
-                          {locale == 'en' ? genre?.value?.en : genre?.value.ka}
+                        <div
+                          key={genre.id}
+                          className='text-white bg-gray-500 rounded-md px-3 py-1'
+                        >
+                          <p className='inline'>
+                            {locale == 'en' ? genre?.en : genre?.ka}
+                          </p>
                         </div>
                       );
                     })}

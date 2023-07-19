@@ -21,6 +21,8 @@ export type MovieType = {
 
 export type GenreType = {
   id: number;
+  en?: string;
+  ka?: string;
   value: {
     en: string;
     ka: string;
