@@ -1,5 +1,5 @@
 import { addQuote, fetchCSRFToken } from '@/services';
-import { SetStateAction, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useModal } from '@/hooks';
 import { useDropzone } from 'react-dropzone';

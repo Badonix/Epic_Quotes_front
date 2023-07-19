@@ -1,4 +1,4 @@
-import { MovieType, PostType, UserType } from '@/types';
+import { MovieType, UserType } from '@/types';
 
 export type PropsType = {
   movies: MovieType[];
