@@ -39,9 +39,21 @@ const Home: NextPage = () => {
         </div>
       </main>
       <div>
-        <Quote image={'bg-image1.webp'} />
-        <Quote image={'bg-image2.webp'} />
-        <Quote image={'bg-image3.webp'} />
+        <Quote
+          quote={t('landing.first_quote')}
+          image={'bg-image1.webp'}
+          movie={t('landing.first_movie')}
+        />
+        <Quote
+          image={'bg-image2.webp'}
+          quote={t('landing.second_quote')}
+          movie={t('landing.second_movie')}
+        />
+        <Quote
+          quote={t('landing.third_quote')}
+          image={'bg-image3.webp'}
+          movie={t('landing.third_movie')}
+        />
       </div>
     </div>
   );

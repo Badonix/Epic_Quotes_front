@@ -33,6 +33,12 @@
   },
 
   "landing": {
+    "first_quote": "You have to leave somethig behind to go forward",
+    "first_movie": "Interstellar, 2014",
+    "second_quote": "I think we’re just gonna have to be secretly in love with earch other and leave it that",
+    "second_movie": "The Royal Tenenbaums,2001",
+    "third_quote": "I think we’re just gonna have to be secretly in love with earch other and leave it that",
+    "third_movie": "The Royal Tenenbaums,2001",
     "welcome": "Find any quote in millions of movie lines",
     "get_started": "Get started",
     "sign_up": "Sign Up",
