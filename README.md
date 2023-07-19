@@ -1,41 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div style="display:flex; align-items: center">
+  <h1 style="position:relative; top: -6px">Covid Questionaire</h1>
+</div>
 
-## Getting Started
+---
 
-First, run the development server:
+Introducing our **EPIC MOVIE QUOTES** app! It's a simple and user-friendly social media app built with Next.js. Users are able to register, login, sign up with google and share their favorite quotes from movies. People can comment on each others quotes and like them with live notifications.
 
-```bash
-npm run dev
-# or
+#
 
+### Table of Contents
 
+- [Prerequisites](#prerequisites)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
 
-yarn dev
-# or
-pnpm dev
+#
+
+### Prerequisites
+
+- <img src="readme/assets/react.png" width="35" style="position: relative; top: 4px" /> \_REACT@18 and up\_\_
+- <img src="readme/assets/npm.png" width="35" style="position: relative; top: 4px" /> _*npm@6 and up*_
+
+#
+
+### Tech Stack
+
+- <img src="readme/assets/react.png" height="18" style="position: relative; top: 4px" /> [React@18.x](https://react.dev/) - Front-end library
+- <img src="readme/assets/react-hook-form.png" height="18" style="position: relative; top: 4px" /> [ReactHookForm@7.x](https://react-hook-form.com/) - Form validation library
+- <img src="readme/assets/tailwind.png" height="19" style="position: relative; top: 4px" /> [TailwindCss](https://tailwindcss.com/docs/installation) - CSS framework
+- <img src="readme/assets/typescript.png" height="19" style="position: relative; top: 4px" /> [Typescript](https://www.typescriptlang.org/) - JavaScript with syntax for types
+
+#
+
+### Getting Started
+
+1\. First of all you need to clone Epic movie quotes repository from github:
+
+```sh
+git clone https://github.com/RedberryInternship/nikoloz-danelia-epic-movie-quotes-front
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2\. Next step requires you to run _npm install_ in order to install all the dependencies.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```sh
+npm install
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+3\. Run the app
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```sh
+npm run dev
+```
