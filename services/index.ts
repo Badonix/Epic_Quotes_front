@@ -242,3 +242,8 @@ export const getGenres = async () => {
   const response = await instance.get('/api/genres');
   return response;
 };
+
+export const logout = async () => {
+  const response = await instance.post('/api/logout');
+  return response;
+};

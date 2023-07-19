@@ -10,8 +10,13 @@ import { PropsType } from './types';
 import { useNavbar } from './useNavbar';
 
 const Navbar: React.FC<PropsType> = ({ setSidebarActive, setSearchActive }) => {
-  const { notificationsActive, setNotificationsActive, notifCount, t } =
-    useNavbar();
+  const {
+    notificationsActive,
+    setNotificationsActive,
+    notifCount,
+    t,
+    handleLogout,
+  } = useNavbar();
 
   return (
     <nav className='fixed z-40 w-full bg-navbar py-7 px-16 flex items-center justify-between shadow-sm'>
@@ -43,7 +48,10 @@ const Navbar: React.FC<PropsType> = ({ setSidebarActive, setSearchActive }) => {
           )}
         </div>
         <LanguageDropdown />
-        <button className='hidden lg:block hover:text-black hover:bg-white transition-all py-2 px-5 text-white border border-white rounded-md'>
+        <button
+          onClick={handleLogout}
+          className='hidden lg:block hover:text-black hover:bg-white transition-all py-2 px-5 text-white border border-white rounded-md'
+        >
           {t('logout')}
         </button>
       </div>
