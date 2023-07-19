@@ -1,7 +1,8 @@
-import { NotificationsContext } from '@/context';
+import { checkAuth } from '@/helpers';
 import { fetchMovies, fetchPosts, getUser } from '@/services';
-import { PostType, UserType } from '@/types';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { PostType } from '@/types';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 import { useInfiniteQuery, useQuery } from 'react-query';
 
 export const useNewsFeed = () => {
@@ -11,6 +12,8 @@ export const useNewsFeed = () => {
   const [loading, setLoading] = useState(false);
   const [searchResult, setSearchResult] = useState<PostType[]>([]);
   const loadMoreRef = useRef(null);
+  const router = useRouter();
+  const { locale } = useRouter();
   const { data, fetchNextPage } = useInfiniteQuery({
     queryKey: ['projects'],
     getNextPageParam: (prevData: any) => {
@@ -26,6 +29,10 @@ export const useNewsFeed = () => {
       const response = await fetchPosts(pageParam);
       return response;
     },
+    retry: 0,
+    onError(err) {
+      checkAuth(err, router, locale);
+    },
   });
 
   const { data: moviesData } = useQuery({
@@ -34,12 +41,20 @@ export const useNewsFeed = () => {
       const res = await fetchMovies();
       return res.data;
     },
+    retry: 0,
+    onError(err) {
+      checkAuth(err, router, locale);
+    },
   });
   const { data: userData } = useQuery({
     queryKey: ['user'],
     queryFn: async () => {
       const res = await getUser();
       return res.data;
+    },
+    retry: 0,
+    onError(err) {
+      checkAuth(err, router, locale);
     },
   });
   const handleObserver = (entries: IntersectionObserverEntry[]) => {

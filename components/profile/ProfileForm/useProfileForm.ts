@@ -2,7 +2,6 @@ import { fetchCSRFToken, updateProfile } from '@/services';
 import { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { UserType } from '@/types';
 import { useTranslation } from 'next-i18next';
 import { checkAuth } from '@/helpers';
 export const useProfileForm = (

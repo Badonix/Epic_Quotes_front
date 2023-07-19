@@ -1,7 +1,9 @@
 import { NotificationsContext } from '@/context';
+import { checkAuth } from '@/helpers';
 import { fetchMovies, getUser } from '@/services';
 import { MovieType, UserType } from '@/types';
-import { useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 
 export const useMovies = () => {
@@ -9,15 +11,28 @@ export const useMovies = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchResults, setSearchResults] = useState<MovieType[]>([]);
   const [newMovies, setNewMovies] = useState<MovieType[]>([]);
-  const { data: moviesData } = useQuery<MovieType[]>('movies', async () => {
-    const res = await fetchMovies();
-    return res.data;
+  const router = useRouter();
+  const { locale } = useRouter();
+  const { data: moviesData } = useQuery<MovieType[]>({
+    queryKey: ['movies'],
+    queryFn: async () => {
+      const res = await fetchMovies();
+      return res.data;
+    },
+    retry: 0,
+    onError(err) {
+      checkAuth(err, router, locale);
+    },
   });
   const { data: userData } = useQuery({
     queryKey: ['user'],
+    retry: 0,
     queryFn: async () => {
       const res = await getUser();
       return res.data;
+    },
+    onError(err) {
+      checkAuth(err, router, locale);
     },
   });
 

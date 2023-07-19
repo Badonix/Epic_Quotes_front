@@ -1,5 +1,5 @@
 import { markAllRead, markAsRead, getUser } from '@/services';
-import { NotificationType, UserType } from '@/types';
+import { NotificationType } from '@/types';
 import React, {
   createContext,
   useState,

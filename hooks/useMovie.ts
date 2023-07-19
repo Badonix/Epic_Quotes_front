@@ -4,12 +4,14 @@ import { useRouter } from 'next/router';
 import { ModalContext } from '@/context';
 import { useQuery } from 'react-query';
 import { useTranslation } from 'next-i18next';
+import { checkAuth } from '@/helpers';
 
 export const useMovie = () => {
   const [sidebarActive, setSidebarActive] = useState(false);
   const [activeQuote, setActiveQuote] = useState(null);
   const router = useRouter();
-  const { id, locale } = router.query;
+  const { locale } = useRouter();
+  const { id } = router.query;
   const { t } = useTranslation();
   const { openModal, setOpenModal } = useContext(ModalContext);
   const { data: movieData } = useQuery({
@@ -18,12 +20,20 @@ export const useMovie = () => {
       const res = await fetchMovie(Number(id));
       return res.data;
     },
+    retry: 0,
+    onError(err) {
+      checkAuth(err, router, locale);
+    },
   });
   const { data: userData } = useQuery({
     queryKey: ['user'],
     queryFn: async () => {
       const res = await getUser(Number(id));
       return res.data;
+    },
+    retry: 0,
+    onError(err) {
+      checkAuth(err, router, locale);
     },
   });
 
