@@ -122,7 +122,6 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                   placeholder=''
                   name='genre'
                   onChange={(selectedOptions: any) => {
-                    console.log(selectedOptions);
                     setValue('genre', selectedOptions);
                   }}
                 />

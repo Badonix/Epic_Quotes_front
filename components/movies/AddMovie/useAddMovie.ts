@@ -43,7 +43,6 @@ export const useAddMovie = (
         return genre.name;
       });
       data.genre = updatedGenres;
-      console.log(data);
       const response = await addMovie(data);
       let updatedMovies;
       if (movies) {

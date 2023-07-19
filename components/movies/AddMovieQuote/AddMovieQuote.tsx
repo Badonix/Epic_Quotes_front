@@ -24,7 +24,6 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
   const src = `${process.env.NEXT_PUBLIC_API_URL}/storage/${movie.banner}`;
   const userSrc = getAvatar(user);
   const { t } = useTranslation();
-  console.log(movie?.genre);
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div

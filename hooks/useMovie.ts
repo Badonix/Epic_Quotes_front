@@ -18,7 +18,6 @@ export const useMovie = () => {
     queryKey: ['movie'],
     queryFn: async () => {
       const res = await fetchMovie(Number(id));
-      console.log(res.data);
       return res.data;
     },
     retry: 0,

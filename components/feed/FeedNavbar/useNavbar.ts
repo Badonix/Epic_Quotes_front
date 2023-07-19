@@ -15,7 +15,6 @@ export const useNavbar = () => {
     try {
       await logout();
       router.push('/');
-      console.log('logged out');
     } catch (e) {
       console.log(e);
     }
