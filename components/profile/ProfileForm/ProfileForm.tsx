@@ -30,8 +30,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
     handleEmailEdit,
     handlePasswordEdit,
     windowWidth,
-    userData,
-  } = useProfileForm(confirmation, setConfirmation, user);
+  } = useProfileForm(confirmation, setConfirmation);
   const avatar = getAvatar(user);
   const { t } = useTranslation();
   return (
@@ -60,7 +59,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
           <div className='flex items-center gap-4 relative'>
             <input
               disabled
-              value={userData?.username}
+              value={user?.username}
               className='w-full md:px-4 pr-9 md:py-2 py-3 outline-none border-b text-gray-300 border-search md:border-none bg-transparent md:bg-gray-300  rounded-md md:text-black text-xl'
               type='text'
             />
@@ -145,7 +144,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
           <label className='text-base text-white'>{t('profile.email')}</label>
           <div className='flex items-center gap-4 relative'>
             <input
-              value={userData?.email}
+              value={user?.email}
               disabled
               className='w-full md:px-4 pr-9 md:py-2 py-3 outline-none border-b text-gray-300 border-search md:border-none bg-transparent md:bg-gray-300  rounded-md md:text-black text-xl'
               type='text'
@@ -235,7 +234,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
             )}
           </>
         )}
-        {!userData?.google_id && (
+        {!user?.google_id && (
           <div className='flex flex-col w-full max-w-md gap-2'>
             <label className='text-base text-white'>
               {t('profile.password')}
@@ -257,7 +256,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
           </div>
         )}
 
-        {passwordActive && !userData?.google_id && (
+        {passwordActive && !user?.google_id && (
           <>
             {windowWidth && windowWidth >= 768 ? (
               <>

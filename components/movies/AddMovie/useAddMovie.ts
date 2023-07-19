@@ -8,8 +8,8 @@ import { useTranslation } from 'next-i18next';
 import { checkAuth } from '@/helpers';
 import { useRouter } from 'next/router';
 export const useAddMovie = (
-  setMovies: React.Dispatch<SetStateAction<MovieType[]>>,
-  movies: MovieType[]
+  setNewMovies: React.Dispatch<SetStateAction<MovieType[]>>,
+  movies?: MovieType[]
 ) => {
   const { setOpenModal } = useModal();
   const [loading, setLoading] = useState<boolean>(false);
@@ -38,8 +38,11 @@ export const useAddMovie = (
       setLoading(true);
       await fetchCSRFToken();
       const response = await addMovie(data);
-      let updatedMovies = [response.data, ...movies];
-      setMovies(updatedMovies);
+      let updatedMovies;
+      if (movies) {
+        setNewMovies((prev) => [response.data, ...prev]);
+      }
+      movies = updatedMovies;
       setOpenModal('');
       setLoading(false);
     } catch (e) {

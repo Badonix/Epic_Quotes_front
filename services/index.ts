@@ -96,7 +96,7 @@ export const fetchMovies = async (cookie?: any) => {
   return response;
 };
 
-export const fetchMovie = async (id: number, cookie: any) => {
+export const fetchMovie = async (id: number, cookie?: string) => {
   const response = await instance.get(`/api/movies/${id}`, {
     headers: {
       Origin: process.env.NEXT_PUBLIC_API_ORIGIN,

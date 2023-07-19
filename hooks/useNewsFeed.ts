@@ -1,18 +1,16 @@
 import { NotificationsContext } from '@/context';
-import { fetchPosts } from '@/services';
+import { fetchMovies, fetchPosts, getUser } from '@/services';
 import { PostType, UserType } from '@/types';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useInfiniteQuery, useQuery } from 'react-query';
 
-export const useNewsFeed = (quotes: PostType[], user: UserType) => {
+export const useNewsFeed = () => {
   const [sidebarActive, setSidebarActive] = useState(false);
   const [searchActive, setSearchActive] = useState(false);
-  const [posts, setPosts] = useState(quotes);
   const [currentPage, setCurrentPage] = useState(2);
   const [loading, setLoading] = useState(false);
   const [searchResult, setSearchResult] = useState<PostType[]>([]);
   const loadMoreRef = useRef(null);
-  const { setNotifications } = useContext(NotificationsContext);
   const { data, fetchNextPage } = useInfiniteQuery({
     queryKey: ['projects'],
     getNextPageParam: (prevData: any) => {
@@ -24,9 +22,24 @@ export const useNewsFeed = (quotes: PostType[], user: UserType) => {
         return undefined;
       }
     },
-    queryFn: async ({ pageParam = 2 }) => {
+    queryFn: async ({ pageParam = 1 }) => {
       const response = await fetchPosts(pageParam);
       return response;
+    },
+  });
+
+  const { data: moviesData } = useQuery({
+    queryKey: ['movies'],
+    queryFn: async () => {
+      const res = await fetchMovies();
+      return res.data;
+    },
+  });
+  const { data: userData } = useQuery({
+    queryKey: ['user'],
+    queryFn: async () => {
+      const res = await getUser();
+      return res.data;
     },
   });
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
@@ -40,7 +53,6 @@ export const useNewsFeed = (quotes: PostType[], user: UserType) => {
     fetchNextPage();
   }, [currentPage]);
   useEffect(() => {
-    setNotifications(user.notifications);
     const observer = new IntersectionObserver(handleObserver, {
       root: null,
       rootMargin: '0px',
@@ -63,11 +75,11 @@ export const useNewsFeed = (quotes: PostType[], user: UserType) => {
     setSidebarActive,
     searchActive,
     setSearchActive,
-    posts,
     loadMoreRef,
-    setPosts,
     data,
     searchResult,
     setSearchResult,
+    userData,
+    moviesData,
   };
 };

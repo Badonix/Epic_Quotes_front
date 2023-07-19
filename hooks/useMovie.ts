@@ -1,14 +1,31 @@
-import { deleteMovie } from '@/services';
+import { deleteMovie, fetchMovie, getUser } from '@/services';
 import { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
-import { NotificationsContext } from '@/context';
-import { UserType } from '@/types';
+import { ModalContext } from '@/context';
+import { useQuery } from 'react-query';
+import { useTranslation } from 'next-i18next';
 
-export const useMovie = (user: UserType) => {
+export const useMovie = () => {
   const [sidebarActive, setSidebarActive] = useState(false);
-  const { setNotifications } = useContext(NotificationsContext);
-  setNotifications(user.notifications);
+  const [activeQuote, setActiveQuote] = useState(null);
   const router = useRouter();
+  const { id, locale } = router.query;
+  const { t } = useTranslation();
+  const { openModal, setOpenModal } = useContext(ModalContext);
+  const { data: movieData } = useQuery({
+    queryKey: ['movie'],
+    queryFn: async () => {
+      const res = await fetchMovie(Number(id));
+      return res.data;
+    },
+  });
+  const { data: userData } = useQuery({
+    queryKey: ['user'],
+    queryFn: async () => {
+      const res = await getUser(Number(id));
+      return res.data;
+    },
+  });
 
   const handleDelete = async (id: number) => {
     const response = await deleteMovie(id);
@@ -17,5 +34,17 @@ export const useMovie = (user: UserType) => {
     }
   };
 
-  return { sidebarActive, handleDelete, setSidebarActive };
+  return {
+    sidebarActive,
+    handleDelete,
+    setSidebarActive,
+    userData,
+    movieData,
+    activeQuote,
+    setActiveQuote,
+    locale,
+    t,
+    openModal,
+    setOpenModal,
+  };
 };

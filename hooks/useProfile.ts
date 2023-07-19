@@ -1,14 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { NotificationsContext } from '@/context';
-import { UserType } from '@/types';
-export const useProfile = (user: UserType) => {
+import { useQuery } from 'react-query';
+import { getUser } from '@/services';
+export const useProfile = () => {
   const [sidebarActive, setSidebarActive] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
-  const { setNotifications } = useContext(NotificationsContext);
-  useEffect(() => {
-    setNotifications(user.notifications);
-  }, []);
+  const { data: userData } = useQuery({
+    queryKey: ['user'],
+    queryFn: async () => {
+      const res = await getUser();
+      return res.data;
+    },
+  });
   const router = useRouter();
   return {
     sidebarActive,
@@ -16,5 +19,6 @@ export const useProfile = (user: UserType) => {
     router,
     confirmation,
     setConfirmation,
+    userData,
   };
 };

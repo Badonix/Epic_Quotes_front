@@ -7,16 +7,18 @@ import React, {
   SetStateAction,
 } from 'react';
 import { useRouter } from 'next/router';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 export const NotificationsContext = createContext<{
-  notifications: NotificationType[];
-  setNotifications: React.Dispatch<SetStateAction<NotificationType[]>>;
+  notificationsData: NotificationType[];
+  newNotifications: NotificationType[];
+  setNewNotifications: React.Dispatch<SetStateAction<NotificationType[]>>;
   notifCount: number;
   handleRead: (id: number) => void;
   handleReadAll: () => void;
 }>({
-  notifications: [],
-  setNotifications: () => {},
+  notificationsData: [],
+  newNotifications: [],
+  setNewNotifications: () => {},
   notifCount: 0,
   handleRead: () => {},
   handleReadAll: () => {},
@@ -27,7 +29,10 @@ export const NotificationsProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [notifications, setNotifications] = useState<NotificationType[]>([]);
+  const [newNotifications, setNewNotifications] = useState<NotificationType[]>(
+    []
+  );
+  const queryClient = useQueryClient();
   const [notifCount, setNotifCount] = useState(0);
   const [userId, setUserId] = useState(0);
   const router = useRouter();
@@ -39,43 +44,56 @@ export const NotificationsProvider = ({
       return res.data;
     } catch (e) {}
   };
+  const fetchNotifs = async () => {
+    try {
+      const res = await getUser();
+      setNewNotifications([]);
+      return res.data.notifications;
+    } catch (e) {}
+  };
 
   const countNewNotifs = () => {
     let counter = 0;
-    notifications.forEach((notification) => {
+    newNotifications?.forEach((notification: NotificationType) => {
+      !notification.read && counter++;
+    });
+    notificationsData?.forEach((notification: NotificationType) => {
       !notification.read && counter++;
     });
     setNotifCount(counter);
   };
-  const handleRead = async (id: number) => {
-    const res = await markAsRead(id);
-    const updatedNotification = res.data;
-    setNotifications((prevNotifications) =>
-      prevNotifications.map((notification) =>
-        notification.id === id ? updatedNotification : notification
-      )
-    );
-  };
-  const handleReadAll = async () => {
-    await markAllRead();
 
-    setNotifications((prevNotifications) =>
-      prevNotifications.map((notification) => ({
-        ...notification,
-        read: true,
-      }))
-    );
+  const handleRead = async (id: number) => {
+    readMutation.mutate(id);
   };
+  const readMutation = useMutation({
+    mutationFn: (id: number) => {
+      return markAsRead(id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['notifications']);
+    },
+  });
+  const readAllMutation = useMutation({
+    mutationFn: () => {
+      return markAllRead();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['notifications']);
+    },
+  });
+  const handleReadAll = async () => {
+    readAllMutation.mutate();
+  };
+  const { data: notificationsData } = useQuery('notifications', fetchNotifs);
   const { data: user } = useQuery('user', fetchUser);
-  useMutation(handleRead);
-  useMutation(handleReadAll);
 
   useEffect(() => {
     if (userId && window.Echo && asPath !== '/' && asPath !== '/unauthorized') {
       window.Echo.private('notifications.' + userId).listen(
         'NotificationCreated',
         (data: { notification: NotificationType }) => {
-          setNotifications((prev) => [data.notification, ...prev]);
+          setNewNotifications((prev) => [data.notification, ...prev]);
         }
       );
     }
@@ -95,19 +113,24 @@ export const NotificationsProvider = ({
 
   useEffect(() => {
     countNewNotifs();
-  }, [notifications]);
+  }, [newNotifications]);
 
   useEffect(() => {
     if (user) {
       setUserId(user.id);
     }
   }, [user]);
+  useEffect(() => {
+    countNewNotifs();
+  }, [notificationsData]);
+
   const notificationsContextValue = {
-    notifications,
-    setNotifications,
+    newNotifications,
+    setNewNotifications,
     notifCount,
     handleRead,
     handleReadAll,
+    notificationsData,
   };
   return (
     <NotificationsContext.Provider value={notificationsContextValue}>

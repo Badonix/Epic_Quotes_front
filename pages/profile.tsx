@@ -1,26 +1,25 @@
 import { Back, Navbar, ProfileForm, Sidebar } from '@/components';
 import { useProfile } from '@/hooks';
-import { getUser } from '@/services';
-import { UserType } from '@/types';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-export const Profile: NextPage<{ user: UserType }> = ({ user }) => {
+export const Profile: NextPage = () => {
   const {
     setSidebarActive,
     sidebarActive,
     router,
     confirmation,
     setConfirmation,
-  } = useProfile(user);
+    userData,
+  } = useProfile();
   const { t } = useTranslation();
   return (
     <>
       <Navbar setSidebarActive={setSidebarActive} />
       <section className='md:min-h-screen h-screen md:py-24 flex-col md:flex-row flex lg:pr-16 lg:pl-0 md:px-8'>
         <Sidebar
-          user={user}
+          user={userData}
           setSidebarActive={setSidebarActive}
           sidebarActive={sidebarActive}
           currentPage='profile'
@@ -44,7 +43,7 @@ export const Profile: NextPage<{ user: UserType }> = ({ user }) => {
                 <ProfileForm
                   setConfirmation={setConfirmation}
                   confirmation={confirmation}
-                  user={user}
+                  user={userData}
                 />
               </div>
             </section>
@@ -56,25 +55,10 @@ export const Profile: NextPage<{ user: UserType }> = ({ user }) => {
 };
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  let user;
   const { locale = 'en' } = ctx;
 
-  try {
-    user = await getUser(ctx.req.headers.cookie);
-  } catch (e: any) {
-    if (e.response.status == 401 || e.response.status == 403) {
-      return {
-        redirect: {
-          destination: `/${locale}/unauthorized`,
-          permanent: false,
-        },
-      };
-    } else {
-      console.log(e);
-    }
-  }
   return {
-    props: { user: user?.data, ...(await serverSideTranslations(locale)) },
+    props: { ...(await serverSideTranslations(locale)) },
   };
 }
 

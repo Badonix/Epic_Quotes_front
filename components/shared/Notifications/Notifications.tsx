@@ -4,7 +4,8 @@ import { useNotifications } from './useNotifications';
 export const Notifications: React.FC<{
   setNotificationsActive: React.Dispatch<SetStateAction<boolean>>;
 }> = ({ setNotificationsActive }) => {
-  const { handleReadAll, notifications, t } = useNotifications();
+  const { handleReadAll, notificationsData, t, newNotifications } =
+    useNotifications();
   return (
     <div className='bg-black rounded-md w-full px-8 py-10 max-h-75vh overflow-y-auto scrollbar-thin scrollbar-thumb-gray-900'>
       <div
@@ -23,7 +24,13 @@ export const Notifications: React.FC<{
         </p>
       </div>
       <div className='mt-6 flex flex-col gap-4'>
-        {notifications.map((notification) => (
+        {newNotifications?.map((notification) => (
+          <SingleNotification
+            key={notification.id}
+            notification={notification}
+          />
+        ))}
+        {notificationsData?.map((notification) => (
           <SingleNotification
             key={notification.id}
             notification={notification}

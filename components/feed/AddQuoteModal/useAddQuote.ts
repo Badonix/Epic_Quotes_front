@@ -3,11 +3,12 @@ import { SetStateAction, useCallback, useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useModal } from '@/hooks';
 import { useDropzone } from 'react-dropzone';
-import { PostType, addQuote as addQuoteType } from '@/types';
+import { addQuote as addQuoteType } from '@/types';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { checkAuth } from '@/helpers';
-export const useAddQuote = (setPosts: SetStateAction<any>) => {
+import { useMutation, useQueryClient } from 'react-query';
+export const useAddQuote = () => {
   const { locale } = useRouter();
   const router = useRouter();
   const { setOpenModal } = useModal();
@@ -21,7 +22,7 @@ export const useAddQuote = (setPosts: SetStateAction<any>) => {
     formState: { errors },
     control,
   } = useForm();
-
+  const queryClient = useQueryClient();
   const banner = useWatch({ control, name: 'image' });
 
   const onDrop = useCallback((acceptedFiles: any) => {
@@ -32,13 +33,20 @@ export const useAddQuote = (setPosts: SetStateAction<any>) => {
     onDrop,
   });
 
+  const newPostMutation = useMutation({
+    mutationFn: (data: addQuoteType) => {
+      return addQuote(data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['projects']);
+    },
+  });
   const onSubmit = async (data: addQuoteType) => {
     try {
       setLoading(true);
       await fetchCSRFToken();
-      const response = await addQuote(data);
+      newPostMutation.mutate(data);
       setOpenModal('');
-      setPosts((prevPosts: [PostType]) => [...[response.data], ...prevPosts]);
       setLoading(false);
     } catch (e) {
       checkAuth(e, router);

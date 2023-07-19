@@ -7,30 +7,29 @@ import {
 } from '@/components';
 import { ModalContext } from '@/context';
 import { useNewsFeed } from '@/hooks';
-import { fetchMovies, fetchPosts, getUser } from '@/services';
-import { FeedPropsType, PostType } from '@/types';
+import { PostType } from '@/types';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useContext } from 'react';
 
-const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
+const NewsFeed: NextPage = () => {
   const {
     setSearchActive,
-    posts,
     loadMoreRef,
     setSidebarActive,
     sidebarActive,
     searchActive,
-    setPosts,
     data,
     searchResult,
     setSearchResult,
-  } = useNewsFeed(quotes, user);
+    moviesData,
+    userData,
+  } = useNewsFeed();
   const { openModal } = useContext(ModalContext);
   return (
     <>
       {openModal === 'postquote' && (
-        <AddQuoteModal user={user} setPosts={setPosts} movies={movies} />
+        <AddQuoteModal user={userData} movies={moviesData} />
       )}
       <FeedNavbar
         setSearchActive={setSearchActive}
@@ -38,7 +37,7 @@ const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
       />
       <section className='py-24 flex justify-between min-h-screen'>
         <Sidebar
-          user={user}
+          user={userData}
           currentPage='news-feed'
           setSidebarActive={setSidebarActive}
           sidebarActive={sidebarActive}
@@ -53,19 +52,16 @@ const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
           <div className='w-full px-10 mt-6 flex flex-col gap-10'>
             {searchResult.length > 0 &&
               searchResult.map((post) => (
-                <Post user={user} key={post.id} post={post} />
+                <Post user={userData} key={post.id} post={post} />
               ))}
             {searchResult.length == 0 && (
               <>
-                {posts?.map((post: PostType) => (
-                  <Post user={user} key={post.id} post={post} />
-                ))}
                 {data?.pages
                   ?.flatMap((data: any) => {
                     return data.data.data;
                   })
                   ?.map((post: PostType) => {
-                    return <Post user={user} key={post.id} post={post} />;
+                    return <Post user={userData} key={post.id} post={post} />;
                   })}
               </>
             )}
@@ -79,32 +75,10 @@ const NewsFeed: NextPage<FeedPropsType> = ({ movies, quotes, user }) => {
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  let movies, quotes, user;
   const { locale = 'en' } = context;
 
-  try {
-    const res = await fetchMovies(context.req.headers.cookie);
-    const quotesData = await fetchPosts(1, context.req.headers.cookie);
-    const userRes = await getUser(context.req.headers.cookie);
-    user = userRes.data;
-    quotes = quotesData.data.data;
-    movies = res.data;
-  } catch (e: any) {
-    if (e.response.status == 401 || e.response.status == 403) {
-      return {
-        redirect: {
-          destination: `/${locale}/unauthorized`,
-          permanent: false,
-        },
-      };
-    } else {
-    }
-  }
   return {
     props: {
-      movies,
-      quotes,
-      user,
       ...(await serverSideTranslations(locale)),
     },
   };
