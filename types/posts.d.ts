@@ -5,7 +5,7 @@ export type MovieType = {
     ka: string;
   };
   banner: string;
-  genre: string;
+  genre: GenreType[];
   budget: number;
   release_year: number;
   description: {
@@ -17,6 +17,18 @@ export type MovieType = {
     ka: string;
   };
   quotes?: PostType[];
+};
+
+export type GenreType = {
+  id: number;
+  value: {
+    en: string;
+    ka: string;
+  };
+  name: {
+    en: string;
+    ka: string;
+  };
 };
 
 export type NotificationType = {

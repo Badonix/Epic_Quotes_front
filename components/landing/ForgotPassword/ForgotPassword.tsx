@@ -12,10 +12,10 @@ const ForgotPassword = () => {
     useForgotPassword();
   const { t } = useTranslation();
   return (
-    <div className='px-2 sm:px-0 bg-gradient  sm:backdrop-blur fixed h-screen w-screen flex items-center justify-center z-50'>
+    <div className='sm:px-0 sm:bg-gradient  sm:backdrop-blur fixed h-screen w-screen flex items-center justify-center z-50'>
       <div
         ref={wrapperRef}
-        className='bg-horizontal-gradient bg-modal relative max-w-xl sm:px-20 sm:py-12 px-8 py-16 flex flex-col justify-center items-center text-white rounded-lg gap-4'
+        className='w-screen bg-horizontal-gradient lowres-profile-modal sm:h-auto h-screen sm:bg-modal relative max-w-xl sm:px-20 sm:py-12 px-8 py-28 flex flex-col sm:justify-center justify-start items-center text-white rounded-lg gap-4'
       >
         <h2 className='text-4xl'>
           {t('landing.forgot_password.forgot_password')}

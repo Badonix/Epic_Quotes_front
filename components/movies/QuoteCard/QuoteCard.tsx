@@ -19,11 +19,11 @@ export const QuoteCard: React.FC<PropsType> = ({ quote, setActiveQuote }) => {
   const { menuOpen, wrapperRef, setMenuOpen, handleDelete } = useQuoteCard();
   const { setOpenModal } = useModal();
   return (
-    <div className='bg-singlepost rounded-lg w-full flex flex-col py-6 px-8 gap-6 relative'>
+    <div className='bg-singlepost rounded-lg sm:w-full w-full flex flex-col py-6 px-8 gap-6 relative'>
       {menuOpen && (
         <div
           ref={wrapperRef}
-          className='flex flex-col gap-8 px-10 py-8 absolute bg-post w-60 rounded-lg top-10 -right-48'
+          className='flex flex-col gap-8 px-10 py-8 absolute bg-post w-60 rounded-lg top-10 sm:-right-48 right-0'
         >
           <div
             onClick={() => {
@@ -55,12 +55,12 @@ export const QuoteCard: React.FC<PropsType> = ({ quote, setActiveQuote }) => {
         </div>
       )}
       <div
-        className='absolute right-8 top-4 cursor-pointer ThreeDots'
+        className='absolute right-8 sm:top-4 bottom-4 cursor-pointer'
         onClick={() => setMenuOpen(true)}
       >
         <ThreeDots />
       </div>
-      <div className='flex items-center'>
+      <div className='flex sm:flex-row flex-col sm:items-center items-start'>
         <Image
           width={226}
           loader={() => src}
@@ -69,7 +69,7 @@ export const QuoteCard: React.FC<PropsType> = ({ quote, setActiveQuote }) => {
           className='object-cover w-226 h-140'
           alt='quote-image'
         />
-        <div className='text-center w-full text-2xl text-gray-300 italic flex items-center justify-center'>
+        <div className='text-center sm:w-full text-2xl text-gray-300 italic flex items-center justify-center'>
           <h2>{locale == 'ka' ? quote?.body.ka : quote?.body?.en}</h2>
         </div>
       </div>

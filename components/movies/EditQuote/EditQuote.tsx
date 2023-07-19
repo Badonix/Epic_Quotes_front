@@ -16,7 +16,7 @@ export const EditQuote: React.FC<PropsType> = ({ activeQuote, user }) => {
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
         ref={wrapperRef}
-        className='backdrop-blur-md bg-sidebar text-white w-11/12 max-w-4xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl'
+        className='backdrop-blur-md bg-sidebar text-white sm:w-11/12 w-screen max-h-screen overflow-y-auto max-w-4xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl'
       >
         <div className='flex justify-between items-center py-9 px-10 border-b border-search'>
           <div className='flex items-center gap-4 w-32'>
@@ -25,7 +25,9 @@ export const EditQuote: React.FC<PropsType> = ({ activeQuote, user }) => {
               <p>{t('movie.editquote.delete')}</p>
             </div>
           </div>
-          <h2 className='text-2xl'>{t('movie.editquote.edit_quote')}</h2>
+          <h2 className='text-2xl text-center'>
+            {t('movie.editquote.edit_quote')}
+          </h2>
           <div
             onClick={() => setOpenModal('')}
             className='cursor-pointer w-32 flex justify-end'

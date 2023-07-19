@@ -237,3 +237,8 @@ export const markAllRead = async () => {
   const response = await instance.post('/api/notifications/clear');
   return response;
 };
+
+export const getGenres = async () => {
+  const response = await instance.get('/api/genres');
+  return response;
+};

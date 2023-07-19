@@ -11,6 +11,7 @@ export const useAddMovieQuote = (movieId: number) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [preview, setPreview] = useState('');
   const { t } = useTranslation();
+  const { locale } = useRouter();
   const {
     register,
     handleSubmit,
@@ -71,6 +72,7 @@ export const useAddMovieQuote = (movieId: number) => {
     banner,
     validateBanner,
     preview,
+    locale,
     setValue,
   };
 };

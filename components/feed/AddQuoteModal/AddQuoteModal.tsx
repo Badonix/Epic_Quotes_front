@@ -31,7 +31,7 @@ export const AddQuoteModal: React.FC<PropsType> = ({ movies, user }) => {
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
         ref={wrapperRef}
-        className='backdrop-blur-md bg-sidebar text-white w-11/12 max-w-4xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl'
+        className='backdrop-blur-md bg-sidebar text-white lg:w-11/12 max-w-4xl w-screen fixed top-0 left-0 lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:rounded-xl'
       >
         <div className='flex justify-between items-center py-9 px-10 border-b border-search'>
           <div></div>

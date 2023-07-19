@@ -24,10 +24,10 @@ const Signup = () => {
     <div className='bg-modal-transparent backdrop-blur fixed h-screen w-screen flex items-center justify-center z-50'>
       <div
         ref={wrapperRef}
-        className='relative w-full h-full sm:h-auto max-w-xl sm:px-28 sm:py-12 px-8 py-16 flex flex-col sm:justify-center justify-around text-white bg-modal sm:rounded-lg gap-4'
+        className='relative w-full h-full sm:h-auto max-w-xl sm:px-28 sm:py-12 px-8 py-20 flex flex-col sm:justify-center justify-start text-white lowres-profile-modal sm:bg-modal sm:rounded-lg gap-4'
       >
         <div
-          className='block sm:hidden w-6'
+          className='absolute top-5 left-5 sm:hidden w-6'
           onClick={() => {
             setOpenModal(null);
             reset();

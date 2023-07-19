@@ -44,6 +44,12 @@ body {
   );
 }
 
+@media (min-width: 640px) {
+  .lowres-profile-modal {
+    background: #222030;
+  }
+}
+
 @media (max-width: 650px) {
   .bg-gradient {
     background: linear-gradient(0deg, #11101a 0%, #08080d 50.52%);
@@ -52,6 +58,7 @@ body {
   .bg-horizontal-gradient::before {
     content: '';
     position: absolute;
+    z-index: -10;
     top: 0;
     right: 0;
     bottom: 0;

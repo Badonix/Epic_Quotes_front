@@ -49,7 +49,7 @@ const NewsFeed: NextPage = () => {
             searchActive={searchActive}
             setSearchActive={setSearchActive}
           />
-          <div className='w-full px-10 mt-6 flex flex-col gap-10'>
+          <div className='w-full lg:px-10  mt-6 flex flex-col gap-10'>
             {searchResult.length > 0 &&
               searchResult.map((post) => (
                 <Post user={userData} key={post.id} post={post} />
