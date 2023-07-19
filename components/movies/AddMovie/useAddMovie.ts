@@ -28,11 +28,9 @@ export const useAddMovie = (
   } = useForm();
   const { t } = useTranslation();
   const banner = useWatch({ control, name: 'banner' });
-
   const onDrop = useCallback((acceptedFiles: any) => {
     setValue('banner', acceptedFiles);
   }, []);
-
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
   });
@@ -41,7 +39,7 @@ export const useAddMovie = (
     try {
       setLoading(true);
       await fetchCSRFToken();
-      const updatedGenres = data.genre.map((genre: GenreType) => {
+      const updatedGenres = data.genre.map((genre: any) => {
         return genre.name;
       });
       data.genre = updatedGenres;

@@ -91,7 +91,7 @@ export const Movie: NextPage<{
               <div>
                 <div className='flex gap-3 flex-wrap'>
                   {movieData &&
-                    JSON.parse(movieData?.genre)?.map((genre: any) => {
+                    movieData?.genre?.map((genre: any) => {
                       return (
                         <div className='text-white bg-gray-500 rounded-md px-3 py-1'>
                           {locale == 'ka' ? genre?.ka : genre?.en}

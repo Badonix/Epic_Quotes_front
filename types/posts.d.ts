@@ -29,6 +29,10 @@ export type GenreType = {
     en: string;
     ka: string;
   };
+  label?: {
+    en: string;
+    ka: string;
+  };
 };
 
 export type NotificationType = {

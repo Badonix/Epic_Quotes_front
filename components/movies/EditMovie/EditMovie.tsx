@@ -8,6 +8,7 @@ import { PropsType } from './types';
 import { getAvatar } from '@/helpers';
 import { useTranslation } from 'next-i18next';
 import Select from 'react-select';
+import { GenreType } from '@/types';
 export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
   const { setOpenModal, wrapperRef } = useModal();
   const {
@@ -19,9 +20,14 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
     getRootProps,
     getInputProps,
     preview,
+    customStyles,
+    setValue,
+    genreOptions,
+    locale,
   } = useEditMovie(movie);
   const userSrc = getAvatar(user);
   const { t } = useTranslation();
+
   return (
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
@@ -110,7 +116,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                   isMulti
                   options={genreOptions?.map((option) => ({
                     ...option,
-                    label: option.label.ka,
+                    label: locale == 'ka' ? option.label.ka : option.label.en,
                     isFixed: true,
                   }))}
                   styles={customStyles}

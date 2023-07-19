@@ -119,14 +119,13 @@ export const AddMovie: React.FC<PropsType> = ({
                   isMulti
                   options={genreOptions?.map((option) => ({
                     ...option,
-                    label: option.label.ka,
+                    label: locale == 'ka' ? option.label.ka : option.label.en,
                     isFixed: true,
                   }))}
                   styles={customStyles}
                   placeholder=''
                   name='genre'
                   onChange={(selectedOptions: any) => {
-                    console.log(selectedOptions);
                     setValue('genre', selectedOptions);
                   }}
                 />
