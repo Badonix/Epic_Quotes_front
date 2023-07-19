@@ -8,11 +8,7 @@ import { PropsType } from './types';
 import { MovieType } from '@/types';
 import { getAvatar } from '@/helpers';
 import { useTranslation } from 'next-i18next';
-export const AddQuoteModal: React.FC<PropsType> = ({
-  movies,
-  setPosts,
-  user,
-}) => {
+export const AddQuoteModal: React.FC<PropsType> = ({ movies, user }) => {
   const { setOpenModal, wrapperRef } = useModal();
   const [movieDropdown, setMovieDropdown] = useState<boolean>(false);
   const [movieValue, setMovieValue] = useState<string>('');
@@ -28,7 +24,7 @@ export const AddQuoteModal: React.FC<PropsType> = ({
     validateBanner,
     setValue,
     locale,
-  } = useAddQuote(setPosts);
+  } = useAddQuote();
   const { t } = useTranslation();
   const userSrc = getAvatar(user);
   return (

@@ -9,42 +9,50 @@ import {
   ViewQuote,
 } from '@/components';
 import { EditMovie, QuoteCard } from '@/components';
-import { ModalContext } from '@/context';
 import { useMovie } from '@/hooks';
-import { fetchMovie, me } from '@/services';
 import { MovieType, PostType, UserType } from '@/types';
 import { GetServerSidePropsContext, NextPage } from 'next';
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
 export const Movie: NextPage<{
   movie: MovieType;
   user: UserType;
-}> = ({ movie, user }) => {
-  const { t } = useTranslation();
-  const { locale } = useRouter();
-  const { openModal, setOpenModal } = useContext(ModalContext);
-  const { setSidebarActive, sidebarActive, handleDelete } = useMovie();
-  const [activeQuote, setActiveQuote] = useState(null);
+}> = () => {
+  const {
+    setSidebarActive,
+    sidebarActive,
+    handleDelete,
+    movieData,
+    userData,
+    activeQuote,
+    setActiveQuote,
+    locale,
+    openModal,
+    setOpenModal,
+    t,
+  } = useMovie();
   return (
     <>
-      {openModal === 'editmovie' && <EditMovie user={user} movie={movie} />}
-      {openModal === 'addquote' && <AddMovieQuote user={user} movie={movie} />}
+      {openModal === 'editmovie' && (
+        <EditMovie user={userData} movie={movieData} />
+      )}
+      {openModal === 'addquote' && (
+        <AddMovieQuote user={userData} movie={movieData} />
+      )}
       {openModal === 'viewquote' && (
         <ViewQuote
-          user={user}
+          user={userData}
           setActiveQuote={setActiveQuote}
           activeQuote={activeQuote}
         />
       )}
       {openModal === 'editquote' && (
-        <EditQuote user={user} activeQuote={activeQuote} />
+        <EditQuote user={userData} activeQuote={activeQuote} />
       )}
       <Navbar setSidebarActive={setSidebarActive} />
       <section className='min-h-screen pt-24 py-6 flex lg:pr-16 lg:pl-0 px-8'>
         <Sidebar
-          user={user}
+          user={userData}
           sidebarActive={sidebarActive}
           setSidebarActive={setSidebarActive}
           currentPage='movies'
@@ -54,13 +62,13 @@ export const Movie: NextPage<{
           <div className='flex mt-6 gap-5 lg:flex-row flex-col w-full'>
             <img
               className='lg:w-810 lg:h-441 rounded-xl object-cover w-full'
-              src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${movie?.banner}`}
+              src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${movieData?.banner}`}
               alt='movie'
             />
             <div className='flex flex-col gap-6'>
               <div className='flex items-center justify-between gap-4'>
                 <h2 className='font-bold text-orange-200 text-2xl'>
-                  {locale == 'ka' ? movie?.title.ka : movie?.title.en}
+                  {locale == 'ka' ? movieData?.title.ka : movieData?.title.en}
                 </h2>
                 <div className='flex items-center gap-4 rounded-xl bg-modal px-4 py-2'>
                   <div
@@ -71,7 +79,7 @@ export const Movie: NextPage<{
                   </div>
                   <div className='w-px bg-search h-7'></div>
                   <div
-                    onClick={() => handleDelete(Number(movie?.id))}
+                    onClick={() => handleDelete(Number(movieData?.id))}
                     className='cursor-pointer'
                   >
                     <Trash />
@@ -81,7 +89,7 @@ export const Movie: NextPage<{
               <div>
                 <div className='flex'>
                   <div className='text-white bg-gray-500 rounded-md px-3 py-1'>
-                    {movie?.genre}
+                    {JSON.stringify(movieData?.genre)}
                   </div>
                 </div>
               </div>
@@ -89,7 +97,9 @@ export const Movie: NextPage<{
                 <p className='font-bold text-lg text-gray-300'>
                   {t('movie.director')}
                   <span className='font-normal text-white ml-2'>
-                    {locale == 'ka' ? movie?.director.ka : movie?.director.en}
+                    {locale == 'ka'
+                      ? movieData?.director.ka
+                      : movieData?.director.en}
                   </span>
                 </p>
               </div>
@@ -97,15 +107,15 @@ export const Movie: NextPage<{
                 <p className='font-bold text-lg text-gray-300'>
                   {t('movie.budget')}
                   <span className='font-normal text-white ml-2'>
-                    {movie?.budget}$
+                    {movieData?.budget}$
                   </span>
                 </p>
               </div>
               <div>
                 <p className='text-gray-300 text-lg max-w-xl'>
                   {locale == 'ka'
-                    ? movie?.description.ka
-                    : movie?.description.en}
+                    ? movieData?.description.ka
+                    : movieData?.description.en}
                 </p>
               </div>
             </div>
@@ -114,8 +124,8 @@ export const Movie: NextPage<{
             <div className='w-full mt-10'>
               <div className='flex items-center gap-4'>
                 <h2 className='text-white text-2xl'>
-                  {t('movie.quote')} ({t('movie.total')} {movie?.quotes?.length}
-                  )
+                  {t('movie.quote')} ({t('movie.total')}{' '}
+                  {movieData?.quotes?.length})
                 </h2>
                 <div className='w-px bg-search h-10'></div>
                 <div
@@ -128,7 +138,7 @@ export const Movie: NextPage<{
               </div>
             </div>
             <div className='mt-10 flex flex-col gap-10'>
-              {movie?.quotes?.map((quote: PostType) => (
+              {movieData?.quotes?.map((quote: PostType) => (
                 <QuoteCard
                   setActiveQuote={setActiveQuote}
                   key={quote.id}
@@ -144,31 +154,9 @@ export const Movie: NextPage<{
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const { id } = context.query;
-  let movie, user;
   const { locale = 'en' } = context;
-
-  try {
-    const response = await fetchMovie(Number(id), context.req.headers.cookie);
-    const userRes = await me(context.req.headers.cookie);
-    user = userRes.data;
-    movie = response.data;
-  } catch (e: any) {
-    if (e.response.status == 401 || e.response.status == 403) {
-      return {
-        redirect: {
-          destination: `/${locale}/unauthorized`,
-          permanent: false,
-        },
-      };
-    } else {
-      console.log(e);
-    }
-  }
   return {
     props: {
-      movie,
-      user,
       ...(await serverSideTranslations(locale)),
     },
   };

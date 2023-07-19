@@ -1,4 +1,4 @@
-import { ModalProvider } from '@/context';
+import { ModalProvider, NotificationsProvider } from '@/context';
 import '/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -17,7 +17,9 @@ const App = ({ Component, pageProps }: AppProps) => {
     <QueryClientProvider client={queryClient}>
       <FormProvider {...methods}>
         <ModalProvider>
-          <Component {...pageProps} />
+          <NotificationsProvider>
+            <Component {...pageProps} />
+          </NotificationsProvider>
         </ModalProvider>
       </FormProvider>
     </QueryClientProvider>

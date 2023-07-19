@@ -2,20 +2,17 @@ import { fetchCSRFToken, updateProfile } from '@/services';
 import { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { UserType } from '@/types';
 import { useTranslation } from 'next-i18next';
 import { checkAuth } from '@/helpers';
 export const useProfileForm = (
   confirmation: boolean,
-  setConfirmation: React.Dispatch<React.SetStateAction<boolean>>,
-  user: UserType
+  setConfirmation: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const [usernameActive, setUsernameActive] = useState<boolean>(false);
   const [emailActive, setEmailActive] = useState<boolean>(false);
   const [passwordActive, setPasswordActive] = useState<boolean>(false);
   const [preview, setPreview] = useState();
   const [windowWidth, setWindowWidth] = useState<number | null>(null);
-  const [userData, setUserData] = useState(user);
   const { locale } = useRouter();
   const { t } = useTranslation();
   useEffect(() => {
@@ -60,14 +57,8 @@ export const useProfileForm = (
       if (profileData.avatar) {
         profileData.avatar = data.avatar[0];
       }
-      let response = await updateProfile(profileData);
-      setUserData(response.data.user);
-      setConfirmation(false);
-      setUsernameActive(false);
-      setEmailActive(false);
-      setPasswordActive(false);
-      setPreview(undefined);
-      router.push('/profile');
+      await updateProfile(profileData);
+      router.reload();
     } catch (e: any) {
       checkAuth(e, router);
       if (e.response.data.errors.email) {
@@ -184,6 +175,5 @@ export const useProfileForm = (
     handlePasswordEdit,
     router,
     windowWidth,
-    userData,
   };
 };

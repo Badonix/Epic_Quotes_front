@@ -7,7 +7,11 @@ import { ErrorMessage } from '@hookform/error-message';
 import { PropsType } from './types';
 import { getAvatar } from '@/helpers';
 import { useTranslation } from 'next-i18next';
-export const AddMovie: React.FC<PropsType> = ({ setMovies, movies, user }) => {
+export const AddMovie: React.FC<PropsType> = ({
+  movies,
+  user,
+  setNewMovies,
+}) => {
   const { setOpenModal, wrapperRef } = useModal();
   const {
     register,
@@ -19,7 +23,7 @@ export const AddMovie: React.FC<PropsType> = ({ setMovies, movies, user }) => {
     getInputProps,
     preview,
     validateBanner,
-  } = useAddMovie(setMovies, movies);
+  } = useAddMovie(setNewMovies, movies);
   const { t } = useTranslation();
   const avatar = getAvatar(user);
   return (

@@ -1,7 +1,8 @@
 import { MovieType, UserType } from '@/types';
+import { SetStateAction } from 'react';
 
 export type PropsType = {
-  setMovies: React.Dispatch<React.SetStateAction<MovieType[]>>;
   user: UserType;
-  movies: MovieType[];
+  movies?: MovieType[];
+  setNewMovies: React.Dispatch<SetStateAction<MovieType[]>>;
 };

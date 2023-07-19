@@ -34,6 +34,7 @@ module.exports = {
       },
       maxHeight: {
         60: '80vh',
+        '75vh': '75vh',
       },
       lineHeight: {
         75: '75px',
@@ -60,12 +61,19 @@ module.exports = {
         290: '290px',
         '52px': '52px',
         15: '60px',
+        inf: '999999999px',
       },
       borderColor: {
         search: 'rgba(239, 239, 239, 0.3)',
       },
       margin: {
         88: '88px',
+      },
+      borderWidth: {
+        16: '16px',
+      },
+      spacing: {
+        22: '5.5rem',
       },
     },
   },

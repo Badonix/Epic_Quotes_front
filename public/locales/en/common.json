@@ -196,5 +196,12 @@
   "not_found": {
     "description": "We can't see the page you are looking for",
     "return": "Return home"
+  },
+  "notifications": {
+    "notifications": "Notifications",
+    "mark_all": "Mark all as read",
+    "now": "New",
+    "comment": "Commented to your movie quote",
+    "like": "Reacted to your quote"
   }
 }

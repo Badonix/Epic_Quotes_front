@@ -1,16 +1,16 @@
-import React from 'react';
-import { Search, Write, Back } from '@/components/icons';
+import React, { useContext } from 'react';
+import { Search, Write, Back } from '@/components';
 import { PropsType } from './types';
-import { useModal } from '@/hooks';
 import { useTranslation } from 'next-i18next';
 import { useSearchPost } from './useSearchPost';
+import { ModalContext } from '@/context';
 const SearchPost: React.FC<PropsType> = ({
   searchResult,
   setSearchResult,
   searchActive,
   setSearchActive,
 }) => {
-  const { setOpenModal } = useModal();
+  const { setOpenModal } = useContext(ModalContext);
   const { t } = useTranslation();
   const { register, onSubmit, handleSubmit, windowWidth } = useSearchPost(
     searchResult,

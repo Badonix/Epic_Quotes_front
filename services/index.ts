@@ -44,7 +44,7 @@ export const resetPassword = async (data: any) => {
   const response = await instance.post('/api/reset-password', data);
   return response;
 };
-export const me = async (cookie?: any) => {
+export const getUser = async (cookie?: any) => {
   const response = await instance.get('api/me', {
     headers: {
       Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
@@ -96,7 +96,7 @@ export const fetchMovies = async (cookie?: any) => {
   return response;
 };
 
-export const fetchMovie = async (id: number, cookie: any) => {
+export const fetchMovie = async (id: number, cookie?: string) => {
   const response = await instance.get(`/api/movies/${id}`, {
     headers: {
       Origin: process.env.NEXT_PUBLIC_API_ORIGIN,
@@ -225,5 +225,15 @@ export const search = async (body: { search: string }) => {
 
 export const searchMovie = async (body: { search: string }) => {
   const response = await instance.post('/api/search/movies', body);
+  return response;
+};
+
+export const markAsRead = async (id: number) => {
+  const response = await instance.post('/api/notifications/' + id);
+  return response;
+};
+
+export const markAllRead = async () => {
+  const response = await instance.post('/api/notifications/clear');
   return response;
 };
