@@ -16,7 +16,6 @@ export const useSignup = () => {
     control,
     setError,
   } = useFormContext();
-  const formData = useWatch({ control });
   const onSubmit = async (data: any) => {
     setIsLoading(true);
     setEmailError(null);
@@ -50,7 +49,6 @@ export const useSignup = () => {
     usernameError,
     emailError,
     isLoading,
-    formData,
     register,
   };
 };

@@ -16,7 +16,6 @@ const Signup = () => {
     usernameError,
     emailError,
     isLoading,
-    formData,
   } = useSignup();
   const { setOpenModal, wrapperRef } = useModal();
   const { t } = useTranslation();
@@ -45,7 +44,6 @@ const Signup = () => {
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-6'>
           <div className='relative'>
             <Input
-              formData={formData}
               disabled={isLoading}
               placeholder={t('landing.signup.username_placeholder')}
               label={t('form.username')}
@@ -77,7 +75,6 @@ const Signup = () => {
               disabled={isLoading}
               placeholder={t('landing.signup.email_placeholder')}
               label={t('form.email')}
-              formData={formData}
               required={true}
               name='email'
               validation={{
@@ -102,7 +99,6 @@ const Signup = () => {
               placeholder={t('landing.signup.password_placeholder')}
               label={t('form.password')}
               type='password'
-              formData={formData}
               required={true}
               name='password'
               validation={{
@@ -127,7 +123,6 @@ const Signup = () => {
               placeholder={t(
                 'landing.signup.password_confirmation_placeholder'
               )}
-              formData={formData}
               label={t('form.password_confirmation')}
               type='password'
               required={true}

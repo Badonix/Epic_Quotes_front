@@ -14,7 +14,6 @@ export const usePasswordReset = () => {
     formState: { errors },
     reset,
   } = useFormContext();
-  const fields = useWatch();
   const onSubmit = async (data: any) => {
     try {
       await fetchCSRFToken();
