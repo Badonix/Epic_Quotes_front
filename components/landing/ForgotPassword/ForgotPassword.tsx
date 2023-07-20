@@ -8,7 +8,7 @@ import { useTranslation } from 'next-i18next';
 
 const ForgotPassword = () => {
   const { wrapperRef, setOpenModal } = useModal();
-  const { handleSubmit, onSubmit, reset, userError, loading, formData } =
+  const { handleSubmit, onSubmit, reset, userError, loading } =
     useForgotPassword();
   const { t } = useTranslation();
   return (
