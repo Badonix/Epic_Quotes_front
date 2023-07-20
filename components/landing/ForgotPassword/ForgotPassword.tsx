@@ -8,7 +8,7 @@ import { useTranslation } from 'next-i18next';
 
 const ForgotPassword = () => {
   const { wrapperRef, setOpenModal } = useModal();
-  const { handleSubmit, onSubmit, reset, userError, loading } =
+  const { handleSubmit, onSubmit, reset, userError, loading, formData } =
     useForgotPassword();
   const { t } = useTranslation();
   return (
@@ -32,6 +32,7 @@ const ForgotPassword = () => {
               disabled={loading}
               label={t('form.email')}
               name='email'
+              formData={formData}
               placeholder={t('landing.login.email_placeholder')}
               validation={{
                 required: t('form.email_required'),

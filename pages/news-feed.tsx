@@ -52,7 +52,7 @@ const NewsFeed: NextPage = () => {
           <div className='w-full lg:px-10  mt-6 flex flex-col gap-10'>
             {searchResult.length > 0 &&
               searchResult.map((post) => (
-                <Post user={userData} key={post.id} post={post} />
+                <Post user={userData} key={post?.id} post={post} />
               ))}
             {searchResult.length == 0 && (
               <>
@@ -61,7 +61,7 @@ const NewsFeed: NextPage = () => {
                     return data.data.data;
                   })
                   ?.map((post: PostType) => {
-                    return <Post user={userData} key={post.id} post={post} />;
+                    return <Post user={userData} key={post?.id} post={post} />;
                   })}
               </>
             )}

@@ -1,17 +1,17 @@
 import React from 'react';
 import { InputProps } from './types';
 import { Correct, Invalid } from '@/components';
+import { useInput } from './useInput';
 const Input: React.FC<InputProps> = ({
   label,
   required,
   name,
   validation,
   lowercase,
-  errors,
   formData,
-  register,
   ...props
 }) => {
+  const { register, errors } = useInput();
   return (
     <div className='flex flex-col gap-1 w-full'>
       <div>

@@ -7,16 +7,8 @@ import { useModal } from '@/hooks';
 import { useTranslation } from 'next-i18next';
 
 const Login = () => {
-  const {
-    handleSubmit,
-    onSubmit,
-    errors,
-    reset,
-    error,
-    loading,
-    formData,
-    register,
-  } = useLogin();
+  const { handleSubmit, onSubmit, errors, reset, error, loading, formData } =
+    useLogin();
   const { wrapperRef, setOpenModal } = useModal();
   const { t } = useTranslation();
   return (
@@ -48,9 +40,7 @@ const Login = () => {
               label={t('form.email')}
               required={true}
               formData={formData}
-              register={register}
               name='login'
-              errors={errors}
               validation={{
                 required: t('form.email_required'),
                 minLength: {
@@ -69,10 +59,8 @@ const Login = () => {
               placeholder={t('form.password_validation')}
               label={t('form.password')}
               type='password'
-              register={register}
               formData={formData}
               required={true}
-              errors={errors}
               name='password'
               validation={{
                 required: t('form.password_required'),

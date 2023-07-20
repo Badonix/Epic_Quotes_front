@@ -1,4 +1,4 @@
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm, useFormContext, useWatch } from 'react-hook-form';
 import { login, fetchCSRFToken } from '@/services';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -13,7 +13,7 @@ export const useLogin = () => {
     control,
     reset,
     register,
-  } = useForm({ mode: 'onChange' });
+  } = useFormContext();
   const formData = useWatch({ control });
 
   const onSubmit = async (data: any) => {

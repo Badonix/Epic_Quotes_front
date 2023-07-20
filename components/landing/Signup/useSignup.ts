@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { ModalContext } from '@/context';
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm, useFormContext, useWatch } from 'react-hook-form';
 import { fetchCSRFToken, signUp } from '@/services';
 export const useSignup = () => {
   const { setOpenModal } = useContext(ModalContext);
@@ -15,7 +15,7 @@ export const useSignup = () => {
     register,
     control,
     setError,
-  } = useForm({ mode: 'all' });
+  } = useFormContext();
   const formData = useWatch({ control });
   const onSubmit = async (data: any) => {
     setIsLoading(true);

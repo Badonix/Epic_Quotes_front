@@ -23,6 +23,7 @@ export const usePost = (likes: LikesType[], user: UserType, post: PostType) => {
       setNewComments((prev) => [...[response.data], ...prev]);
       reset();
     } catch (e) {
+      console.log(e);
       checkAuth(e, router);
     }
   };
