@@ -28,29 +28,29 @@ export const usePost = (likes: LikesType[], user: UserType, post: PostType) => {
     }
   };
   useEffect(() => {
-    const hasLiked = likes?.find((like) => like.user_id === user.id);
+    const hasLiked = likes?.find((like) => like?.user_id === user?.id);
     hasLiked ? setLiked(true) : setLiked(false);
     window.Echo.channel('post.likes').listen(
       'PostLiked',
       (data: { postId: number; liker: number }) => {
-        data.postId == post.id &&
-          user.id != data.liker &&
+        data?.postId == post?.id &&
+          user?.id != data?.liker &&
           setLikeCount((prev) => prev + 1);
       }
     );
     window.Echo.channel('post.likes').listen(
       'PostUnliked',
       (data: { postId: number; unliker: number }) => {
-        data.postId == post.id &&
-          user.id != data.unliker &&
+        data?.postId == post?.id &&
+          user?.id != data?.unliker &&
           setLikeCount((prev) => prev - 1);
       }
     );
     window.Echo.channel('post.comments').listen(
       'PostCommented',
       (data: { postId: number; comment: CommentType }) => {
-        data.postId == post.id &&
-          user.id != data.comment.user.id &&
+        data?.postId == post?.id &&
+          user?.id != data?.comment?.user?.id &&
           setNewComments((prev) => [...[data.comment], ...prev]);
       }
     );
