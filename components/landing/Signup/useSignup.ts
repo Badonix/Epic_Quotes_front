@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { ModalContext } from '@/context';
-import { useForm, useFormContext, useWatch } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { fetchCSRFToken, signUp } from '@/services';
 export const useSignup = () => {
   const { setOpenModal } = useContext(ModalContext);
