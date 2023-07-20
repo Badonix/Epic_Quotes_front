@@ -16,6 +16,7 @@ const Signup = () => {
     usernameError,
     emailError,
     isLoading,
+    formData,
   } = useSignup();
   const { setOpenModal, wrapperRef } = useModal();
   const { t } = useTranslation();
@@ -24,10 +25,10 @@ const Signup = () => {
     <div className='bg-modal-transparent backdrop-blur fixed h-screen w-screen flex items-center justify-center z-50'>
       <div
         ref={wrapperRef}
-        className='relative w-full h-full sm:h-auto max-w-xl sm:px-28 sm:py-12 px-8 py-16 flex flex-col sm:justify-center justify-around text-white bg-modal sm:rounded-lg gap-4'
+        className='relative w-full h-full sm:h-auto max-w-xl sm:px-28 sm:py-12 px-8 py-20 flex flex-col sm:justify-center justify-start text-white lowres-profile-modal sm:bg-modal sm:rounded-lg gap-4'
       >
         <div
-          className='block sm:hidden w-6'
+          className='absolute top-5 left-5 sm:hidden w-6'
           onClick={() => {
             setOpenModal(null);
             reset();
@@ -44,6 +45,7 @@ const Signup = () => {
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-6'>
           <div className='relative'>
             <Input
+              formData={formData}
               disabled={isLoading}
               placeholder={t('landing.signup.username_placeholder')}
               label={t('form.username')}
@@ -75,6 +77,7 @@ const Signup = () => {
               disabled={isLoading}
               placeholder={t('landing.signup.email_placeholder')}
               label={t('form.email')}
+              formData={formData}
               required={true}
               name='email'
               validation={{
@@ -99,6 +102,7 @@ const Signup = () => {
               placeholder={t('landing.signup.password_placeholder')}
               label={t('form.password')}
               type='password'
+              formData={formData}
               required={true}
               name='password'
               validation={{
@@ -123,6 +127,7 @@ const Signup = () => {
               placeholder={t(
                 'landing.signup.password_confirmation_placeholder'
               )}
+              formData={formData}
               label={t('form.password_confirmation')}
               type='password'
               required={true}

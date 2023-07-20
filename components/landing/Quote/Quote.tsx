@@ -1,6 +1,6 @@
 import React from 'react';
 import { PropsType } from './type';
-const Quote: React.FC<PropsType> = ({ image }) => {
+const Quote: React.FC<PropsType> = ({ image, quote, movie }) => {
   return (
     <article
       style={{ backgroundImage: `url("/assets/images/${image}")` }}
@@ -10,10 +10,9 @@ const Quote: React.FC<PropsType> = ({ image }) => {
         <div className='border border-white w-14 bg-white mt-9'></div>
         <div>
           <h2 className='xl:text-5xl text-3xl xl:max-w-1/2 max-w-sm xl:leading-75 min-w:'>
-            I think we’re just gonna have to be secretly in love with earch
-            other and leave it that
+            &quot;{quote}&quot;
           </h2>
-          <p className='xl:text-3xl text-xl'>The Royal Tenenbaums,2001 </p>
+          <p className='xl:text-3xl text-xl'>{movie}</p>
         </div>
       </div>
     </article>

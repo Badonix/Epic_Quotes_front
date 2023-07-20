@@ -7,6 +7,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { PropsType } from './types';
 import { getAvatar } from '@/helpers';
 import { useTranslation } from 'next-i18next';
+import Select from 'react-select';
 export const AddMovie: React.FC<PropsType> = ({
   movies,
   user,
@@ -23,6 +24,10 @@ export const AddMovie: React.FC<PropsType> = ({
     getInputProps,
     preview,
     validateBanner,
+    customStyles,
+    locale,
+    setValue,
+    genreOptions,
   } = useAddMovie(setNewMovies, movies);
   const { t } = useTranslation();
   const avatar = getAvatar(user);
@@ -30,7 +35,7 @@ export const AddMovie: React.FC<PropsType> = ({
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
         ref={wrapperRef}
-        className='backdrop-blur-md bg-sidebar text-white w-11/12 max-w-4xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl'
+        className='backdrop-blur-md bg-sidebar text-white w-screen sm:w-11/12 max-w-4xl fixed h-screen sm:h-auto top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl'
       >
         <div className='flex justify-between items-center py-9 px-10 border-b border-search'>
           <div></div>
@@ -108,13 +113,21 @@ export const AddMovie: React.FC<PropsType> = ({
                     {t('movies.addmovie.genre')}
                   </label>
                 </div>
-                <input
-                  disabled={loading}
-                  {...register('genre', {
-                    required: t('movies.addmovie.movie_genre_required'),
-                  })}
-                  type='text'
-                  className='px-4 py-2 w-full bg-transparent border-r rounded-r-4 border-y border-search outline-none'
+                <Select
+                  className='cursor-pointer w-full px-3 border border-l-transparent border-search'
+                  unstyled
+                  isMulti
+                  options={genreOptions?.map((option) => ({
+                    ...option,
+                    label: locale == 'ka' ? option.label.ka : option.label.en,
+                    isFixed: true,
+                  }))}
+                  styles={customStyles}
+                  placeholder=''
+                  name='genre'
+                  onChange={(selectedOptions: any) => {
+                    setValue('genre', selectedOptions);
+                  }}
                 />
                 <p className='absolute -bottom-5 text-red-600'>
                   <ErrorMessage name='genre' errors={errors} />

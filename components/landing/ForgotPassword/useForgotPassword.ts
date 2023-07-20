@@ -11,8 +11,10 @@ export const useForgotPassword = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    control,
   } = useFormContext();
   const formFields = useWatch();
+  const formData = useWatch({ control });
   useEffect(() => {
     userError && setUserError(null);
   }, [formFields]);
@@ -31,5 +33,13 @@ export const useForgotPassword = () => {
     }
   };
 
-  return { handleSubmit, onSubmit, errors, reset, userError, loading };
+  return {
+    handleSubmit,
+    onSubmit,
+    errors,
+    reset,
+    userError,
+    loading,
+    formData,
+  };
 };

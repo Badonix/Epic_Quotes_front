@@ -14,6 +14,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
     handleSubmit,
     onSubmit,
     errors,
+    locale,
     loading,
     getRootProps,
     getInputProps,
@@ -27,7 +28,7 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
         ref={wrapperRef}
-        className='backdrop-blur-md bg-sidebar text-white w-11/12 max-w-4xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl'
+        className='backdrop-blur-md bg-sidebar text-white sm:w-11/12 w-screen sm:h-auto h-screen max-w-4xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl'
       >
         <div className='flex justify-between items-center py-9 px-10 border-b border-search'>
           <div></div>
@@ -65,10 +66,20 @@ export const AddMovie: React.FC<PropsType> = ({ movie, user }) => {
                 <h2 className='text-orange-200 text-2xl'>
                   {movie.title.en} ({movie.release_year})
                 </h2>
-                <div>
-                  <div className='inline bg-gray-500 px-3 py-2 text-white rounded-md font-bold'>
-                    <p className='inline'>{movie.genre}</p>
-                  </div>
+                <div className='flex gap-3 flex-wrap'>
+                  {movie &&
+                    movie?.genre?.map((genre) => {
+                      return (
+                        <div
+                          key={genre.id}
+                          className='text-white bg-gray-500 rounded-md px-3 py-1'
+                        >
+                          <p className='inline'>
+                            {locale == 'en' ? genre?.en : genre?.ka}
+                          </p>
+                        </div>
+                      );
+                    })}
                 </div>
                 <p className='font-bold text-lg text-gray-300'>
                   {t('addquote.director')}:

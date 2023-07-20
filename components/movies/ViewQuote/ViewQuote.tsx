@@ -21,7 +21,7 @@ export const ViewQuote: React.FC<PropsType> = ({
     <div className='w-full fixed h-screen bg-transparent backdrop-blur-sm z-50'>
       <div
         ref={wrapperRef}
-        className='bg-sidebar text-white w-11/12 max-w-4xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl'
+        className='bg-sidebar text-white sm:w-11/12 max-h-screen overflow-y-auto  w-screen max-w-4xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl'
       >
         <div className='flex justify-between items-center py-9 px-10 border-b border-search'>
           <div className='flex items-center gap-4 w-32'>
@@ -39,7 +39,7 @@ export const ViewQuote: React.FC<PropsType> = ({
               <Trash />
             </div>
           </div>
-          <h2 className='text-2xl'>{t('view_quote')}</h2>
+          <h2 className='text-2xl text-center'>{t('view_quote')}</h2>
           <div
             className='cursor-pointer w-32 flex justify-end'
             onClick={() => {

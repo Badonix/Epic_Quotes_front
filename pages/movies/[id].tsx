@@ -50,7 +50,7 @@ export const Movie: NextPage<{
         <EditQuote user={userData} activeQuote={activeQuote} />
       )}
       <Navbar setSidebarActive={setSidebarActive} />
-      <section className='min-h-screen pt-24 py-6 flex lg:pr-16 lg:pl-0 px-8'>
+      <section className='min-h-screen pt-24 py-6 flex lg:pr-16 lg:pl-0 sm:px-8 px-0'>
         <Sidebar
           user={userData}
           sidebarActive={sidebarActive}
@@ -58,8 +58,10 @@ export const Movie: NextPage<{
           currentPage='movies'
         />
         <div className='mt-7 w-full'>
-          <h2 className='text-white text-2xl'>{t('movie.description')}</h2>
-          <div className='flex mt-6 gap-5 lg:flex-row flex-col w-full'>
+          <h2 className='text-white text-2xl px-8 sm:px-0'>
+            {t('movie.description')}
+          </h2>
+          <div className='flex mt-6 gap-5 lg:flex-row flex-col w-full px-8 sm:px-0'>
             <img
               className='lg:w-810 lg:h-441 rounded-xl object-cover w-full'
               src={`${process.env.NEXT_PUBLIC_API_URL}/storage/${movieData?.banner}`}
@@ -87,10 +89,18 @@ export const Movie: NextPage<{
                 </div>
               </div>
               <div>
-                <div className='flex'>
-                  <div className='text-white bg-gray-500 rounded-md px-3 py-1'>
-                    {JSON.stringify(movieData?.genre)}
-                  </div>
+                <div className='flex gap-3 flex-wrap'>
+                  {movieData &&
+                    movieData?.genre?.map((genre: any, i: number) => {
+                      return (
+                        <div
+                          key={i}
+                          className='text-white bg-gray-500 rounded-md px-3 py-1'
+                        >
+                          {locale == 'ka' ? genre?.ka : genre?.en}
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
               <div>
@@ -120,8 +130,8 @@ export const Movie: NextPage<{
               </div>
             </div>
           </div>
-          <section className='w-810'>
-            <div className='w-full mt-10'>
+          <section className='sm:w-810'>
+            <div className='w-full mt-10 px-8'>
               <div className='flex items-center gap-4'>
                 <h2 className='text-white text-2xl'>
                   {t('movie.quote')} ({t('movie.total')}{' '}
@@ -137,7 +147,7 @@ export const Movie: NextPage<{
                 </div>
               </div>
             </div>
-            <div className='mt-10 flex flex-col gap-10'>
+            <div className='mt-10 flex flex-col gap-10 '>
               {movieData?.quotes?.map((quote: PostType) => (
                 <QuoteCard
                   setActiveQuote={setActiveQuote}

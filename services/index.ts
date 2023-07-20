@@ -13,7 +13,7 @@ const instance = axios.create({
   withCredentials: true,
 });
 
-export const register = async (data: any) => {
+export const signUp = async (data: any) => {
   const response = await instance.post('/api/register', data);
   return response;
 };
@@ -235,5 +235,15 @@ export const markAsRead = async (id: number) => {
 
 export const markAllRead = async () => {
   const response = await instance.post('/api/notifications/clear');
+  return response;
+};
+
+export const getGenres = async () => {
+  const response = await instance.get('/api/genres');
+  return response;
+};
+
+export const logout = async () => {
+  const response = await instance.post('/api/logout');
   return response;
 };

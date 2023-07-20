@@ -10,8 +10,12 @@ export const useLogin = () => {
   const {
     handleSubmit,
     formState: { errors },
+    control,
     reset,
+    register,
   } = useFormContext();
+  const formData = useWatch({ control });
+
   const onSubmit = async (data: any) => {
     try {
       await fetchCSRFToken();
@@ -36,5 +40,7 @@ export const useLogin = () => {
     reset,
     error,
     loading,
+    formData,
+    register,
   };
 };
