@@ -32,7 +32,6 @@ const ForgotPassword = () => {
               disabled={loading}
               label={t('form.email')}
               name='email'
-              formData={formData}
               placeholder={t('landing.login.email_placeholder')}
               validation={{
                 required: t('form.email_required'),

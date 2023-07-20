@@ -6,5 +6,4 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   validation?: object;
   lowercase?: boolean;
-  formData: FieldValues;
 }

@@ -7,8 +7,7 @@ import { useModal } from '@/hooks';
 import { useTranslation } from 'next-i18next';
 
 const Login = () => {
-  const { handleSubmit, onSubmit, errors, reset, error, loading, formData } =
-    useLogin();
+  const { handleSubmit, onSubmit, errors, reset, error, loading } = useLogin();
   const { wrapperRef, setOpenModal } = useModal();
   const { t } = useTranslation();
   return (
@@ -39,7 +38,6 @@ const Login = () => {
               placeholder={t('landing.login.email_placeholder')}
               label={t('form.email')}
               required={true}
-              formData={formData}
               name='login'
               validation={{
                 required: t('form.email_required'),
@@ -59,7 +57,6 @@ const Login = () => {
               placeholder={t('form.password_validation')}
               label={t('form.password')}
               type='password'
-              formData={formData}
               required={true}
               name='password'
               validation={{

@@ -8,10 +8,9 @@ const Input: React.FC<InputProps> = ({
   name,
   validation,
   lowercase,
-  formData,
   ...props
 }) => {
-  const { register, errors } = useInput();
+  const { register, errors, formData } = useInput();
   return (
     <div className='flex flex-col gap-1 w-full'>
       <div>
