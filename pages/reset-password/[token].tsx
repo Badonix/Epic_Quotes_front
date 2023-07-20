@@ -9,7 +9,7 @@ import React from 'react';
 import { useTranslation } from 'next-i18next';
 const Token = () => {
   const { setOpenModal } = useModal();
-  const { handleSubmit, onSubmit, reset, errors, password, router } =
+  const { handleSubmit, onSubmit, reset, errors, password, router, formData } =
     usePasswordReset();
   const { t } = useTranslation();
   return (
@@ -23,6 +23,7 @@ const Token = () => {
         >
           <div className='relative'>
             <Input
+              formData={formData}
               placeholder={t('reset.password_validation')}
               label={t('reset.password')}
               type='password'
@@ -46,6 +47,7 @@ const Token = () => {
           </div>
           <div className='relative'>
             <Input
+              formData={formData}
               placeholder={t('reset.confirm_password')}
               label={t('reset.confirm_password')}
               type='password'
