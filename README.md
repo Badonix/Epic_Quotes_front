@@ -1,5 +1,5 @@
 <div style="display:flex; align-items: center">
-  <h1 style="position:relative; top: -6px">Epic movie quotes</h1>
+  <h1 style="position:relative; top: -6px">Epic Movie Quotes</h1>
 </div>
 
 ---
