@@ -1,5 +1,5 @@
 <div style="display:flex; align-items: center">
-  <h1 style="position:relative; top: -6px">Covid Questionaire</h1>
+  <h1 style="position:relative; top: -6px">Epic movie quotes</h1>
 </div>
 
 ---
@@ -37,7 +37,7 @@ Introducing our **EPIC MOVIE QUOTES** app! It's a simple and user-friendly socia
 1\. First of all you need to clone Epic movie quotes repository from github:
 
 ```sh
-git clone https://github.com/RedberryInternship/nikoloz-danelia-epic-movie-quotes-front
+git clone https://github.com/Badonix/Epic_Quotes_front
 ```
 
 2\. Next step requires you to run _npm install_ in order to install all the dependencies.
